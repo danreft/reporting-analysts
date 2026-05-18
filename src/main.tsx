@@ -36,7 +36,6 @@ const tabs: { id: Page; label: string }[] = [
   { id: 'productivity', label: 'Analyst Productivity' },
   { id: 'aging', label: 'Aging & Escalations' },
   { id: 'workload', label: 'Workload Distribution' },
-  { id: 'detail', label: 'Report Detail' },
 ];
 
 const analysts = [
@@ -341,7 +340,9 @@ function AgingEscalations() {
           </ResponsiveContainer>
         </ChartBox>
       </div>
-      <AgingTable />
+      <div className="hidden-section" aria-hidden="true">
+        <AgingTable />
+      </div>
     </PageFrame>
   );
 }
@@ -407,7 +408,14 @@ function WorkloadDistribution() {
 }
 
 function ReportDetail() {
-  const report = reportDetails[0];
+  const reportsInView = reportDetails.length;
+  const totalFields = reportDetails.reduce((sum, report) => sum + report.fields, 0);
+  const fieldsRemaining = reportDetails.reduce((sum, report) => sum + report.remaining, 0);
+  const fieldCompletion = `${(((totalFields - fieldsRemaining) / totalFields) * 100).toFixed(1)}%`;
+  const avgDays = (reportDetails.reduce((sum, report) => sum + report.days, 0) / reportsInView).toFixed(1);
+  const avgStageDays = (reportDetails.reduce((sum, report) => sum + report.stageDays, 0) / reportsInView).toFixed(1);
+  const cropEntries = reportDetails.reduce((sum, report) => sum + report.crop, 0);
+  const fertilizerEntries = reportDetails.reduce((sum, report) => sum + report.fertilizer, 0);
   const fieldRows = [
     ['North 80', 'Complete', '100%', '0', '5/15/26'],
     ['East Pivot', 'QA Review', '91%', '2', '5/14/26'],
@@ -419,17 +427,17 @@ function ReportDetail() {
   return (
     <PageFrame>
       <div className="grid eight">
-        <KPI title="Report ID" value={report.id} subtitle={report.grower} />
-        <KPI title="Total Fields" value={report.fields} subtitle="Agricultural fields" />
-        <KPI title="Fields Remaining" value={report.remaining} subtitle="Before completion" tone="warning" />
-        <KPI title="Field Completion" value="82.7%" subtitle="Required fields" />
-        <KPI title="Days In-Flight" value={report.days} subtitle="Since intake" tone="danger" />
-        <KPI title="Days in Stage" value={report.stageDays} subtitle={report.status} tone="warning" />
-        <KPI title="Crop History Entries" value={report.crop} subtitle="Report total" />
-        <KPI title="Fertilizer Entries" value={report.fertilizer} subtitle="Report total" />
+        <KPI title="Reports in View" value={reportsInView} subtitle="Filtered detail set" />
+        <KPI title="Total Fields" value={fmt(totalFields)} subtitle="Across reviewed reports" />
+        <KPI title="Fields Remaining" value={fmt(fieldsRemaining)} subtitle="Before completion" tone="warning" />
+        <KPI title="Field Completion" value={fieldCompletion} subtitle="Required fields" />
+        <KPI title="Avg Days In-Flight" value={avgDays} subtitle="Across reviewed reports" tone="warning" />
+        <KPI title="Avg Days in Stage" value={avgStageDays} subtitle="Current workflow stage" tone="warning" />
+        <KPI title="Crop History Entries" value={fmt(cropEntries)} subtitle="Across reviewed reports" />
+        <KPI title="Fertilizer Entries" value={fmt(fertilizerEntries)} subtitle="Across reviewed reports" />
       </div>
       <div className="grid two">
-        <ChartBox title="Field Completion by Status" source="FactFields | Field count by completion status" height={260}>
+        <ChartBox title="Field Completion by Status" source="FactFields | Field count by completion status across reports in view" height={260}>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={[{ status: 'Complete', count: 177 }, { status: 'In Review', count: 14 }, { status: 'In Progress', count: 18 }, { status: 'Blocked', count: 5 }]} margin={{ top: 10, right: 20, bottom: 20, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
@@ -440,7 +448,7 @@ function ReportDetail() {
             </BarChart>
           </ResponsiveContainer>
         </ChartBox>
-        <ChartBox title="Report Stage History" source="FactReportStatus | Days in each workflow stage" height={260}>
+        <ChartBox title="Days In-Flight by Current Stage" source="FactReports | Average days in-flight by current workflow stage" height={260}>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={[{ stage: 'Intake', days: 3 }, { stage: 'Field Review', days: 11 }, { stage: 'Crop History', days: 9 }, { stage: 'Fertilizer History', days: 11 }, { stage: 'QA Review', days: 8 }, { stage: 'Print Prep', days: 12 }]} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
@@ -452,17 +460,6 @@ function ReportDetail() {
           </ResponsiveContainer>
         </ChartBox>
       </div>
-      <div className="table-box">
-        <div className="chart-title">Field-Level Detail</div>
-        <div className="chart-source">FactFields | Field completion and required data status</div>
-        <table>
-          <thead><tr><th>Field Name</th><th>Status</th><th className="right">Completion %</th><th className="right">Missing Items</th><th>Last Updated</th></tr></thead>
-          <tbody>
-            {fieldRows.map((row) => <tr key={row[0]}><td className="strong">{row[0]}</td><td>{row[1]}</td><td className="right">{row[2]}</td><td className="right">{row[3]}</td><td>{row[4]}</td></tr>)}
-          </tbody>
-        </table>
-      </div>
-      <AgingTable />
     </PageFrame>
   );
 }

@@ -364,6 +364,10 @@ tbody tr:nth-child(even) {
   font-weight: 800;
 }
 
+.hidden-section {
+  display: none;
+}
+
 @media (max-width: 1280px) {
   .grid.seven,
   .grid.eight {
