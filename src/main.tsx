@@ -42,6 +42,7 @@ const tabs: { id: Page; label: string }[] = [
   { id: 'productivity', label: 'Analyst Productivity' },
   { id: 'aging', label: 'Aging & Escalations' },
   { id: 'workload', label: 'Workload Distribution' },
+  { id: 'detail', label: 'Report Detail' },
 ];
 
 const analysts = [
@@ -92,15 +93,15 @@ const fieldAgeByAnalyst = analysts.map((a) => ({
 }));
 
 const reportDetails = [
-  { id: 'AGR-24118', grower: 'Hendrickson Farms', analyst: 'Avery Chen', status: 'Print Prep', priority: 'High', fields: 214, remaining: 37, days: 46, stageDays: 12, print: 'Required', crop: 628, fertilizer: 584, sla: 'Breached' },
-  { id: 'AGR-24109', grower: 'Blue River Acres', analyst: 'Mateo Ruiz', status: 'Fertilizer History', priority: 'High', fields: 188, remaining: 64, days: 39, stageDays: 15, print: 'Required', crop: 512, fertilizer: 621, sla: 'At Risk' },
-  { id: 'AGR-24097', grower: 'Prairie View Co-op', analyst: 'Marcus Lee', status: 'QA Review', priority: 'Medium', fields: 132, remaining: 18, days: 33, stageDays: 9, print: 'Required', crop: 388, fertilizer: 334, sla: 'At Risk' },
-  { id: 'AGR-24131', grower: 'Cedar Ridge Farms', analyst: 'Samuel Brooks', status: 'Crop History', priority: 'Medium', fields: 196, remaining: 51, days: 5, stageDays: 2, print: 'Not Required', crop: 304, fertilizer: 212, sla: 'Needs Review' },
-  { id: 'AGR-24142', grower: 'Miller Seed Partners', analyst: 'Avery Chen', status: 'Field Review', priority: 'High', fields: 301, remaining: 202, days: 24, stageDays: 14, print: 'Required', crop: 740, fertilizer: 712, sla: 'At Risk' },
-  { id: 'AGR-24156', grower: 'Lakebend Ag', analyst: 'Jordan Miles', status: 'QA Review', priority: 'Low', fields: 42, remaining: 6, days: 18, stageDays: 4, print: 'Not Required', crop: 106, fertilizer: 98, sla: 'On Track' },
-  { id: 'AGR-24162', grower: 'North Fork Growers', analyst: 'Priya Nair', status: 'Field Review', priority: 'Medium', fields: 76, remaining: 29, days: 16, stageDays: 6, print: 'Not Required', crop: 194, fertilizer: 171, sla: 'On Track' },
-  { id: 'AGR-24170', grower: 'Summit Valley Farms', analyst: 'Nora Patel', status: 'Intake', priority: 'Low', fields: 18, remaining: 16, days: 8, stageDays: 3, print: 'Not Required', crop: 44, fertilizer: 39, sla: 'On Track' },
-  { id: 'AGR-24183', grower: 'Redstone Grain', analyst: 'Elena Foster', status: 'Print Prep', priority: 'Medium', fields: 64, remaining: 8, days: 5, stageDays: 2, print: 'Required', crop: 160, fertilizer: 147, sla: 'On Track' },
+  { id: 'AGR-24118', grower: 'Hendrickson Farms', createdDate: '4/02/26', completedDate: '', analyst: 'Avery Chen', status: 'Print Prep', priority: 'High', fields: 214, remaining: 37, days: 46, stageDays: 12, print: 'Required', crop: 628, fertilizer: 584, sla: 'Breached' },
+  { id: 'AGR-24109', grower: 'Blue River Acres', createdDate: '4/09/26', completedDate: '', analyst: 'Mateo Ruiz', status: 'Fertilizer History', priority: 'High', fields: 188, remaining: 64, days: 39, stageDays: 15, print: 'Required', crop: 512, fertilizer: 621, sla: 'At Risk' },
+  { id: 'AGR-24097', grower: 'Prairie View Co-op', createdDate: '4/15/26', completedDate: '', analyst: 'Marcus Lee', status: 'QA Review', priority: 'Medium', fields: 132, remaining: 18, days: 33, stageDays: 9, print: 'Required', crop: 388, fertilizer: 334, sla: 'At Risk' },
+  { id: 'AGR-24131', grower: 'Cedar Ridge Farms', createdDate: '5/13/26', completedDate: '', analyst: 'Samuel Brooks', status: 'Crop History', priority: 'Medium', fields: 196, remaining: 51, days: 5, stageDays: 2, print: 'Not Required', crop: 304, fertilizer: 212, sla: 'Needs Review' },
+  { id: 'AGR-24142', grower: 'Miller Seed Partners', createdDate: '4/24/26', completedDate: '', analyst: 'Avery Chen', status: 'Field Review', priority: 'High', fields: 301, remaining: 202, days: 24, stageDays: 14, print: 'Required', crop: 740, fertilizer: 712, sla: 'At Risk' },
+  { id: 'AGR-24156', grower: 'Lakebend Ag', createdDate: '4/30/26', completedDate: '', analyst: 'Jordan Miles', status: 'QA Review', priority: 'Low', fields: 42, remaining: 6, days: 18, stageDays: 4, print: 'Not Required', crop: 106, fertilizer: 98, sla: 'On Track' },
+  { id: 'AGR-24162', grower: 'North Fork Growers', createdDate: '5/02/26', completedDate: '', analyst: 'Priya Nair', status: 'Field Review', priority: 'Medium', fields: 76, remaining: 29, days: 16, stageDays: 6, print: 'Not Required', crop: 194, fertilizer: 171, sla: 'On Track' },
+  { id: 'AGR-24170', grower: 'Summit Valley Farms', createdDate: '5/10/26', completedDate: '', analyst: 'Nora Patel', status: 'Intake', priority: 'Low', fields: 18, remaining: 16, days: 8, stageDays: 3, print: 'Not Required', crop: 44, fertilizer: 39, sla: 'On Track' },
+  { id: 'AGR-24183', grower: 'Redstone Grain', createdDate: '5/13/26', completedDate: '', analyst: 'Elena Foster', status: 'Print Prep', priority: 'Medium', fields: 64, remaining: 8, days: 5, stageDays: 2, print: 'Required', crop: 160, fertilizer: 147, sla: 'On Track' },
 ];
 
 function fmt(n: number) {
@@ -458,12 +459,12 @@ function ReportDetail() {
   const cropEntries = reportDetails.reduce((sum, report) => sum + report.crop, 0);
   const fertilizerEntries = reportDetails.reduce((sum, report) => sum + report.fertilizer, 0);
   const fieldRows = [
-    ['North 80', 'Complete', '100%', '0', '5/15/26'],
-    ['East Pivot', 'QA Review', '91%', '2', '5/14/26'],
-    ['River Bottom', 'Crop History', '74%', '8', '5/12/26'],
-    ['South Ridge', 'Fertilizer History', '68%', '11', '5/10/26'],
-    ['Home Quarter', 'Print Prep', '96%', '1', '5/16/26'],
-    ['West 120', 'Field Review', '52%', '14', '5/09/26'],
+    ['North 80', 'Complete', 'Jordan Miles', '100%', '5/15/26 3:42 PM', '0', '42', '38', '6-15 Years'],
+    ['East Pivot', 'QA Review', 'Avery Chen', '91%', '5/14/26 10:18 AM', '2', '35', '31', '16-30 Years'],
+    ['River Bottom', 'Crop History', 'Marcus Lee', '74%', '5/12/26 2:06 PM', '8', '28', '24', '30+ Years'],
+    ['South Ridge', 'Fertilizer History', 'Mateo Ruiz', '68%', '5/10/26 4:31 PM', '11', '31', '29', '16-30 Years'],
+    ['Home Quarter', 'Print Prep', 'Elena Foster', '96%', '5/16/26 9:44 AM', '1', '18', '17', '0-5 Years'],
+    ['West 120', 'Field Review', 'Priya Nair', '52%', '5/09/26 1:27 PM', '14', '22', '20', '30+ Years'],
   ];
   return (
     <PageFrame>
@@ -500,6 +501,88 @@ function ReportDetail() {
             </BarChart>
           </ResponsiveContainer>
         </ChartBox>
+      </div>
+      <div className="table-box detail-table">
+        <div className="chart-title">Report Detail</div>
+        <div className="chart-source">FactReports | Report-level status, aging, ownership, print, and history volume</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Report ID</th>
+              <th>Client</th>
+              <th>Created Date</th>
+              <th>Assigned Analyst</th>
+              <th>Status</th>
+              <th>Completed Date</th>
+              <th>Priority</th>
+              <th>SLA</th>
+              <th className="right">Days In-Flight</th>
+              <th className="right">Days in Stage</th>
+              <th className="right">Total Fields</th>
+              <th className="right">Remaining Fields</th>
+              <th>Print Intervention</th>
+              <th className="right">Crop History</th>
+              <th className="right">Fertilizer History</th>
+              <th>View</th>
+            </tr>
+          </thead>
+          <tbody>
+            {reportDetails.map((report) => (
+              <tr key={report.id}>
+                <td className="strong">{report.id}</td>
+                <td>{report.grower}</td>
+                <td>{report.createdDate}</td>
+                <td>{report.analyst}</td>
+                <td>{report.status}</td>
+                <td>{report.completedDate || '--'}</td>
+                <td>{report.priority}</td>
+                <td><Status value={report.sla} /></td>
+                <td className="right"><DayBadge days={report.days} urgent={report.print === 'Required'} /></td>
+                <td className="right">{report.stageDays}</td>
+                <td className="right">{report.fields}</td>
+                <td className="right">{report.remaining}</td>
+                <td><PrintBadge value={report.print} /></td>
+                <td className="right">{fmt(report.crop)}</td>
+                <td className="right">{fmt(report.fertilizer)}</td>
+                <td><a className="report-link" href={`#report-${report.id}`} aria-label={`View report ${report.id}`}>Open</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="table-box detail-table field-detail-table">
+        <div className="chart-title">Field Detail</div>
+        <div className="chart-source">FactFields | Field-level progress for the selected report detail context</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Status</th>
+              <th>Completing Analyst</th>
+              <th className="right">Completion %</th>
+              <th>Completed Timestamp</th>
+              <th className="right">Open Items</th>
+              <th className="right">Crop History</th>
+              <th className="right">Fertilizer History</th>
+              <th>Field Age Band</th>
+            </tr>
+          </thead>
+          <tbody>
+            {fieldRows.map(([field, status, completingAnalyst, completion, completedTimestamp, openItems, cropHistory, fertilizerHistory, fieldAgeBand]) => (
+              <tr key={field}>
+                <td className="strong">{field}</td>
+                <td>{status}</td>
+                <td>{completingAnalyst}</td>
+                <td className="right">{completion}</td>
+                <td>{completion === '100%' ? completedTimestamp : ''}</td>
+                <td className="right">{openItems}</td>
+                <td className="right">{cropHistory}</td>
+                <td className="right">{fertilizerHistory}</td>
+                <td>{fieldAgeBand}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </PageFrame>
   );
@@ -653,9 +736,9 @@ function App() {
           <Slicer title="Analyst" options={['All Analysts', ...analysts.map((a) => a.name)]} />
           <Slicer title="Report Status" options={['All', ...(activePage === 'aging' ? agingStageBreakdown : statusBreakdown).map((s) => s.status)]} />
           <Slicer title="Aging Threshold" options={['15+ days', '30+ days', '45+ days', '60+ days']} />
-          <Slicer title="Field Age Band" options={['All', '0-7', '8-14', '15-30', '31-60', '61+']} />
+          <Slicer title="Field Age Band" options={['All', '0-5 Years', '6-15 Years', '16-30 Years', '30+ Years']} />
           <div className="quality-note">
-            <div>Data Quality Notes</div>
+            <div>Notes</div>
             <p>12 reports have stale field updates</p>
             <p>7 reports need print queue review</p>
             <p>4 field history imports pending</p>

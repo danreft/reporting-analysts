@@ -362,6 +362,27 @@ tbody tr:nth-child(even) {
   min-width: 1120px;
 }
 
+.detail-table {
+  overflow-x: auto;
+}
+
+.detail-table table {
+  min-width: 1240px;
+}
+
+.field-detail-table table {
+  min-width: 1040px;
+  font-size: 12px;
+}
+
+.report-link {
+  color: #006637;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .attention-table tr.watch td {
   background: #fff9e6;
 }
