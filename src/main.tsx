@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM, { type Root } from 'react-dom/client';
 import {
   Bar,
   BarChart,
@@ -14,6 +14,12 @@ import {
   YAxis,
 } from 'recharts';
 import './styles.css';
+
+declare global {
+  interface Window {
+    __reportingAnalystsRoot?: Root;
+  }
+}
 
 type Page = 'executive' | 'productivity' | 'aging' | 'workload' | 'detail';
 
@@ -69,12 +75,13 @@ const statusBreakdown = [
   { status: 'Complete', reports: 71, fields: 2214 },
 ];
 
-const agingBuckets = [
-  { bucket: '0-7', reports: 84, fields: 1560 },
-  { bucket: '8-14', reports: 61, fields: 1248 },
-  { bucket: '15-30', reports: 47, fields: 1126 },
-  { bucket: '31-60', reports: 28, fields: 648 },
-  { bucket: '61+', reports: 13, fields: 318 },
+const agingStageBreakdown = statusBreakdown.filter((stage) => stage.status !== 'Complete');
+
+const daysInFlightBuckets = [
+  { bucket: '0-5 Days', reports: 42 },
+  { bucket: '6-10 Days', reports: 67 },
+  { bucket: '11-15 Days', reports: 51 },
+  { bucket: '15+ Days', reports: 88 },
 ];
 
 const fieldAgeByAnalyst = analysts.map((a) => ({
@@ -88,11 +95,12 @@ const reportDetails = [
   { id: 'AGR-24118', grower: 'Hendrickson Farms', analyst: 'Avery Chen', status: 'Print Prep', priority: 'High', fields: 214, remaining: 37, days: 46, stageDays: 12, print: 'Required', crop: 628, fertilizer: 584, sla: 'Breached' },
   { id: 'AGR-24109', grower: 'Blue River Acres', analyst: 'Mateo Ruiz', status: 'Fertilizer History', priority: 'High', fields: 188, remaining: 64, days: 39, stageDays: 15, print: 'Required', crop: 512, fertilizer: 621, sla: 'At Risk' },
   { id: 'AGR-24097', grower: 'Prairie View Co-op', analyst: 'Marcus Lee', status: 'QA Review', priority: 'Medium', fields: 132, remaining: 18, days: 33, stageDays: 9, print: 'Required', crop: 388, fertilizer: 334, sla: 'At Risk' },
-  { id: 'AGR-24131', grower: 'Cedar Ridge Farms', analyst: 'Samuel Brooks', status: 'Crop History', priority: 'Medium', fields: 96, remaining: 51, days: 27, stageDays: 11, print: 'Not Required', crop: 304, fertilizer: 212, sla: 'Needs Review' },
+  { id: 'AGR-24131', grower: 'Cedar Ridge Farms', analyst: 'Samuel Brooks', status: 'Crop History', priority: 'Medium', fields: 196, remaining: 51, days: 5, stageDays: 2, print: 'Not Required', crop: 304, fertilizer: 212, sla: 'Needs Review' },
   { id: 'AGR-24142', grower: 'Miller Seed Partners', analyst: 'Avery Chen', status: 'Field Review', priority: 'High', fields: 301, remaining: 202, days: 24, stageDays: 14, print: 'Required', crop: 740, fertilizer: 712, sla: 'At Risk' },
   { id: 'AGR-24156', grower: 'Lakebend Ag', analyst: 'Jordan Miles', status: 'QA Review', priority: 'Low', fields: 42, remaining: 6, days: 18, stageDays: 4, print: 'Not Required', crop: 106, fertilizer: 98, sla: 'On Track' },
   { id: 'AGR-24162', grower: 'North Fork Growers', analyst: 'Priya Nair', status: 'Field Review', priority: 'Medium', fields: 76, remaining: 29, days: 16, stageDays: 6, print: 'Not Required', crop: 194, fertilizer: 171, sla: 'On Track' },
   { id: 'AGR-24170', grower: 'Summit Valley Farms', analyst: 'Nora Patel', status: 'Intake', priority: 'Low', fields: 18, remaining: 16, days: 8, stageDays: 3, print: 'Not Required', crop: 44, fertilizer: 39, sla: 'On Track' },
+  { id: 'AGR-24183', grower: 'Redstone Grain', analyst: 'Elena Foster', status: 'Print Prep', priority: 'Medium', fields: 64, remaining: 8, days: 5, stageDays: 2, print: 'Required', crop: 160, fertilizer: 147, sla: 'On Track' },
 ];
 
 function fmt(n: number) {
@@ -122,11 +130,11 @@ function Slicer({ title, options }: { title: string; options: string[] }) {
   );
 }
 
-function ChartBox({ title, source, height = 240, children }: { title: string; source: string; height?: number; children: React.ReactNode }) {
+function ChartBox({ title, source, height = 240, children }: { title: string; source?: string; height?: number; children: React.ReactNode }) {
   return (
     <div className="chart-box">
       <div className="chart-title">{title}</div>
-      <div className="chart-source">{source}</div>
+      {source ? <div className="chart-source">{source}</div> : null}
       <div style={{ height }}>{children}</div>
     </div>
   );
@@ -137,12 +145,41 @@ function Status({ value }: { value: string }) {
   return <span className={className}>{value}</span>;
 }
 
+function getDayTone(days: number) {
+  if (days >= 11) return 'overdue';
+  if (days >= 6) return 'watch';
+  return 'normal';
+}
+
+function getAttentionReason(report: (typeof reportDetails)[number]) {
+  const completionRate = (report.fields - report.remaining) / report.fields;
+  if (report.print === 'Required') return 'Print Intervention Needed';
+  if (report.fields >= 180) return 'High Field Count';
+  if (report.days >= 11) return 'Aging Threshold Exceeded';
+  if (completionRate < 0.7) return 'Low Completion Progress';
+  return 'Low Completion Progress';
+}
+
+function PrintBadge({ value }: { value: string }) {
+  const needed = value === 'Required';
+  return <span className={`print-badge ${needed ? 'urgent' : 'neutral'}`}>{needed ? 'Needed' : 'Not Needed'}</span>;
+}
+
+function DayBadge({ days, urgent }: { days: number; urgent?: boolean }) {
+  return <span className={`day-badge ${urgent ? 'urgent' : getDayTone(days)}`}>{days}</span>;
+}
+
 function ExecutiveOverview() {
   const openFields = analysts.reduce((sum, a) => sum + a.fields, 0);
   const completedFields = analysts.reduce((sum, a) => sum + a.completedFields, 0);
   const completedReports = analysts.reduce((sum, a) => sum + a.completedReports, 0);
   const agedReports = reportDetails.filter((r) => r.days >= 30).length;
   const printInterventions = reportDetails.filter((r) => r.print === 'Required').length;
+  const attentionReports = reportDetails.map((report) => ({
+    ...report,
+    completedFields: report.fields - report.remaining,
+    attentionReason: getAttentionReason(report),
+  }));
 
   return (
     <PageFrame>
@@ -171,7 +208,7 @@ function ExecutiveOverview() {
 
       <div className="grid two">
         <ChartBox title="Fields Completed by Week" source="FactFields, DimDate | COUNT(FieldID) completed by week" height={260}>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
             <LineChart data={weekly} margin={{ top: 10, right: 25, bottom: 12, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
               <XAxis dataKey="week" tick={{ fontSize: 11 }} />
@@ -182,7 +219,7 @@ function ExecutiveOverview() {
           </ResponsiveContainer>
         </ChartBox>
         <ChartBox title="Report Status Breakdown" source="FactReports | COUNT(ReportID) by current status" height={260}>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
             <BarChart data={statusBreakdown} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
               <XAxis type="number" tick={{ fontSize: 10 }} />
@@ -198,22 +235,22 @@ function ExecutiveOverview() {
         <ChartBox title="Workload Distribution by Analyst" source="FactFields, DimAnalyst | Open field count by analyst" height={260}>
           <AnalystBar dataKey="fields" color={green.dark} />
         </ChartBox>
-        <ChartBox title="Aged Reports by Field Age Band" source="FactReports, FactFields | Open reports by field age band" height={260}>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={agingBuckets} margin={{ top: 10, right: 20, bottom: 20, left: 10 }}>
+        <ChartBox title="Aging by Days In-Flight" height={260}>
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+            <BarChart data={daysInFlightBuckets} margin={{ top: 10, right: 20, bottom: 20, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
               <XAxis dataKey="bucket" tick={{ fontSize: 11 }} />
               <YAxis tick={{ fontSize: 11 }} />
               <Tooltip />
               <Bar dataKey="reports">
-                {agingBuckets.map((_, i) => <Cell key={i} fill={[green.accent, green.soft, green.warning, green.danger, '#8B1026'][i]} />)}
+                {daysInFlightBuckets.map((_, i) => <Cell key={i} fill={[green.accent, green.soft, green.warning, green.danger][i]} />)}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
         </ChartBox>
       </div>
 
-      <AgingTable />
+      <ReportsRequiringAttentionTable reports={attentionReports} />
     </PageFrame>
   );
 }
@@ -243,7 +280,7 @@ function AnalystProductivity() {
           <AnalystBar dataKey="velocity" color={green.header} />
         </ChartBox>
         <ChartBox title="Productivity Trend" source="FactFields, DimDate | Weekly completed fields and reports" height={220}>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
             <LineChart data={weekly} margin={{ top: 5, right: 25, bottom: 10, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
               <XAxis dataKey="week" tick={{ fontSize: 11 }} />
@@ -271,39 +308,45 @@ function AnalystProductivity() {
 }
 
 function AgingEscalations() {
+  const attentionReports = reportDetails.map((report) => ({
+    ...report,
+    completedFields: report.fields - report.remaining,
+    attentionReason: getAttentionReason(report),
+  }));
+  const agedReports = 88;
+  const avgDaysInFlight = (attentionReports.reduce((sum, report) => sum + report.days, 0) / attentionReports.length).toFixed(1);
+  const oldestReport = attentionReports.reduce((oldest, report) => (report.days > oldest.days ? report : oldest), attentionReports[0]);
+  const printInterventionNeeded = attentionReports.filter((report) => report.print === 'Required').length;
+
   return (
     <PageFrame>
       <div className="warning-band">
         <strong>Escalation Review Required</strong>
         <span> 18 reports are breached or blocked. 932 aging fields are tied to reports requiring manager intervention.</span>
       </div>
-      <div className="grid eight">
-        <KPI title="Aged Reports" value="88" subtitle="15+ days open" tone="warning" />
-        <KPI title="Aged Fields" value="932" subtitle="15+ days open" tone="warning" />
-        <KPI title="SLA Breaches" value="18" subtitle="Past target" tone="danger" />
-        <KPI title="At-Risk Reports" value="31" subtitle="Approaching target" tone="warning" />
-        <KPI title="Print Interventions" value="39" subtitle="Required reports" tone="danger" />
-        <KPI title="Avg Stage Days" value="8.7" subtitle="Current stage" />
-        <KPI title="Oldest Report" value="46" subtitle="Days in-flight" tone="danger" />
-        <KPI title="Blocked Fields" value="286" subtitle="Awaiting action" tone="warning" />
+      <div className="grid four">
+        <KPI title="Aged Reports" value={agedReports} subtitle="15+ days in-flight" tone="warning" />
+        <KPI title="Avg Days In-Flight" value={avgDaysInFlight} subtitle="Reports requiring attention" tone="warning" />
+        <KPI title="Oldest Active Report" value={oldestReport.days} subtitle={`${oldestReport.id} days in-flight`} tone="danger" />
+        <KPI title="Print Intervention Needed" value={printInterventionNeeded} subtitle="Active reports" tone="danger" />
       </div>
       <div className="grid two">
-        <ChartBox title="Reports by Aging Bucket" source="FactReports | Open reports by days in-flight" height={320}>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={agingBuckets} margin={{ top: 10, right: 20, bottom: 20, left: 10 }}>
+        <ChartBox title="Aging by Days In-Flight" height={320}>
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+            <BarChart data={daysInFlightBuckets} margin={{ top: 10, right: 20, bottom: 20, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
               <XAxis dataKey="bucket" tick={{ fontSize: 11 }} />
               <YAxis tick={{ fontSize: 11 }} />
               <Tooltip />
               <Bar dataKey="reports">
-                {agingBuckets.map((_, i) => <Cell key={i} fill={[green.accent, green.soft, green.warning, green.danger, '#8B1026'][i]} />)}
+                {daysInFlightBuckets.map((_, i) => <Cell key={i} fill={[green.accent, green.soft, green.warning, green.danger][i]} />)}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
         </ChartBox>
-        <ChartBox title="SLA Status by Current Stage" source="FactReports | Report count by status and SLA classification" height={320}>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={statusBreakdown.map((s, i) => ({ ...s, onTrack: Math.max(6, s.reports - 18 - i), atRisk: 8 + i, breached: Math.max(2, i - 1) }))} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
+        <ChartBox title="SLA Status by Current Stage" height={320}>
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+            <BarChart data={agingStageBreakdown.map((s, i) => ({ ...s, onTrack: Math.max(6, s.reports - 18 - i), atRisk: 8 + i, breached: Math.max(2, i - 1) }))} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
               <XAxis type="number" tick={{ fontSize: 10 }} />
               <YAxis dataKey="status" type="category" width={116} tick={{ fontSize: 10 }} />
@@ -317,9 +360,9 @@ function AgingEscalations() {
         </ChartBox>
       </div>
       <div className="grid two">
-        <ChartBox title="Days In-Flight by Stage" source="FactReports | Average days in current stage" height={260}>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={statusBreakdown.map((s, i) => ({ status: s.status, days: [4.2, 7.6, 10.8, 12.4, 8.9, 14.2, 2.1][i] }))} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
+        <ChartBox title="Days In-Flight by Stage" height={260}>
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+            <BarChart data={agingStageBreakdown.map((s, i) => ({ status: s.status, days: [4.2, 7.6, 10.8, 12.4, 8.9, 14.2][i] }))} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
               <XAxis type="number" tick={{ fontSize: 10 }} />
               <YAxis dataKey="status" type="category" width={116} tick={{ fontSize: 10 }} />
@@ -328,8 +371,8 @@ function AgingEscalations() {
             </BarChart>
           </ResponsiveContainer>
         </ChartBox>
-        <ChartBox title="Escalations Opened Over Time" source="FactEscalations, DimDate | New escalation count by week" height={260}>
-          <ResponsiveContainer width="100%" height="100%">
+        <ChartBox title="Escalations Opened Over Time" height={260}>
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
             <LineChart data={weekly} margin={{ top: 5, right: 25, bottom: 10, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
               <XAxis dataKey="week" tick={{ fontSize: 11 }} />
@@ -340,9 +383,7 @@ function AgingEscalations() {
           </ResponsiveContainer>
         </ChartBox>
       </div>
-      <div className="hidden-section" aria-hidden="true">
-        <AgingTable />
-      </div>
+      <ReportsRequiringAttentionTable reports={attentionReports} />
     </PageFrame>
   );
 }
@@ -375,7 +416,7 @@ function WorkloadDistribution() {
       </div>
       <div className="grid two">
         <ChartBox title="Aging Work by Analyst" source="FactFields | Current, aging, and breached field ownership" height={260}>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
             <BarChart data={fieldAgeByAnalyst} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
               <XAxis type="number" tick={{ fontSize: 10 }} />
@@ -389,7 +430,7 @@ function WorkloadDistribution() {
           </ResponsiveContainer>
         </ChartBox>
         <ChartBox title="Open History Volume by Analyst" source="FactCropHistory, FactFertilizerHistory | Open history entries by analyst" height={260}>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
             <BarChart data={analysts.map((a) => ({ name: a.name.split(' ')[0], crop: a.crop, fertilizer: a.fertilizer }))} margin={{ top: 5, right: 20, bottom: 45, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
               <XAxis dataKey="name" angle={-25} textAnchor="end" height={55} tick={{ fontSize: 10 }} />
@@ -438,7 +479,7 @@ function ReportDetail() {
       </div>
       <div className="grid two">
         <ChartBox title="Field Completion by Status" source="FactFields | Field count by completion status across reports in view" height={260}>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
             <BarChart data={[{ status: 'Complete', count: 177 }, { status: 'In Review', count: 14 }, { status: 'In Progress', count: 18 }, { status: 'Blocked', count: 5 }]} margin={{ top: 10, right: 20, bottom: 20, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
               <XAxis dataKey="status" tick={{ fontSize: 11 }} />
@@ -449,7 +490,7 @@ function ReportDetail() {
           </ResponsiveContainer>
         </ChartBox>
         <ChartBox title="Days In-Flight by Current Stage" source="FactReports | Average days in-flight by current workflow stage" height={260}>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
             <BarChart data={[{ stage: 'Intake', days: 3 }, { stage: 'Field Review', days: 11 }, { stage: 'Crop History', days: 9 }, { stage: 'Fertilizer History', days: 11 }, { stage: 'QA Review', days: 8 }, { stage: 'Print Prep', days: 12 }]} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
               <XAxis type="number" tick={{ fontSize: 10 }} />
@@ -467,7 +508,7 @@ function ReportDetail() {
 function AnalystBar({ dataKey, color }: { dataKey: keyof (typeof analysts)[number]; color: string }) {
   const data = [...analysts].sort((a, b) => Number(b[dataKey]) - Number(a[dataKey])).map((a) => ({ ...a, short: a.name.split(' ')[0] }));
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
       <BarChart data={data} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
         <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
         <XAxis type="number" tick={{ fontSize: 10 }} />
@@ -516,22 +557,43 @@ function PageFrame({ children }: { children: React.ReactNode }) {
   return <div className="page-frame">{children}</div>;
 }
 
-function AgingTable() {
+function ReportsRequiringAttentionTable({ reports }: { reports: Array<(typeof reportDetails)[number] & { completedFields: number; attentionReason: string }> }) {
   return (
-    <div className="table-box">
-      <div className="chart-title">Aging Report Detail Table</div>
-      <div className="chart-source">FactReports, FactFields, DimAnalyst | Open reports requiring operational review</div>
+    <div className="table-box attention-table">
+      <div className="chart-title">Reports Requiring Attention</div>
       <table>
         <thead>
-          <tr><th>Report ID</th><th>Grower / Account</th><th>Analyst</th><th>Status</th><th>Priority</th><th className="right">Fields</th><th className="right">Remaining</th><th className="right">Days</th><th>Print</th><th>SLA</th></tr>
+          <tr>
+            <th>Report ID</th>
+            <th>Client</th>
+            <th>Assigned Analyst</th>
+            <th>Status</th>
+            <th className="right">Days In-Flight</th>
+            <th className="right">Total Fields</th>
+            <th className="right">Completed Fields</th>
+            <th className="right">Remaining Fields</th>
+            <th>Print Intervention</th>
+            <th>Attention Reason</th>
+          </tr>
         </thead>
         <tbody>
-          {reportDetails.map((r) => (
-            <tr key={r.id}>
-              <td className="strong">{r.id}</td><td>{r.grower}</td><td>{r.analyst}</td><td>{r.status}</td><td>{r.priority}</td>
-              <td className="right">{r.fields}</td><td className="right">{r.remaining}</td><td className="right">{r.days}</td><td><Status value={r.print} /></td><td><Status value={r.sla} /></td>
-            </tr>
-          ))}
+          {reports.map((report) => {
+            const urgent = report.print === 'Required';
+            return (
+              <tr className={urgent ? 'row-urgent' : getDayTone(report.days)} key={report.id}>
+                <td className="strong">{report.id}</td>
+                <td>{report.grower}</td>
+                <td>{report.analyst}</td>
+                <td>{report.status}</td>
+                <td className="right"><DayBadge days={report.days} urgent={urgent} /></td>
+                <td className="right">{report.fields}</td>
+                <td className="right">{report.completedFields}</td>
+                <td className="right">{report.remaining}</td>
+                <td><PrintBadge value={report.print} /></td>
+                <td><span className={`reason ${urgent ? 'urgent' : getDayTone(report.days)}`}>{report.attentionReason}</span></td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
@@ -589,7 +651,7 @@ function App() {
           <div className="filters-title">Filters</div>
           <Slicer title="Time Frame" options={['Year to Date', 'Last 30 days', 'Last 90 days', 'Current Quarter']} />
           <Slicer title="Analyst" options={['All Analysts', ...analysts.map((a) => a.name)]} />
-          <Slicer title="Report Status" options={['All', ...statusBreakdown.map((s) => s.status)]} />
+          <Slicer title="Report Status" options={['All', ...(activePage === 'aging' ? agingStageBreakdown : statusBreakdown).map((s) => s.status)]} />
           <Slicer title="Aging Threshold" options={['15+ days', '30+ days', '45+ days', '60+ days']} />
           <Slicer title="Field Age Band" options={['All', '0-7', '8-14', '15-30', '31-60', '61+']} />
           <div className="quality-note">
@@ -605,4 +667,7 @@ function App() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById('root')!).render(<App />);
+const rootElement = document.getElementById('root')!;
+const root = window.__reportingAnalystsRoot ?? ReactDOM.createRoot(rootElement);
+window.__reportingAnalystsRoot = root;
+root.render(<App />);
