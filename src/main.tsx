@@ -66,6 +66,37 @@ const weekly = [
   { week: 'May 13', fields: 1076, reports: 54, velocity: 28.7, escalations: 26 },
 ];
 
+const analystEntrySeries = [
+  { key: 'avery', name: 'Avery Chen', color: green.dark },
+  { key: 'jordan', name: 'Jordan Miles', color: green.accent },
+  { key: 'priya', name: 'Priya Nair', color: green.mid },
+  { key: 'mateo', name: 'Mateo Ruiz', color: green.warning },
+  { key: 'nora', name: 'Nora Patel', color: green.soft },
+  { key: 'samuel', name: 'Samuel Brooks', color: green.header },
+  { key: 'elena', name: 'Elena Foster', color: '#9AA55A' },
+  { key: 'marcus', name: 'Marcus Lee', color: green.danger },
+] as const;
+
+const weeklyAnalystTeamEntries = [
+  { week: 'Apr 1', fields: { avery: 216, jordan: 184, priya: 148, mateo: 173, nora: 96, samuel: 129, elena: 88, marcus: 154 }, reports: { avery: 10, jordan: 9, priya: 7, mateo: 8, nora: 5, samuel: 6, elena: 4, marcus: 7 } },
+  { week: 'Apr 8', fields: { avery: 244, jordan: 205, priya: 169, mateo: 191, nora: 112, samuel: 147, elena: 97, marcus: 171 }, reports: { avery: 12, jordan: 10, priya: 8, mateo: 9, nora: 5, samuel: 7, elena: 5, marcus: 8 } },
+  { week: 'Apr 15', fields: { avery: 268, jordan: 227, priya: 188, mateo: 214, nora: 121, samuel: 162, elena: 106, marcus: 184 }, reports: { avery: 13, jordan: 11, priya: 9, mateo: 10, nora: 6, samuel: 8, elena: 5, marcus: 9 } },
+  { week: 'Apr 22', fields: { avery: 238, jordan: 198, priya: 176, mateo: 203, nora: 116, samuel: 151, elena: 101, marcus: 178 }, reports: { avery: 11, jordan: 10, priya: 8, mateo: 10, nora: 6, samuel: 7, elena: 5, marcus: 8 } },
+  { week: 'Apr 29', fields: { avery: 286, jordan: 241, priya: 206, mateo: 231, nora: 134, samuel: 176, elena: 119, marcus: 197 }, reports: { avery: 14, jordan: 12, priya: 10, mateo: 11, nora: 7, samuel: 9, elena: 6, marcus: 9 } },
+  { week: 'May 6', fields: { avery: 309, jordan: 267, priya: 224, mateo: 249, nora: 146, samuel: 188, elena: 128, marcus: 216 }, reports: { avery: 15, jordan: 13, priya: 11, mateo: 12, nora: 7, samuel: 9, elena: 6, marcus: 10 } },
+  { week: 'May 13', fields: { avery: 274, jordan: 236, priya: 201, mateo: 226, nora: 128, samuel: 171, elena: 116, marcus: 203 }, reports: { avery: 13, jordan: 12, priya: 10, mateo: 11, nora: 6, samuel: 8, elena: 6, marcus: 10 } },
+];
+
+const weeklyFieldsEnteringAnalystTeam = weeklyAnalystTeamEntries.map((entry) => ({
+  week: entry.week,
+  ...entry.fields,
+}));
+
+const weeklyReportsEnteringAnalystTeam = weeklyAnalystTeamEntries.map((entry) => ({
+  week: entry.week,
+  ...entry.reports,
+}));
+
 const statusBreakdown = [
   { status: 'Intake', reports: 38, fields: 672 },
   { status: 'Field Review', reports: 64, fields: 1840 },
@@ -83,6 +114,27 @@ const daysInFlightBuckets = [
   { bucket: '6-10 Days', reports: 67 },
   { bucket: '11-15 Days', reports: 51 },
   { bucket: '15+ Days', reports: 88 },
+];
+
+const notPaidAuditActivity = [
+  { id: 'AGR-24118', client: 'Hendrickson Farms', assignedAnalyst: 'Avery Chen', movedBy: 'Maya Grant', previousStatus: 'Report Complete', currentStatus: 'Not Paid', transitionTimestamp: '5/18/26 9:42 AM', daysSinceCompletion: 9, fields: 214, print: 'Required', qaFlag: 'High Risk' },
+  { id: 'AGR-24109', client: 'Blue River Acres', assignedAnalyst: 'Mateo Ruiz', movedBy: 'Lena Ortiz', previousStatus: 'Report Complete', currentStatus: 'Not Paid', transitionTimestamp: '5/18/26 11:16 AM', daysSinceCompletion: 6, fields: 188, print: 'Required', qaFlag: 'Needs Review' },
+  { id: 'AGR-24097', client: 'Prairie View Co-op', assignedAnalyst: 'Marcus Lee', movedBy: 'Maya Grant', previousStatus: 'Report Complete', currentStatus: 'Not Paid', transitionTimestamp: '5/17/26 2:38 PM', daysSinceCompletion: 13, fields: 132, print: 'Required', qaFlag: 'High Risk' },
+  { id: 'AGR-24156', client: 'Lakebend Ag', assignedAnalyst: 'Jordan Miles', movedBy: 'Owen Price', previousStatus: 'Report Complete', currentStatus: 'Not Paid', transitionTimestamp: '5/16/26 10:04 AM', daysSinceCompletion: 2, fields: 42, print: 'Not Required', qaFlag: 'Normal' },
+  { id: 'AGR-24183', client: 'Redstone Grain', assignedAnalyst: 'Elena Foster', movedBy: 'Lena Ortiz', previousStatus: 'Report Complete', currentStatus: 'Not Paid', transitionTimestamp: '5/15/26 4:27 PM', daysSinceCompletion: 5, fields: 64, print: 'Required', qaFlag: 'Needs Review' },
+  { id: 'AGR-24142', client: 'Miller Seed Partners', assignedAnalyst: 'Avery Chen', movedBy: 'Maya Grant', previousStatus: 'Report Complete', currentStatus: 'Not Paid', transitionTimestamp: '5/14/26 8:55 AM', daysSinceCompletion: 10, fields: 301, print: 'Required', qaFlag: 'High Risk' },
+  { id: 'AGR-24162', client: 'North Fork Growers', assignedAnalyst: 'Priya Nair', movedBy: 'Owen Price', previousStatus: 'Report Complete', currentStatus: 'Not Paid', transitionTimestamp: '5/13/26 1:18 PM', daysSinceCompletion: 3, fields: 76, print: 'Not Required', qaFlag: 'Normal' },
+  { id: 'AGR-24131', client: 'Cedar Ridge Farms', assignedAnalyst: 'Samuel Brooks', movedBy: 'Lena Ortiz', previousStatus: 'Report Complete', currentStatus: 'Not Paid', transitionTimestamp: '5/12/26 3:09 PM', daysSinceCompletion: 7, fields: 196, print: 'Not Required', qaFlag: 'Needs Review' },
+];
+
+const notPaidAuditTrend = [
+  { week: 'Apr 1', reports: 9, maya: 3, lena: 4, owen: 2 },
+  { week: 'Apr 8', reports: 12, maya: 5, lena: 4, owen: 3 },
+  { week: 'Apr 15', reports: 10, maya: 4, lena: 3, owen: 3 },
+  { week: 'Apr 22', reports: 14, maya: 6, lena: 5, owen: 3 },
+  { week: 'Apr 29', reports: 11, maya: 4, lena: 4, owen: 3 },
+  { week: 'May 6', reports: 16, maya: 7, lena: 6, owen: 3 },
+  { week: 'May 13', reports: 18, maya: 8, lena: 6, owen: 4 },
 ];
 
 const fieldAgeByAnalyst = analysts.map((a) => ({
@@ -131,12 +183,13 @@ function Slicer({ title, options }: { title: string; options: string[] }) {
   );
 }
 
-function ChartBox({ title, source, height = 240, children }: { title: string; source?: string; height?: number; children: React.ReactNode }) {
+function ChartBox({ title, source, context, height = 240, children }: { title: string; source?: string; context?: string; height?: number; children: React.ReactNode }) {
   return (
     <div className="chart-box">
       <div className="chart-title">{title}</div>
       {source ? <div className="chart-source">{source}</div> : null}
       <div style={{ height }}>{children}</div>
+      {context ? <div className="chart-context">{context}</div> : null}
     </div>
   );
 }
@@ -176,6 +229,10 @@ function ExecutiveOverview() {
   const completedReports = analysts.reduce((sum, a) => sum + a.completedReports, 0);
   const agedReports = reportDetails.filter((r) => r.days >= 30).length;
   const printInterventions = reportDetails.filter((r) => r.print === 'Required').length;
+  const latestAnalystTeamEntries = weeklyAnalystTeamEntries[weeklyAnalystTeamEntries.length - 1];
+  const fieldsEnteredThisWeek = Object.values(latestAnalystTeamEntries.fields).reduce((sum, value) => sum + value, 0);
+  const reportsEnteredThisWeek = Object.values(latestAnalystTeamEntries.reports).reduce((sum, value) => sum + value, 0);
+  const avgFieldsPerEnteredReport = (fieldsEnteredThisWeek / reportsEnteredThisWeek).toFixed(1);
   const attentionReports = reportDetails.map((report) => ({
     ...report,
     completedFields: report.fields - report.remaining,
@@ -232,6 +289,21 @@ function ExecutiveOverview() {
         </ChartBox>
       </div>
 
+      <SectionTitle>Entered Analyst Team Stage</SectionTitle>
+      <div className="grid three">
+        <KPI title="Fields Entered This Week" value={fmt(fieldsEnteredThisWeek)} subtitle="Entered Analyst Team stage" />
+        <KPI title="Reports Entered This Week" value={fmt(reportsEnteredThisWeek)} subtitle="New analyst-stage workload" />
+        <KPI title="Avg Fields per Entered Report" value={avgFieldsPerEnteredReport} subtitle="Current week mix" />
+      </div>
+      <div className="grid two">
+        <ChartBox title="Fields Entering Analyst Team Stage by Week" source="FactFields, DimDate, DimAnalyst | COUNT(FieldID) entered Analyst Team by week" height={260}>
+          <AnalystTeamEntryChart data={weeklyFieldsEnteringAnalystTeam} valueLabel="Fields" />
+        </ChartBox>
+        <ChartBox title="Reports Entering Analyst Team Stage by Week" source="FactReports, DimDate, DimAnalyst | COUNT(ReportID) entered Analyst Team by week" height={260}>
+          <AnalystTeamEntryChart data={weeklyReportsEnteringAnalystTeam} valueLabel="Reports" />
+        </ChartBox>
+      </div>
+
       <div className="grid two">
         <ChartBox title="Workload Distribution by Analyst" source="FactFields, DimAnalyst | Open field count by analyst" height={260}>
           <AnalystBar dataKey="fields" color={green.dark} />
@@ -253,6 +325,51 @@ function ExecutiveOverview() {
 
       <ReportsRequiringAttentionTable reports={attentionReports} />
     </PageFrame>
+  );
+}
+
+type EntryTooltipPayload = {
+  color?: string;
+  dataKey?: string | number;
+  name?: string;
+  value?: number;
+};
+
+function EntryTooltip({ active, label, payload, valueLabel }: { active?: boolean; label?: string; payload?: EntryTooltipPayload[]; valueLabel: string }) {
+  if (!active || !payload?.length) return null;
+  const rows = [...payload].sort((a, b) => Number(b.value ?? 0) - Number(a.value ?? 0));
+
+  return (
+    <div className="entry-tooltip">
+      <div className="entry-tooltip-title">{label}</div>
+      <div className="entry-tooltip-subtitle">{valueLabel} entering Analyst Team</div>
+      <div className="entry-tooltip-rows">
+        {rows.map((row) => (
+          <div className="entry-tooltip-row" key={row.dataKey}>
+            <span className="entry-tooltip-dot" style={{ backgroundColor: row.color }} />
+            <span className="entry-tooltip-name">{row.name}</span>
+            <span className="entry-tooltip-value">{fmt(Number(row.value ?? 0))}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AnalystTeamEntryChart({ data, valueLabel }: { data: Array<{ week: string } & Record<(typeof analystEntrySeries)[number]['key'], number>>; valueLabel: string }) {
+  return (
+    <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+      <BarChart data={data} margin={{ top: 10, right: 20, bottom: 20, left: 10 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
+        <XAxis dataKey="week" tick={{ fontSize: 11 }} />
+        <YAxis tick={{ fontSize: 11 }} />
+        <Tooltip content={<EntryTooltip valueLabel={valueLabel} />} cursor={{ fill: 'rgba(37, 78, 42, 0.08)' }} />
+        <Legend wrapperStyle={{ fontSize: 11 }} />
+        {analystEntrySeries.map((analyst) => (
+          <Bar key={analyst.key} dataKey={analyst.key} fill={analyst.color} name={analyst.name} />
+        ))}
+      </BarChart>
+    </ResponsiveContainer>
   );
 }
 
@@ -318,6 +435,9 @@ function AgingEscalations() {
   const avgDaysInFlight = (attentionReports.reduce((sum, report) => sum + report.days, 0) / attentionReports.length).toFixed(1);
   const oldestReport = attentionReports.reduce((oldest, report) => (report.days > oldest.days ? report : oldest), attentionReports[0]);
   const printInterventionNeeded = attentionReports.filter((report) => report.print === 'Required').length;
+  const handoffUsers = new Set(notPaidAuditActivity.map((report) => report.movedBy)).size;
+  const avgCompleteToNotPaid = (notPaidAuditActivity.reduce((sum, report) => sum + report.daysSinceCompletion, 0) / notPaidAuditActivity.length).toFixed(1);
+  const handoffExceptions = notPaidAuditActivity.filter((report) => report.qaFlag !== 'Normal').length;
 
   return (
     <PageFrame>
@@ -385,6 +505,41 @@ function AgingEscalations() {
         </ChartBox>
       </div>
       <ReportsRequiringAttentionTable reports={attentionReports} />
+      <SectionTitle>Completion to Not Paid Audit Tracking</SectionTitle>
+      <div className="grid four">
+        <KPI title="Reports Moved to Not Paid This Week" value={notPaidAuditActivity.length} subtitle="Report Complete to Not Paid" tone="warning" />
+        <KPI title="Analysts Performing Handoffs" value={handoffUsers} subtitle="Moved By users" />
+        <KPI title="Avg Time Between Complete and Not Paid" value={`${avgCompleteToNotPaid} days`} subtitle="Completion to handoff" />
+        <KPI title="Handoff Exceptions" value={handoffExceptions} subtitle="Needs Review + High Risk" tone="danger" />
+      </div>
+      <div className="grid two">
+        <ChartBox title="Reports Moved to Not Paid by Week" source="FactReportStatusHistory, DimDate, DimUser | COUNT(ReportID) moved from Report Complete to Not Paid by week" height={260}>
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+            <BarChart data={notPaidAuditTrend} margin={{ top: 10, right: 20, bottom: 20, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
+              <XAxis dataKey="week" tick={{ fontSize: 11 }} />
+              <YAxis tick={{ fontSize: 11 }} />
+              <Tooltip />
+              <Bar dataKey="reports" fill={green.warning} />
+            </BarChart>
+          </ResponsiveContainer>
+        </ChartBox>
+        <ChartBox title="Not Paid Handoffs by Moved By User" source="FactReportStatusHistory, DimUser | Status transitions grouped by user moving report" height={260}>
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+            <BarChart data={notPaidAuditTrend} margin={{ top: 10, right: 20, bottom: 20, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
+              <XAxis dataKey="week" tick={{ fontSize: 11 }} />
+              <YAxis tick={{ fontSize: 11 }} />
+              <Tooltip />
+              <Legend wrapperStyle={{ fontSize: 11 }} />
+              <Bar dataKey="maya" stackId="a" fill={green.dark} name="Maya Grant" />
+              <Bar dataKey="lena" stackId="a" fill={green.accent} name="Lena Ortiz" />
+              <Bar dataKey="owen" stackId="a" fill={green.warning} name="Owen Price" />
+            </BarChart>
+          </ResponsiveContainer>
+        </ChartBox>
+      </div>
+      <NotPaidAuditTable />
     </PageFrame>
   );
 }
@@ -677,6 +832,55 @@ function ReportsRequiringAttentionTable({ reports }: { reports: Array<(typeof re
               </tr>
             );
           })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function getQaFlagClass(value: string) {
+  if (value === 'High Risk') return 'qa-flag high-risk';
+  if (value === 'Needs Review') return 'qa-flag needs-review';
+  return 'qa-flag normal';
+}
+
+function NotPaidAuditTable() {
+  return (
+    <div className="table-box audit-table">
+      <div className="chart-title">Report Complete &rarr; Not Paid Activity</div>
+      <div className="chart-source">FactReportStatusHistory, FactReports, DimAnalyst, DimUser | Report status handoff audit detail</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Report ID</th>
+            <th>Client</th>
+            <th>Assigned Analyst</th>
+            <th>Moved By</th>
+            <th>Previous Status</th>
+            <th>Current Status</th>
+            <th>Transition Timestamp</th>
+            <th className="right">Days Since Completion</th>
+            <th className="right">Total Fields</th>
+            <th>Print Intervention</th>
+            <th>QA Flag</th>
+          </tr>
+        </thead>
+        <tbody>
+          {notPaidAuditActivity.map((report) => (
+            <tr className={`${report.daysSinceCompletion >= 8 ? 'delay-risk' : ''} ${report.qaFlag === 'High Risk' ? 'audit-high-risk' : report.qaFlag === 'Needs Review' ? 'audit-review' : ''}`} key={report.id}>
+              <td className="strong">{report.id}</td>
+              <td>{report.client}</td>
+              <td>{report.assignedAnalyst}</td>
+              <td>{report.movedBy}</td>
+              <td>{report.previousStatus}</td>
+              <td>{report.currentStatus}</td>
+              <td>{report.transitionTimestamp}</td>
+              <td className={`right ${report.daysSinceCompletion >= 8 ? 'cell-danger' : report.daysSinceCompletion >= 5 ? 'cell-warning' : ''}`}>{report.daysSinceCompletion}</td>
+              <td className="right">{report.fields}</td>
+              <td><PrintBadge value={report.print} /></td>
+              <td><span className={getQaFlagClass(report.qaFlag)}>{report.qaFlag}</span></td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

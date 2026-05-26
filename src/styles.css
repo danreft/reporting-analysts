@@ -177,6 +177,7 @@ main {
 }
 
 .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .grid.six { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 .grid.seven { grid-template-columns: repeat(7, minmax(0, 1fr)); }
@@ -233,6 +234,67 @@ main {
   color: #3d654d;
   font-size: 12px;
   margin-bottom: 12px;
+}
+
+.chart-context {
+  border-top: 1px solid #e6eee7;
+  color: #3d654d;
+  font-size: 12px;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.entry-tooltip {
+  background: #fff;
+  border: 1px solid #cfd5d0;
+  box-shadow: 0 3px 10px rgba(26, 26, 26, 0.12);
+  color: #1a1a1a;
+  min-width: 214px;
+  padding: 10px 12px;
+}
+
+.entry-tooltip-title {
+  color: #006637;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.entry-tooltip-subtitle {
+  color: #3d654d;
+  font-size: 11px;
+  margin-bottom: 8px;
+}
+
+.entry-tooltip-rows {
+  display: grid;
+  gap: 5px;
+}
+
+.entry-tooltip-row {
+  align-items: center;
+  display: grid;
+  gap: 7px;
+  grid-template-columns: 8px minmax(0, 1fr) auto;
+  font-size: 12px;
+}
+
+.entry-tooltip-dot {
+  height: 8px;
+  width: 8px;
+}
+
+.entry-tooltip-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.entry-tooltip-value {
+  color: #1a1a1a;
+  font-weight: 800;
+  text-align: right;
 }
 
 .section-title {
@@ -362,6 +424,28 @@ tbody tr:nth-child(even) {
   min-width: 1120px;
 }
 
+.audit-table {
+  border-top: 3px solid #d5741c;
+  overflow-x: auto;
+}
+
+.audit-table table {
+  min-width: 1320px;
+}
+
+.audit-table tr.audit-review td {
+  background: #fff9e6;
+}
+
+.audit-table tr.audit-high-risk td {
+  background: #fff3f5;
+  border-bottom-color: #f3c4cc;
+}
+
+.audit-table tr.delay-risk td {
+  font-weight: 700;
+}
+
 .detail-table {
   overflow-x: auto;
 }
@@ -451,6 +535,34 @@ tbody tr:nth-child(even) {
 
 .reason {
   min-width: 168px;
+}
+
+.qa-flag {
+  display: inline-block;
+  min-width: 92px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 3px 7px;
+  border: 1px solid transparent;
+}
+
+.qa-flag.normal {
+  background: #e6eee7;
+  color: #254e2a;
+  border-color: #cfd5d0;
+}
+
+.qa-flag.needs-review {
+  background: #fff9e6;
+  color: #b65f13;
+  border-color: #e8bf82;
+}
+
+.qa-flag.high-risk {
+  background: #c41e3a;
+  color: #fff;
+  border-color: #c41e3a;
 }
 
 .cell-warning {
