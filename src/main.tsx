@@ -116,6 +116,17 @@ const daysInFlightBuckets = [
   { bucket: '15+ Days', reports: 88 },
 ];
 
+const postReportStageDeals = [
+  { title: 'Hendrickson Farms 2026 Nutrient Renewal', stage: 'Awaiting First Payment', owner: 'Camila Torres', dateEntered: '5/06/26', agingDays: 21, fields: 214, reportStatus: 'Awaiting Payment', print: 'Required' },
+  { title: 'Blue River Acres Crop Protection Addendum', stage: 'DocuSign', owner: 'Mason Hall', dateEntered: '5/12/26', agingDays: 15, fields: 188, reportStatus: 'Waiting on Signature', print: 'Required' },
+  { title: 'Prairie View Co-op Multi-Field Review', stage: 'Awaiting First Payment', owner: 'AL Renee Kim', dateEntered: '5/10/26', agingDays: 17, fields: 132, reportStatus: 'Payment Review', print: 'Required' },
+  { title: 'Cedar Ridge Farms Irrigated Corn Package', stage: 'DocuSign', owner: 'Elliot Shaw', dateEntered: '5/18/26', agingDays: 9, fields: 196, reportStatus: 'Waiting on Signature', print: 'Not Required' },
+  { title: 'Miller Seed Partners Soybean Rotation Plan', stage: 'Awaiting First Payment', owner: 'AL Renee Kim', dateEntered: '5/15/26', agingDays: 12, fields: 301, reportStatus: 'Awaiting Payment', print: 'Required' },
+  { title: 'Lakebend Ag Conservation Acreage Update', stage: 'DocuSign', owner: 'Camila Torres', dateEntered: '5/22/26', agingDays: 5, fields: 42, reportStatus: 'In Progress', print: 'Not Required' },
+  { title: 'North Fork Growers Split-Field Agreement', stage: 'Awaiting First Payment', owner: 'Mason Hall', dateEntered: '5/20/26', agingDays: 7, fields: 76, reportStatus: 'Payment Review', print: 'Not Required' },
+  { title: 'Redstone Grain Year-End Report Package', stage: 'DocuSign', owner: 'Elliot Shaw', dateEntered: '5/24/26', agingDays: 3, fields: 64, reportStatus: 'Waiting on Signature', print: 'Required' },
+];
+
 const notPaidAuditActivity = [
   { id: 'AGR-24118', client: 'Hendrickson Farms', assignedAnalyst: 'Avery Chen', movedBy: 'Maya Grant', previousStatus: 'Report Complete', currentStatus: 'Not Paid', transitionTimestamp: '5/18/26 9:42 AM', daysSinceCompletion: 9, fields: 214, print: 'Required', qaFlag: 'High Risk' },
   { id: 'AGR-24109', client: 'Blue River Acres', assignedAnalyst: 'Mateo Ruiz', movedBy: 'Lena Ortiz', previousStatus: 'Report Complete', currentStatus: 'Not Paid', transitionTimestamp: '5/18/26 11:16 AM', daysSinceCompletion: 6, fields: 188, print: 'Required', qaFlag: 'Needs Review' },
@@ -504,6 +515,7 @@ function AgingEscalations() {
           </ResponsiveContainer>
         </ChartBox>
       </div>
+      <PostReportStageAgingTable />
       <ReportsRequiringAttentionTable reports={attentionReports} />
       <SectionTitle>Completion to Not Paid Audit Tracking</SectionTitle>
       <div className="grid four">
@@ -832,6 +844,50 @@ function ReportsRequiringAttentionTable({ reports }: { reports: Array<(typeof re
               </tr>
             );
           })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function getPostReportAgingClass(deal: (typeof postReportStageDeals)[number]) {
+  if (deal.stage === 'Awaiting First Payment' && deal.agingDays > 14) return 'post-stage-critical';
+  if (deal.agingDays > 14) return 'post-stage-urgent';
+  if (deal.agingDays > 7) return 'post-stage-warning';
+  return '';
+}
+
+function PostReportStageAgingTable() {
+  return (
+    <div className="table-box post-stage-table">
+      <div className="chart-title">DocuSign &amp; Awaiting First Payment Aging Matrix</div>
+      <div className="chart-source">FactDeals, FactReports, DimOwner | Post-report workflow aging by current stage</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Deal Title</th>
+            <th>Stage</th>
+            <th>Owner (Sales Rep / AL)</th>
+            <th>Date Entered Stage</th>
+            <th className="right">Aging Days in Current Stage</th>
+            <th className="right">Total Fields</th>
+            <th>Report Status</th>
+            <th>Print Intervention</th>
+          </tr>
+        </thead>
+        <tbody>
+          {postReportStageDeals.map((deal) => (
+            <tr className={`${getPostReportAgingClass(deal)} ${deal.print === 'Required' ? 'print-highlight' : ''}`} key={deal.title}>
+              <td className="strong">{deal.title}</td>
+              <td>{deal.stage}</td>
+              <td>{deal.owner}</td>
+              <td>{deal.dateEntered}</td>
+              <td className={`right ${deal.agingDays > 14 ? 'cell-danger' : deal.agingDays > 7 ? 'cell-warning' : ''}`}>{deal.agingDays}</td>
+              <td className="right">{deal.fields}</td>
+              <td>{deal.reportStatus}</td>
+              <td><PrintBadge value={deal.print} /></td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
