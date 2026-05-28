@@ -395,6 +395,7 @@ function AnalystProductivity() {
         <KPI title="Aging Fields Owned" value="932" subtitle="15+ days open" tone="warning" />
         <KPI title="Below Target Analysts" value="3" subtitle="Under velocity goal" tone="warning" />
       </div>
+      <AnalystTable />
       <SectionTitle>High Performing Analysts</SectionTitle>
       <div className="grid two">
         <ChartBox title="Fields Completed by Analyst" source="FactFields, DimAnalyst | Completed field count by analyst" height={260}>
@@ -431,7 +432,6 @@ function AnalystProductivity() {
           <AnalystBar dataKey="print" color={green.danger} />
         </ChartBox>
       </div>
-      <AnalystTable />
     </PageFrame>
   );
 }
