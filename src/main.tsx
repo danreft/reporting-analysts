@@ -9,9 +9,12 @@ import {
   Line,
   LineChart,
   ResponsiveContainer,
+  Scatter,
+  ScatterChart,
   Tooltip,
   XAxis,
   YAxis,
+  ZAxis,
 } from 'recharts';
 import './styles.css';
 
@@ -25,15 +28,15 @@ type Page = 'executive' | 'productivity' | 'aging' | 'workload' | 'detail';
 
 const green = {
   header: '#006637',
-  dark: '#254E2A',
-  mid: '#3D654D',
-  accent: '#78BD3C',
-  soft: '#90B775',
+  dark: '#234E2A',
+  mid: '#358540',
+  accent: '#7BBD5C',
+  soft: '#90B75D',
   pale: '#E6EEE7',
   rail: '#F5F7F6',
   border: '#CFD5D0',
-  warning: '#D5741C',
-  danger: '#C41E3A',
+  warning: '#C97A1C',
+  danger: '#A33C1B',
   note: '#FFF9E6',
 };
 
@@ -66,15 +69,47 @@ const weekly = [
   { week: 'May 13', fields: 1076, reports: 54, velocity: 28.7, escalations: 26 },
 ];
 
+const weeklyUtilization = [
+  { week: 'Apr 1',  avery: 128, jordan: 96, priya: 78, mateo: 112, nora: 64, samuel: 84, elena: 60, marcus: 104 },
+  { week: 'Apr 8',  avery: 133, jordan: 99, priya: 81, mateo: 118, nora: 68, samuel: 88, elena: 63, marcus: 110 },
+  { week: 'Apr 15', avery: 138, jordan: 102, priya: 84, mateo: 122, nora: 70, samuel: 91, elena: 65, marcus: 114 },
+  { week: 'Apr 22', avery: 135, jordan: 100, priya: 83, mateo: 120, nora: 69, samuel: 89, elena: 64, marcus: 112 },
+  { week: 'Apr 29', avery: 140, jordan: 103, priya: 86, mateo: 125, nora: 71, samuel: 92, elena: 66, marcus: 116 },
+  { week: 'May 6',  avery: 144, jordan: 105, priya: 87, mateo: 130, nora: 73, samuel: 95, elena: 69, marcus: 120 },
+  { week: 'May 13', avery: 142, jordan: 104, priya: 86, mateo: 128, nora: 72, samuel: 94, elena: 68, marcus: 118 },
+];
+
+const weeklyCrop = [
+  { week: 'Apr 1',  avery: 468, jordan: 344, priya: 263, mateo: 427, nora: 168, samuel: 233, elena: 138, marcus: 297 },
+  { week: 'Apr 8',  avery: 486, jordan: 358, priya: 271, mateo: 441, nora: 175, samuel: 241, elena: 143, marcus: 308 },
+  { week: 'Apr 15', avery: 502, jordan: 371, priya: 280, mateo: 456, nora: 181, samuel: 249, elena: 149, marcus: 319 },
+  { week: 'Apr 22', avery: 494, jordan: 363, priya: 275, mateo: 448, nora: 178, samuel: 245, elena: 146, marcus: 313 },
+  { week: 'Apr 29', avery: 519, jordan: 382, priya: 287, mateo: 469, nora: 185, samuel: 256, elena: 152, marcus: 327 },
+  { week: 'May 6',  avery: 541, jordan: 396, priya: 296, mateo: 487, nora: 191, samuel: 265, elena: 158, marcus: 339 },
+  { week: 'May 13', avery: 530, jordan: 388, priya: 290, mateo: 477, nora: 188, samuel: 260, elena: 155, marcus: 333 },
+];
+
+const weeklyFertilizer = [
+  { week: 'Apr 1',  avery: 416, jordan: 321, priya: 242, mateo: 436, nora: 148, samuel: 203, elena: 118, marcus: 308 },
+  { week: 'Apr 8',  avery: 431, jordan: 333, priya: 251, mateo: 451, nora: 155, samuel: 211, elena: 124, marcus: 319 },
+  { week: 'Apr 15', avery: 449, jordan: 347, priya: 261, mateo: 468, nora: 161, samuel: 219, elena: 129, marcus: 331 },
+  { week: 'Apr 22', avery: 440, jordan: 339, priya: 256, mateo: 459, nora: 158, samuel: 215, elena: 126, marcus: 325 },
+  { week: 'Apr 29', avery: 462, jordan: 356, priya: 268, mateo: 481, nora: 165, samuel: 224, elena: 132, marcus: 340 },
+  { week: 'May 6',  avery: 481, jordan: 370, priya: 278, mateo: 500, nora: 172, samuel: 233, elena: 138, marcus: 354 },
+  { week: 'May 13', avery: 471, jordan: 362, priya: 273, mateo: 490, nora: 169, samuel: 228, elena: 135, marcus: 347 },
+];
+
+const dataViz = ['#358540', '#234E2A', '#90B75D', '#2F8080', '#00A9E0', '#305C9E', '#C97A1C', '#8A6500'] as const;
+
 const analystEntrySeries = [
-  { key: 'avery', name: 'Avery Chen', color: green.dark },
-  { key: 'jordan', name: 'Jordan Miles', color: green.accent },
-  { key: 'priya', name: 'Priya Nair', color: green.mid },
-  { key: 'mateo', name: 'Mateo Ruiz', color: green.warning },
-  { key: 'nora', name: 'Nora Patel', color: green.soft },
-  { key: 'samuel', name: 'Samuel Brooks', color: green.header },
-  { key: 'elena', name: 'Elena Foster', color: '#9AA55A' },
-  { key: 'marcus', name: 'Marcus Lee', color: green.danger },
+  { key: 'avery', name: 'Avery Chen', color: dataViz[0] },
+  { key: 'jordan', name: 'Jordan Miles', color: dataViz[1] },
+  { key: 'priya', name: 'Priya Nair', color: dataViz[2] },
+  { key: 'mateo', name: 'Mateo Ruiz', color: dataViz[3] },
+  { key: 'nora', name: 'Nora Patel', color: dataViz[4] },
+  { key: 'samuel', name: 'Samuel Brooks', color: dataViz[5] },
+  { key: 'elena', name: 'Elena Foster', color: dataViz[6] },
+  { key: 'marcus', name: 'Marcus Lee', color: dataViz[7] },
 ] as const;
 
 const weeklyAnalystTeamEntries = [
@@ -86,16 +121,6 @@ const weeklyAnalystTeamEntries = [
   { week: 'May 6', fields: { avery: 309, jordan: 267, priya: 224, mateo: 249, nora: 146, samuel: 188, elena: 128, marcus: 216 }, reports: { avery: 15, jordan: 13, priya: 11, mateo: 12, nora: 7, samuel: 9, elena: 6, marcus: 10 } },
   { week: 'May 13', fields: { avery: 274, jordan: 236, priya: 201, mateo: 226, nora: 128, samuel: 171, elena: 116, marcus: 203 }, reports: { avery: 13, jordan: 12, priya: 10, mateo: 11, nora: 6, samuel: 8, elena: 6, marcus: 10 } },
 ];
-
-const weeklyFieldsEnteringAnalystTeam = weeklyAnalystTeamEntries.map((entry) => ({
-  week: entry.week,
-  ...entry.fields,
-}));
-
-const weeklyReportsEnteringAnalystTeam = weeklyAnalystTeamEntries.map((entry) => ({
-  week: entry.week,
-  ...entry.reports,
-}));
 
 const statusBreakdown = [
   { status: 'Intake', reports: 38, fields: 672 },
@@ -148,13 +173,6 @@ const notPaidAuditTrend = [
   { week: 'May 13', reports: 18, maya: 8, lena: 6, owen: 4 },
 ];
 
-const fieldAgeByAnalyst = analysts.map((a) => ({
-  name: a.name.split(' ')[0],
-  current: Math.max(0, Math.round(a.fields * 0.58)),
-  aging: a.aged,
-  breached: Math.round(a.aged * 0.32),
-}));
-
 const reportDetails = [
   { id: 'AGR-24118', grower: 'Hendrickson Farms', createdDate: '4/02/26', completedDate: '', analyst: 'Avery Chen', status: 'Print Prep', priority: 'High', fields: 214, remaining: 37, days: 46, stageDays: 12, print: 'Required', crop: 628, fertilizer: 584, sla: 'Breached' },
   { id: 'AGR-24109', grower: 'Blue River Acres', createdDate: '4/09/26', completedDate: '', analyst: 'Mateo Ruiz', status: 'Fertilizer History', priority: 'High', fields: 188, remaining: 64, days: 39, stageDays: 15, print: 'Required', crop: 512, fertilizer: 621, sla: 'At Risk' },
@@ -167,13 +185,71 @@ const reportDetails = [
   { id: 'AGR-24183', grower: 'Redstone Grain', createdDate: '5/13/26', completedDate: '', analyst: 'Elena Foster', status: 'Print Prep', priority: 'Medium', fields: 64, remaining: 8, days: 5, stageDays: 2, print: 'Required', crop: 160, fertilizer: 147, sla: 'On Track' },
 ];
 
+const allFieldRows: [string, string, string, string, string, string, string, string, string][] = [
+  ['North 80', 'Complete', 'Jordan Miles', '100%', '5/15/26 3:42 PM', '0', '42', '38', '6-15 Years'],
+  ['East Pivot', 'QA Review', 'Avery Chen', '91%', '5/14/26 10:18 AM', '2', '35', '31', '16-30 Years'],
+  ['River Bottom', 'Crop History', 'Marcus Lee', '74%', '5/12/26 2:06 PM', '8', '28', '24', '30+ Years'],
+  ['South Ridge', 'Fertilizer History', 'Mateo Ruiz', '68%', '5/10/26 4:31 PM', '11', '31', '29', '16-30 Years'],
+  ['Home Quarter', 'Print Prep', 'Elena Foster', '96%', '5/16/26 9:44 AM', '1', '18', '17', '0-5 Years'],
+  ['West 120', 'Field Review', 'Priya Nair', '52%', '5/09/26 1:27 PM', '14', '22', '20', '30+ Years'],
+];
+
+type FilteredData = {
+  filteredAnalysts: typeof analysts;
+  filteredReports: typeof reportDetails;
+  filteredNotPaid: typeof notPaidAuditActivity;
+  filteredFieldRows: typeof allFieldRows;
+  agingDays: number;
+  filteredEntrySeries: typeof analystEntrySeries;
+};
+
+type NavigateAction = {
+  page: Page;
+  analyst?: string;
+  status?: string;
+  agingThreshold?: string;
+  fieldAgeBand?: string;
+};
+
+type Navigate = (action: NavigateAction) => void;
+
 function fmt(n: number) {
   return n.toLocaleString();
 }
 
-function KPI({ title, value, subtitle, tone }: { title: string; value: string | number; subtitle: string; tone?: 'danger' | 'warning' }) {
+function useSortable(initialKey: string) {
+  const [sortKey, setSortKey] = React.useState(initialKey);
+  const [sortDir, setSortDir] = React.useState<'asc' | 'desc'>('asc');
+
+  const handleSort = (key: string) => {
+    if (key === sortKey) setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
+    else { setSortKey(key); setSortDir('asc'); }
+  };
+
+  const sortData = <T extends Record<string, unknown>>(data: T[]) =>
+    [...data].sort((a, b) => {
+      const av = a[sortKey], bv = b[sortKey];
+      const cmp = typeof av === 'number' && typeof bv === 'number'
+        ? av - bv
+        : String(av ?? '').localeCompare(String(bv ?? ''));
+      return sortDir === 'asc' ? cmp : -cmp;
+    });
+
+  return { sortKey, sortDir, handleSort, sortData };
+}
+
+function Th({ col, label, sortKey, sortDir, onSort, className }: { col: string; label: string; sortKey: string; sortDir: 'asc' | 'desc'; onSort: (col: string) => void; className?: string }) {
+  const active = col === sortKey;
   return (
-    <div className="kpi-card">
+    <th className={`sortable${active ? ' sorted' : ''}${className ? ' ' + className : ''}`} onClick={() => onSort(col)}>
+      {label}{active ? (sortDir === 'asc' ? ' ▲' : ' ▼') : ''}
+    </th>
+  );
+}
+
+function KPI({ title, value, subtitle, tone, onNavigate }: { title: string; value: string | number; subtitle: string; tone?: 'danger' | 'warning'; onNavigate?: () => void }) {
+  return (
+    <div className={`kpi-card ${onNavigate ? 'clickable' : ''}`} onClick={onNavigate} role={onNavigate ? 'button' : undefined} tabIndex={onNavigate ? 0 : undefined} onKeyDown={onNavigate ? (e) => e.key === 'Enter' && onNavigate() : undefined}>
       <div className="kpi-title">{title}</div>
       <div className={`kpi-value ${tone ?? ''}`}>{value}</div>
       <div className="kpi-subtitle">{subtitle}</div>
@@ -181,15 +257,69 @@ function KPI({ title, value, subtitle, tone }: { title: string; value: string | 
   );
 }
 
-function Slicer({ title, options }: { title: string; options: string[] }) {
+type SlicerProps =
+  | { title: string; options: string[]; multiSelect: true; value: string[]; onChange: (v: string[]) => void }
+  | { title: string; options: string[]; multiSelect?: false; value: string; onChange: (v: string) => void };
+
+function Slicer(props: SlicerProps) {
+  const { title, options, multiSelect } = props;
+  const [open, setOpen] = React.useState(false);
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (!open) return;
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [open]);
+
+  const label = multiSelect
+    ? (props.value.length === 0 ? 'All' : props.value.length === 1 ? props.value[0] : `${props.value.length} selected`)
+    : props.value;
+
+  const handleOptionClick = (option: string) => {
+    if (multiSelect) {
+      const cur = props.value;
+      props.onChange(cur.includes(option) ? cur.filter((v) => v !== option) : [...cur, option]);
+    } else {
+      props.onChange(option);
+      setOpen(false);
+    }
+  };
+
+  const isChecked = (option: string) => multiSelect ? props.value.includes(option) : props.value === option;
+
   return (
-    <div className="slicer">
+    <div className="slicer" ref={ref}>
       <div className="slicer-title">{title}</div>
-      <select>
-        {options.map((option) => (
-          <option key={option}>{option}</option>
-        ))}
-      </select>
+      <div className="multi-select">
+        <button className="multi-select-trigger" onClick={() => setOpen((o) => !o)}>
+          <span className="multi-select-label">{label}</span>
+          <span className="multi-select-arrow">{open ? '▲' : '▼'}</span>
+        </button>
+        {open && (
+          <div className="multi-select-dropdown">
+            {multiSelect && (
+              <label className="multi-select-option">
+                <input type="checkbox" checked={props.value.length === 0} onChange={() => props.onChange([])} />
+                <span>All</span>
+              </label>
+            )}
+            {options.map((option) => (
+              <label className="multi-select-option" key={option}>
+                <input
+                  type={multiSelect ? 'checkbox' : 'radio'}
+                  checked={isChecked(option)}
+                  onChange={() => handleOptionClick(option)}
+                />
+                <span>{option}</span>
+              </label>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -234,17 +364,43 @@ function DayBadge({ days, urgent }: { days: number; urgent?: boolean }) {
   return <span className={`day-badge ${urgent ? 'urgent' : getDayTone(days)}`}>{days}</span>;
 }
 
-function ExecutiveOverview() {
-  const openFields = analysts.reduce((sum, a) => sum + a.fields, 0);
-  const completedFields = analysts.reduce((sum, a) => sum + a.completedFields, 0);
-  const completedReports = analysts.reduce((sum, a) => sum + a.completedReports, 0);
-  const agedReports = reportDetails.filter((r) => r.days >= 30).length;
-  const printInterventions = reportDetails.filter((r) => r.print === 'Required').length;
-  const latestAnalystTeamEntries = weeklyAnalystTeamEntries[weeklyAnalystTeamEntries.length - 1];
-  const fieldsEnteredThisWeek = Object.values(latestAnalystTeamEntries.fields).reduce((sum, value) => sum + value, 0);
-  const reportsEnteredThisWeek = Object.values(latestAnalystTeamEntries.reports).reduce((sum, value) => sum + value, 0);
-  const avgFieldsPerEnteredReport = (fieldsEnteredThisWeek / reportsEnteredThisWeek).toFixed(1);
-  const attentionReports = reportDetails.map((report) => ({
+function ExecutiveOverview({ fd, navigate }: { fd: FilteredData; navigate: Navigate }) {
+  const { filteredAnalysts, filteredReports, agingDays, filteredEntrySeries } = fd;
+
+  const openFields = filteredAnalysts.reduce((sum, a) => sum + a.fields, 0);
+  const completedFields = filteredAnalysts.reduce((sum, a) => sum + a.completedFields, 0);
+  const completedReports = filteredAnalysts.reduce((sum, a) => sum + a.completedReports, 0);
+  const agedReports = filteredReports.filter((r) => r.days >= agingDays).length;
+  const printInterventions = filteredReports.filter((r) => r.print === 'Required').length;
+  const totalFields = filteredReports.reduce((sum, r) => sum + r.fields, 0);
+  const avgFieldsPerReport = filteredReports.length > 0 ? (totalFields / filteredReports.length).toFixed(1) : '—';
+  const avgDays = filteredReports.length > 0 ? (filteredReports.reduce((sum, r) => sum + r.days, 0) / filteredReports.length).toFixed(1) : '—';
+  const avgVelocity = filteredAnalysts.length > 0 ? (filteredAnalysts.reduce((sum, a) => sum + a.velocity, 0) / filteredAnalysts.length).toFixed(1) : '—';
+
+  const filteredKeys = new Set(filteredEntrySeries.map((s) => s.key));
+  const weeklyFieldsFiltered = weeklyAnalystTeamEntries.map((entry) => ({
+    week: entry.week,
+    ...Object.fromEntries(Object.entries(entry.fields).filter(([k]) => filteredKeys.has(k as (typeof analystEntrySeries)[number]['key']))),
+  }));
+  const weeklyReportsFiltered = weeklyAnalystTeamEntries.map((entry) => ({
+    week: entry.week,
+    ...Object.fromEntries(Object.entries(entry.reports).filter(([k]) => filteredKeys.has(k as (typeof analystEntrySeries)[number]['key']))),
+  }));
+
+  const latestEntry = weeklyAnalystTeamEntries[weeklyAnalystTeamEntries.length - 1];
+  const fieldsEnteredThisWeek = Object.entries(latestEntry.fields)
+    .filter(([k]) => filteredKeys.has(k as (typeof analystEntrySeries)[number]['key']))
+    .reduce((sum, [, v]) => sum + v, 0);
+  const reportsEnteredThisWeek = Object.entries(latestEntry.reports)
+    .filter(([k]) => filteredKeys.has(k as (typeof analystEntrySeries)[number]['key']))
+    .reduce((sum, [, v]) => sum + v, 0);
+  const avgFieldsPerEnteredReport = reportsEnteredThisWeek > 0 ? (fieldsEnteredThisWeek / reportsEnteredThisWeek).toFixed(1) : '—';
+
+  const overCapacity = filteredAnalysts.filter((a) => a.utilization > 115).length;
+  const breachedReports = filteredReports.filter((r) => r.sla === 'Breached').length;
+  const slaBreachRate = filteredReports.length > 0 ? `${((breachedReports / filteredReports.length) * 100).toFixed(1)}%` : '—';
+
+  const attentionReports = filteredReports.map((report) => ({
     ...report,
     completedFields: report.fields - report.remaining,
     attentionReason: getAttentionReason(report),
@@ -252,29 +408,30 @@ function ExecutiveOverview() {
 
   return (
     <PageFrame>
-      <div className="grid seven">
-        <KPI title="Fields Completed" value={fmt(completedFields)} subtitle="Current period" />
-        <KPI title="Reports Completed" value={fmt(completedReports)} subtitle="Closed reports" />
-        <KPI title="Avg Fields per Report" value="31.8" subtitle="Open workload" />
-        <KPI title="Field Completion Velocity" value="27.3" subtitle="Fields / analyst day" />
-        <KPI title="Aged Reports" value={agedReports} subtitle="30+ days in-flight" tone="warning" />
-        <KPI title="Print Interventions" value={printInterventions} subtitle="Manager action needed" tone="danger" />
-        <KPI title="Days In-Flight" value="24.6" subtitle="Average open age" />
-      </div>
+      <SectionTitle>Operations</SectionTitle>
       <div className="grid six">
-        <KPI title="Open Fields" value={fmt(openFields)} subtitle="Assigned field backlog" />
-        <KPI title="Crop History Entries" value={fmt(analysts.reduce((s, a) => s + a.crop, 0))} subtitle="Open + completed" />
-        <KPI title="Fertilizer History Entries" value={fmt(analysts.reduce((s, a) => s + a.fertilizer, 0))} subtitle="Open + completed" />
-        <KPI title="Active Analysts" value={analysts.length} subtitle="Assigned this period" />
-        <KPI title="Over Capacity Analysts" value="4" subtitle="Above workload target" tone="warning" />
-        <KPI title="SLA Breach Rate" value="7.8%" subtitle="Open reports" tone="warning" />
+        <KPI title="Print Interventions" value={printInterventions} subtitle="Manager action needed" tone="danger" onNavigate={() => navigate({ page: 'aging' })} />
+        <KPI title="Active Analysts" value={filteredAnalysts.length} subtitle="Assigned this period" onNavigate={() => navigate({ page: 'productivity' })} />
+        <KPI title="Over Capacity Analysts" value={overCapacity} subtitle="Above workload target" tone="warning" onNavigate={() => navigate({ page: 'workload' })} />
+        <KPI title="SLA Breach Rate" value={slaBreachRate} subtitle="Open reports" tone="warning" onNavigate={() => navigate({ page: 'aging' })} />
+        <KPI title="Days In-Flight" value={avgDays} subtitle="Average open age" onNavigate={() => navigate({ page: 'aging' })} />
+        <KPI title="Aged Reports" value={agedReports} subtitle={`${agingDays}+ days in-flight`} tone="warning" onNavigate={() => navigate({ page: 'aging' })} />
       </div>
-
       <div className="grid two">
         <RiskPanel />
-        <InsightPanel />
+        <InsightPanel analysts={filteredAnalysts} />
       </div>
 
+      <SectionTitle>Fields &amp; Reports</SectionTitle>
+      <div className="grid four">
+        <KPI title="Fields Completed" value={fmt(completedFields)} subtitle="Current period" onNavigate={() => navigate({ page: 'productivity' })} />
+        <KPI title="Reports Completed" value={fmt(completedReports)} subtitle="Closed reports" onNavigate={() => navigate({ page: 'productivity' })} />
+        <KPI title="Field Completion Velocity" value={avgVelocity} subtitle="Fields / analyst day" onNavigate={() => navigate({ page: 'productivity' })} />
+        <KPI title="Crop History Entries" value={fmt(filteredAnalysts.reduce((s, a) => s + a.crop, 0))} subtitle="Open + completed" onNavigate={() => navigate({ page: 'workload' })} />
+        <KPI title="Fertilizer History Entries" value={fmt(filteredAnalysts.reduce((s, a) => s + a.fertilizer, 0))} subtitle="Open + completed" onNavigate={() => navigate({ page: 'workload' })} />
+        <KPI title="Avg Fields per Report" value={avgFieldsPerReport} subtitle="Open workload" onNavigate={() => navigate({ page: 'detail' })} />
+        <KPI title="Open Fields" value={fmt(openFields)} subtitle="Assigned field backlog" onNavigate={() => navigate({ page: 'workload' })} />
+      </div>
       <div className="grid two">
         <ChartBox title="Fields Completed by Week" source="FactFields, DimDate | COUNT(FieldID) completed by week" height={260}>
           <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
@@ -283,7 +440,7 @@ function ExecutiveOverview() {
               <XAxis dataKey="week" tick={{ fontSize: 11 }} />
               <YAxis tick={{ fontSize: 11 }} />
               <Tooltip />
-              <Line type="monotone" dataKey="fields" stroke={green.dark} strokeWidth={2} dot={{ r: 4, fill: green.dark }} />
+              <Line type="monotone" dataKey="fields" stroke={dataViz[0]} strokeWidth={2} dot={{ r: 4, fill: dataViz[0] }} />
             </LineChart>
           </ResponsiveContainer>
         </ChartBox>
@@ -294,7 +451,7 @@ function ExecutiveOverview() {
               <XAxis type="number" tick={{ fontSize: 10 }} />
               <YAxis dataKey="status" type="category" width={116} tick={{ fontSize: 10 }} />
               <Tooltip />
-              <Bar dataKey="reports" fill={green.dark} />
+              <Bar dataKey="reports" fill={dataViz[0]} />
             </BarChart>
           </ResponsiveContainer>
         </ChartBox>
@@ -308,16 +465,16 @@ function ExecutiveOverview() {
       </div>
       <div className="grid two">
         <ChartBox title="Fields Entering Analyst Team Stage by Week" source="FactFields, DimDate, DimAnalyst | COUNT(FieldID) entered Analyst Team by week" height={260}>
-          <AnalystTeamEntryChart data={weeklyFieldsEnteringAnalystTeam} valueLabel="Fields" />
+          <AnalystTeamEntryChart data={weeklyFieldsFiltered as Parameters<typeof AnalystTeamEntryChart>[0]['data']} valueLabel="Fields" series={filteredEntrySeries} />
         </ChartBox>
         <ChartBox title="Reports Entering Analyst Team Stage by Week" source="FactReports, DimDate, DimAnalyst | COUNT(ReportID) entered Analyst Team by week" height={260}>
-          <AnalystTeamEntryChart data={weeklyReportsEnteringAnalystTeam} valueLabel="Reports" />
+          <AnalystTeamEntryChart data={weeklyReportsFiltered as Parameters<typeof AnalystTeamEntryChart>[0]['data']} valueLabel="Reports" series={filteredEntrySeries} />
         </ChartBox>
       </div>
 
       <div className="grid two">
         <ChartBox title="Workload Distribution by Analyst" source="FactFields, DimAnalyst | Open field count by analyst" height={260}>
-          <AnalystBar dataKey="fields" color={green.dark} />
+          <AnalystBar dataKey="fields" color={dataViz[0]} data={filteredAnalysts} />
         </ChartBox>
         <ChartBox title="Aging by Days In-Flight" height={260}>
           <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
@@ -327,7 +484,7 @@ function ExecutiveOverview() {
               <YAxis tick={{ fontSize: 11 }} />
               <Tooltip />
               <Bar dataKey="reports">
-                {daysInFlightBuckets.map((_, i) => <Cell key={i} fill={[green.accent, green.soft, green.warning, green.danger][i]} />)}
+                {daysInFlightBuckets.map((_, i) => <Cell key={i} fill={dataViz[i]} />)}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
@@ -367,7 +524,7 @@ function EntryTooltip({ active, label, payload, valueLabel }: { active?: boolean
   );
 }
 
-function AnalystTeamEntryChart({ data, valueLabel }: { data: Array<{ week: string } & Record<(typeof analystEntrySeries)[number]['key'], number>>; valueLabel: string }) {
+function AnalystTeamEntryChart({ data, valueLabel, series }: { data: Array<{ week: string } & Record<string, number>>; valueLabel: string; series: typeof analystEntrySeries | ReadonlyArray<(typeof analystEntrySeries)[number]> }) {
   return (
     <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
       <BarChart data={data} margin={{ top: 10, right: 20, bottom: 20, left: 10 }}>
@@ -376,7 +533,7 @@ function AnalystTeamEntryChart({ data, valueLabel }: { data: Array<{ week: strin
         <YAxis tick={{ fontSize: 11 }} />
         <Tooltip content={<EntryTooltip valueLabel={valueLabel} />} cursor={{ fill: 'rgba(37, 78, 42, 0.08)' }} />
         <Legend wrapperStyle={{ fontSize: 11 }} />
-        {analystEntrySeries.map((analyst) => (
+        {series.map((analyst) => (
           <Bar key={analyst.key} dataKey={analyst.key} fill={analyst.color} name={analyst.name} />
         ))}
       </BarChart>
@@ -384,83 +541,173 @@ function AnalystTeamEntryChart({ data, valueLabel }: { data: Array<{ week: strin
   );
 }
 
-function AnalystProductivity() {
+function AnalystProductivity({ fd, navigate }: { fd: FilteredData; navigate: Navigate }) {
+  const { filteredAnalysts, filteredEntrySeries } = fd;
+  const topAnalyst = [...filteredAnalysts].sort((a, b) => b.completedFields - a.completedFields)[0];
+  const avgFields = filteredAnalysts.length > 0 ? Math.round(filteredAnalysts.reduce((s, a) => s + a.completedFields, 0) / filteredAnalysts.length) : 0;
+  const avgVelocity = filteredAnalysts.length > 0 ? (filteredAnalysts.reduce((s, a) => s + a.velocity, 0) / filteredAnalysts.length).toFixed(1) : '—';
+  const totalCompleted = filteredAnalysts.reduce((s, a) => s + a.completedReports, 0);
+  const totalAging = filteredAnalysts.reduce((s, a) => s + a.aged, 0);
+  const belowTarget = filteredAnalysts.filter((a) => a.velocity < 20).length;
+
   return (
     <PageFrame>
-      <div className="grid six">
-        <KPI title="Top Analyst" value="Jordan Miles" subtitle="1,094 fields completed" />
-        <KPI title="Avg Fields / Analyst" value="684" subtitle="Current period" />
-        <KPI title="Avg Fields / Day" value="24.9" subtitle="Per active analyst day" />
-        <KPI title="Reports Completed" value="159" subtitle="Current period" />
-        <KPI title="Aging Fields Owned" value="932" subtitle="15+ days open" tone="warning" />
-        <KPI title="Below Target Analysts" value="3" subtitle="Under velocity goal" tone="warning" />
+      <div className="grid five">
+        <KPI title="Avg Fields / Analyst" value={fmt(avgFields)} subtitle="Current period" onNavigate={() => navigate({ page: 'detail' })} />
+        <KPI title="Avg Fields / Day" value={avgVelocity} subtitle="Per active analyst day" onNavigate={() => navigate({ page: 'detail' })} />
+        <KPI title="Reports Completed" value={fmt(totalCompleted)} subtitle="Current period" onNavigate={() => navigate({ page: 'detail' })} />
+        <KPI title="Aging Fields Owned" value={fmt(totalAging)} subtitle="15+ days open" tone="warning" onNavigate={() => navigate({ page: 'aging' })} />
+        <KPI title="Below Target Analysts" value={belowTarget} subtitle="Under velocity goal" tone="warning" onNavigate={() => navigate({ page: 'workload' })} />
       </div>
-      <AnalystTable />
-      <SectionTitle>High Performing Analysts</SectionTitle>
+      <AnalystTable data={filteredAnalysts} />
       <div className="grid two">
-        <ChartBox title="Fields Completed by Analyst" source="FactFields, DimAnalyst | Completed field count by analyst" height={260}>
-          <AnalystBar dataKey="completedFields" color={green.dark} />
-        </ChartBox>
-        <ChartBox title="Reports Completed by Analyst" source="FactReports, DimAnalyst | Completed reports by analyst" height={260}>
-          <AnalystBar dataKey="completedReports" color={green.accent} />
-        </ChartBox>
-      </div>
-      <div className="grid two">
-        <ChartBox title="Field Completion Velocity by Analyst" source="FactFields | Completed fields per active analyst day" height={220}>
-          <AnalystBar dataKey="velocity" color={green.header} />
-        </ChartBox>
-        <ChartBox title="Productivity Trend" source="FactFields, DimDate | Weekly completed fields and reports" height={220}>
+        <ChartBox title="Fields / Day Timeline" source="FactFields, DimDate | Weekly completed fields per active analyst day" height={260}>
           <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-            <LineChart data={weekly} margin={{ top: 5, right: 25, bottom: 10, left: 10 }}>
+            <LineChart data={weekly} margin={{ top: 10, right: 25, bottom: 12, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
               <XAxis dataKey="week" tick={{ fontSize: 11 }} />
-              <YAxis tick={{ fontSize: 11 }} />
+              <YAxis tick={{ fontSize: 11 }} label={{ value: 'Fields/Day', angle: -90, position: 'insideLeft', offset: 10, style: { fontSize: 10 } }} />
+              <Tooltip />
+              <Line type="monotone" dataKey="velocity" stroke={dataViz[0]} strokeWidth={2} dot={{ r: 4, fill: dataViz[0] }} name="Fields/Day" />
+            </LineChart>
+          </ResponsiveContainer>
+        </ChartBox>
+        <ChartBox title="Productivity Trend" source="FactFields, DimDate | Weekly completed fields and reports" height={260}>
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+            <LineChart data={weekly} margin={{ top: 10, right: 40, bottom: 12, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
+              <XAxis dataKey="week" tick={{ fontSize: 11 }} />
+              <YAxis yAxisId="left" tick={{ fontSize: 11 }} />
+              <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11 }} />
               <Tooltip />
               <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Line type="monotone" dataKey="fields" stroke={green.dark} strokeWidth={2} />
-              <Line type="monotone" dataKey="reports" stroke={green.accent} strokeWidth={2} />
+              <Line yAxisId="left" type="monotone" dataKey="fields" stroke={dataViz[0]} strokeWidth={2} name="Fields" />
+              <Line yAxisId="right" type="monotone" dataKey="reports" stroke={dataViz[1]} strokeWidth={2} name="Reports" />
+            </LineChart>
+          </ResponsiveContainer>
+        </ChartBox>
+      </div>
+      <div className="grid two">
+        <ChartBox title="Velocity vs. Utilization" source="FactFields, DimAnalyst | Bubble size = aging fields; triage at-risk vs. healthy analysts" height={260}>
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+            <ScatterChart margin={{ top: 10, right: 25, bottom: 30, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
+              <XAxis dataKey="utilization" name="Utilization %" type="number" unit="%" tick={{ fontSize: 11 }} label={{ value: 'Utilization %', position: 'insideBottom', offset: -15, style: { fontSize: 10 } }} domain={[60, 160]} />
+              <YAxis dataKey="velocity" name="Fields/Day" type="number" tick={{ fontSize: 11 }} label={{ value: 'Fields/Day', angle: -90, position: 'insideLeft', offset: 10, style: { fontSize: 10 } }} />
+              <ZAxis dataKey="aged" range={[40, 400]} name="Aging Fields" />
+              <Tooltip cursor={{ strokeDasharray: '3 3' }} content={({ payload }) => {
+                if (!payload?.length) return null;
+                const d = payload[0].payload as typeof filteredAnalysts[0];
+                return (
+                  <div style={{ background: '#fff', border: `1px solid ${green.border}`, borderRadius: 6, padding: '8px 12px', fontSize: 11 }}>
+                    <div style={{ fontWeight: 700, marginBottom: 4 }}>{d.name}</div>
+                    <div>Utilization: {d.utilization}%</div>
+                    <div>Fields/Day: {d.velocity}</div>
+                    <div>Aging Fields: {d.aged}</div>
+                  </div>
+                );
+              }} />
+              <Scatter
+                data={filteredAnalysts.map(a => ({ ...a }))}
+                fill={dataViz[0]}
+              >
+                {filteredAnalysts.map((a, i) => (
+                  <Cell key={i} fill={a.utilization > 115 ? green.danger : a.velocity < 20 ? green.warning : dataViz[0]} />
+                ))}
+              </Scatter>
+            </ScatterChart>
+          </ResponsiveContainer>
+          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', marginTop: 6, fontSize: 10, color: '#555' }}>
+            {[
+              { color: dataViz[0], label: 'Healthy' },
+              { color: green.warning, label: 'Low velocity (<20 fields/day)' },
+              { color: green.danger, label: 'Over capacity (>115%)' },
+            ].map(({ color, label }) => (
+              <span key={label} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <span style={{ width: 10, height: 10, borderRadius: '50%', background: color, display: 'inline-block', flexShrink: 0 }} />
+                {label}
+              </span>
+            ))}
+          </div>
+        </ChartBox>
+        <ChartBox title="Utilization % Over Time" source="FactFields, DimDate, DimAnalyst | Weekly capacity utilization per analyst" height={300}>
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+            <LineChart data={weeklyUtilization.filter(w => w)} margin={{ top: 10, right: 25, bottom: 12, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
+              <XAxis dataKey="week" tick={{ fontSize: 11 }} />
+              <YAxis tick={{ fontSize: 11 }} unit="%" domain={[50, 160]} />
+              <Tooltip formatter={(v: number) => `${v}%`} />
+              <Legend wrapperStyle={{ fontSize: 10 }} />
+              {filteredEntrySeries.map((s) => (
+                <Line key={s.key} type="monotone" dataKey={s.key} stroke={s.color} strokeWidth={2} dot={false} name={s.name} />
+              ))}
             </LineChart>
           </ResponsiveContainer>
         </ChartBox>
       </div>
       <SectionTitle>Analysts Needing Attention</SectionTitle>
       <div className="grid two">
-        <ChartBox title="Aging Fields by Analyst" source="FactFields | Open fields over selected aging threshold" height={260}>
-          <AnalystBar dataKey="aged" color={green.warning} />
+        <ChartBox title="Surface Utilization %" source="FactFields, DimAnalyst | Completed fields as % of total assigned fields per analyst" height={260}>
+          {(() => {
+            const surfaceData = [...filteredAnalysts]
+              .map(a => ({ short: a.name.split(' ')[0], name: a.name, pct: a.completedFields + a.fields > 0 ? Math.round((a.completedFields / (a.completedFields + a.fields)) * 100) : 0 }))
+              .sort((a, b) => b.pct - a.pct);
+            return (
+              <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+                <BarChart data={surfaceData} layout="vertical" margin={{ top: 5, right: 30, bottom: 5, left: 10 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
+                  <XAxis type="number" tick={{ fontSize: 10 }} unit="%" domain={[0, 100]} />
+                  <YAxis dataKey="short" type="category" width={76} tick={{ fontSize: 10 }} />
+                  <Tooltip formatter={(v: number) => `${v}%`} labelFormatter={(_, payload) => payload?.[0]?.payload?.name ?? ''} />
+                  <Bar dataKey="pct" name="Surface Utilization">
+                    {surfaceData.map((d, i) => (
+                      <Cell key={i} fill={d.pct >= 55 ? dataViz[0] : d.pct >= 40 ? green.warning : green.danger} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            );
+          })()}
         </ChartBox>
         <ChartBox title="Print Intervention Ownership" source="FactReports | Reports requiring print intervention by analyst" height={260}>
-          <AnalystBar dataKey="print" color={green.danger} />
+          <AnalystBar dataKey="print" color={dataViz[0]} data={filteredAnalysts} />
         </ChartBox>
       </div>
     </PageFrame>
   );
 }
 
-function AgingEscalations() {
-  const attentionReports = reportDetails.map((report) => ({
+function AgingEscalations({ fd, navigate }: { fd: FilteredData; navigate: Navigate }) {
+  const { filteredReports, filteredNotPaid, agingDays } = fd;
+
+  const attentionReports = filteredReports.map((report) => ({
     ...report,
     completedFields: report.fields - report.remaining,
     attentionReason: getAttentionReason(report),
   }));
-  const agedReports = 88;
-  const avgDaysInFlight = (attentionReports.reduce((sum, report) => sum + report.days, 0) / attentionReports.length).toFixed(1);
+  const agedReports = filteredReports.filter((r) => r.days >= agingDays).length;
+  const avgDaysInFlight = attentionReports.length > 0
+    ? (attentionReports.reduce((sum, r) => sum + r.days, 0) / attentionReports.length).toFixed(1)
+    : '—';
   const oldestReport = attentionReports.reduce((oldest, report) => (report.days > oldest.days ? report : oldest), attentionReports[0]);
-  const printInterventionNeeded = attentionReports.filter((report) => report.print === 'Required').length;
-  const handoffUsers = new Set(notPaidAuditActivity.map((report) => report.movedBy)).size;
-  const avgCompleteToNotPaid = (notPaidAuditActivity.reduce((sum, report) => sum + report.daysSinceCompletion, 0) / notPaidAuditActivity.length).toFixed(1);
-  const handoffExceptions = notPaidAuditActivity.filter((report) => report.qaFlag !== 'Normal').length;
+  const printInterventionNeeded = attentionReports.filter((r) => r.print === 'Required').length;
+  const handoffUsers = new Set(filteredNotPaid.map((r) => r.movedBy)).size;
+  const avgCompleteToNotPaid = filteredNotPaid.length > 0
+    ? (filteredNotPaid.reduce((sum, r) => sum + r.daysSinceCompletion, 0) / filteredNotPaid.length).toFixed(1)
+    : '—';
+  const handoffExceptions = filteredNotPaid.filter((r) => r.qaFlag !== 'Normal').length;
 
   return (
     <PageFrame>
       <div className="warning-band">
         <strong>Escalation Review Required</strong>
-        <span> 18 reports are breached or blocked. 932 aging fields are tied to reports requiring manager intervention.</span>
+        <span> {agedReports} reports are breached or blocked. Aging fields are tied to reports requiring manager intervention.</span>
       </div>
       <div className="grid four">
-        <KPI title="Aged Reports" value={agedReports} subtitle="15+ days in-flight" tone="warning" />
-        <KPI title="Avg Days In-Flight" value={avgDaysInFlight} subtitle="Reports requiring attention" tone="warning" />
-        <KPI title="Oldest Active Report" value={oldestReport.days} subtitle={`${oldestReport.id} days in-flight`} tone="danger" />
-        <KPI title="Print Intervention Needed" value={printInterventionNeeded} subtitle="Active reports" tone="danger" />
+        <KPI title="Aged Reports" value={agedReports} subtitle={`${agingDays}+ days in-flight`} tone="warning" onNavigate={() => navigate({ page: 'detail' })} />
+        <KPI title="Avg Days In-Flight" value={avgDaysInFlight} subtitle="Reports requiring attention" tone="warning" onNavigate={() => navigate({ page: 'detail' })} />
+        <KPI title="Oldest Active Report" value={oldestReport?.days ?? '—'} subtitle={oldestReport ? `${oldestReport.id} days in-flight` : ''} tone="danger" onNavigate={oldestReport ? () => navigate({ page: 'detail', analyst: oldestReport.analyst }) : undefined} />
+        <KPI title="Print Intervention Needed" value={printInterventionNeeded} subtitle="Active reports" tone="danger" onNavigate={() => navigate({ page: 'detail' })} />
       </div>
       <div className="grid two">
         <ChartBox title="Aging by Days In-Flight" height={320}>
@@ -471,7 +718,7 @@ function AgingEscalations() {
               <YAxis tick={{ fontSize: 11 }} />
               <Tooltip />
               <Bar dataKey="reports">
-                {daysInFlightBuckets.map((_, i) => <Cell key={i} fill={[green.accent, green.soft, green.warning, green.danger][i]} />)}
+                {daysInFlightBuckets.map((_, i) => <Cell key={i} fill={dataViz[i]} />)}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
@@ -499,7 +746,7 @@ function AgingEscalations() {
               <XAxis type="number" tick={{ fontSize: 10 }} />
               <YAxis dataKey="status" type="category" width={116} tick={{ fontSize: 10 }} />
               <Tooltip />
-              <Bar dataKey="days" fill={green.warning} />
+              <Bar dataKey="days" fill={dataViz[0]} />
             </BarChart>
           </ResponsiveContainer>
         </ChartBox>
@@ -519,10 +766,10 @@ function AgingEscalations() {
       <ReportsRequiringAttentionTable reports={attentionReports} />
       <SectionTitle>Completion to Not Paid Audit Tracking</SectionTitle>
       <div className="grid four">
-        <KPI title="Reports Moved to Not Paid This Week" value={notPaidAuditActivity.length} subtitle="Report Complete to Not Paid" tone="warning" />
-        <KPI title="Analysts Performing Handoffs" value={handoffUsers} subtitle="Moved By users" />
-        <KPI title="Avg Time Between Complete and Not Paid" value={`${avgCompleteToNotPaid} days`} subtitle="Completion to handoff" />
-        <KPI title="Handoff Exceptions" value={handoffExceptions} subtitle="Needs Review + High Risk" tone="danger" />
+        <KPI title="Reports Moved to Not Paid This Week" value={filteredNotPaid.length} subtitle="Report Complete to Not Paid" tone="warning" onNavigate={() => navigate({ page: 'detail' })} />
+        <KPI title="Analysts Performing Handoffs" value={handoffUsers} subtitle="Moved By users" onNavigate={() => navigate({ page: 'productivity' })} />
+        <KPI title="Avg Time Between Complete and Not Paid" value={avgCompleteToNotPaid !== '—' ? `${avgCompleteToNotPaid} days` : '—'} subtitle="Completion to handoff" onNavigate={() => navigate({ page: 'detail' })} />
+        <KPI title="Handoff Exceptions" value={handoffExceptions} subtitle="Needs Review + High Risk" tone="danger" onNavigate={() => navigate({ page: 'detail' })} />
       </div>
       <div className="grid two">
         <ChartBox title="Reports Moved to Not Paid by Week" source="FactReportStatusHistory, DimDate, DimUser | COUNT(ReportID) moved from Report Complete to Not Paid by week" height={260}>
@@ -532,7 +779,7 @@ function AgingEscalations() {
               <XAxis dataKey="week" tick={{ fontSize: 11 }} />
               <YAxis tick={{ fontSize: 11 }} />
               <Tooltip />
-              <Bar dataKey="reports" fill={green.warning} />
+              <Bar dataKey="reports" fill={dataViz[0]} />
             </BarChart>
           </ResponsiveContainer>
         </ChartBox>
@@ -544,54 +791,65 @@ function AgingEscalations() {
               <YAxis tick={{ fontSize: 11 }} />
               <Tooltip />
               <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Bar dataKey="maya" stackId="a" fill={green.dark} name="Maya Grant" />
-              <Bar dataKey="lena" stackId="a" fill={green.accent} name="Lena Ortiz" />
-              <Bar dataKey="owen" stackId="a" fill={green.warning} name="Owen Price" />
+              <Bar dataKey="maya" stackId="a" fill={dataViz[0]} name="Maya Grant" />
+              <Bar dataKey="lena" stackId="a" fill={dataViz[1]} name="Lena Ortiz" />
+              <Bar dataKey="owen" stackId="a" fill={dataViz[2]} name="Owen Price" />
             </BarChart>
           </ResponsiveContainer>
         </ChartBox>
       </div>
-      <NotPaidAuditTable />
+      <NotPaidAuditTable data={filteredNotPaid} />
     </PageFrame>
   );
 }
 
-function WorkloadDistribution() {
+function WorkloadDistribution({ fd, navigate }: { fd: FilteredData; navigate: Navigate }) {
+  const { filteredAnalysts, filteredEntrySeries } = fd;
+  const openFields = filteredAnalysts.reduce((s, a) => s + a.fields, 0);
+  const cropTotal = filteredAnalysts.reduce((s, a) => s + a.crop, 0);
+  const fertTotal = filteredAnalysts.reduce((s, a) => s + a.fertilizer, 0);
+  const overCapacity = filteredAnalysts.filter((a) => a.utilization > 115).length;
+  const withCapacity = filteredAnalysts.filter((a) => a.utilization < 85).length;
+  const avgUtil = filteredAnalysts.length > 0 ? Math.round(filteredAnalysts.reduce((s, a) => s + a.utilization, 0) / filteredAnalysts.length) : 0;
+
+  const filteredFieldAgeByAnalyst = filteredAnalysts.map((a) => ({
+    name: a.name.split(' ')[0],
+    current: Math.max(0, Math.round(a.fields * 0.58)),
+    aging: a.aged,
+    breached: Math.round(a.aged * 0.32),
+  }));
+
   return (
     <PageFrame>
       <div className="warning-band">
         <strong>Workload Imbalance Needs Review</strong>
-        <span> 4 analysts are above capacity while 3 analysts have available capacity.</span>
+        <span> {overCapacity} analysts are above capacity while {withCapacity} analysts have available capacity.</span>
       </div>
-      <div className="grid eight">
-        <KPI title="Open Reports" value="241" subtitle="Assigned + unassigned" />
-        <KPI title="Open Fields" value={fmt(6421)} subtitle="Active backlog" />
-        <KPI title="Crop History Entries" value={fmt(16387)} subtitle="Current workload" />
-        <KPI title="Fertilizer History Entries" value={fmt(14925)} subtitle="Current workload" />
-        <KPI title="Over Capacity" value="4" subtitle="Analysts" tone="warning" />
-        <KPI title="With Capacity" value="3" subtitle="Analysts" />
-        <KPI title="Unassigned Reports" value="19" subtitle="Awaiting owner" tone="warning" />
-        <KPI title="Avg Workload Index" value="94" subtitle="Target = 100" />
+      <div className="grid four">
+        <KPI title="Over Capacity" value={overCapacity} subtitle="Analysts" tone="warning" onNavigate={() => navigate({ page: 'productivity' })} />
+        <KPI title="With Capacity" value={withCapacity} subtitle="Analysts" onNavigate={() => navigate({ page: 'productivity' })} />
+        <KPI title="Unassigned Reports" value="19" subtitle="Awaiting owner" tone="warning" onNavigate={() => navigate({ page: 'detail' })} />
+        <KPI title="Avg Workload Index" value={avgUtil} subtitle="Target = 100" onNavigate={() => navigate({ page: 'productivity' })} />
       </div>
       <SectionTitle>Workload Balance</SectionTitle>
       <div className="grid two">
         <ChartBox title="Open Fields by Analyst" source="FactFields, DimAnalyst | Open field count by analyst" height={260}>
-          <AnalystBar dataKey="fields" color={green.dark} />
+          <AnalystBar dataKey="fields" color={dataViz[0]} data={filteredAnalysts} />
         </ChartBox>
         <ChartBox title="Capacity Utilization by Analyst" source="FactAssignments, DimAnalyst | Workload index / capacity target" height={260}>
-          <AnalystBar dataKey="utilization" color={green.warning} />
+          <AnalystBar dataKey="utilization" color={dataViz[0]} data={filteredAnalysts} />
         </ChartBox>
       </div>
       <div className="grid two">
         <ChartBox title="Aging Work by Analyst" source="FactFields | Current, aging, and breached field ownership" height={260}>
           <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-            <BarChart data={fieldAgeByAnalyst} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
+            <BarChart data={filteredFieldAgeByAnalyst} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
               <XAxis type="number" tick={{ fontSize: 10 }} />
               <YAxis dataKey="name" type="category" width={76} tick={{ fontSize: 10 }} />
               <Tooltip />
               <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Bar dataKey="current" stackId="a" fill={green.dark} name="Current" />
+              <Bar dataKey="current" stackId="a" fill={dataViz[0]} name="Current" />
               <Bar dataKey="aging" stackId="a" fill={green.warning} name="Aging" />
               <Bar dataKey="breached" stackId="a" fill={green.danger} name="Breached" />
             </BarChart>
@@ -599,51 +857,182 @@ function WorkloadDistribution() {
         </ChartBox>
         <ChartBox title="Open History Volume by Analyst" source="FactCropHistory, FactFertilizerHistory | Open history entries by analyst" height={260}>
           <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-            <BarChart data={analysts.map((a) => ({ name: a.name.split(' ')[0], crop: a.crop, fertilizer: a.fertilizer }))} margin={{ top: 5, right: 20, bottom: 45, left: 10 }}>
+            <BarChart data={filteredAnalysts.map((a) => ({ name: a.name.split(' ')[0], crop: a.crop, fertilizer: a.fertilizer }))} margin={{ top: 5, right: 20, bottom: 45, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
               <XAxis dataKey="name" angle={-25} textAnchor="end" height={55} tick={{ fontSize: 10 }} />
               <YAxis tick={{ fontSize: 10 }} />
               <Tooltip />
               <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Bar dataKey="crop" fill={green.dark} name="Crop History" />
-              <Bar dataKey="fertilizer" fill={green.accent} name="Fertilizer History" />
+              <Bar dataKey="crop" fill={dataViz[0]} name="Crop History" />
+              <Bar dataKey="fertilizer" fill={dataViz[1]} name="Fertilizer History" />
             </BarChart>
           </ResponsiveContainer>
         </ChartBox>
       </div>
-      <AnalystTable />
+      <SectionTitle>Analyst Productivity</SectionTitle>
+      <div className="grid four">
+        <KPI title="Open Reports" value={filteredAnalysts.reduce((s, a) => s + a.reports, 0)} subtitle="Assigned + unassigned" onNavigate={() => navigate({ page: 'detail' })} />
+        <KPI title="Open Fields" value={fmt(openFields)} subtitle="Active backlog" onNavigate={() => navigate({ page: 'detail' })} />
+        <KPI title="Crop History Entries" value={fmt(cropTotal)} subtitle="Current workload" onNavigate={() => navigate({ page: 'detail' })} />
+        <KPI title="Fertilizer History Entries" value={fmt(fertTotal)} subtitle="Current workload" onNavigate={() => navigate({ page: 'detail' })} />
+      </div>
+      <div className="grid two">
+        <ChartBox title="Crop History Entries Over Time" source="FactCropHistory, DimDate, DimAnalyst | Weekly crop history entries by analyst" height={280}>
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+            <LineChart data={weeklyCrop} margin={{ top: 10, right: 25, bottom: 12, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
+              <XAxis dataKey="week" tick={{ fontSize: 11 }} />
+              <YAxis tick={{ fontSize: 11 }} />
+              <Tooltip />
+              <Legend wrapperStyle={{ fontSize: 10 }} />
+              {filteredEntrySeries.map((s) => (
+                <Line key={s.key} type="monotone" dataKey={s.key} stroke={s.color} strokeWidth={2} dot={false} name={s.name} />
+              ))}
+            </LineChart>
+          </ResponsiveContainer>
+        </ChartBox>
+        <ChartBox title="Fertilizer History Entries Over Time" source="FactFertilizerHistory, DimDate, DimAnalyst | Weekly fertilizer history entries by analyst" height={280}>
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+            <LineChart data={weeklyFertilizer} margin={{ top: 10, right: 25, bottom: 12, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
+              <XAxis dataKey="week" tick={{ fontSize: 11 }} />
+              <YAxis tick={{ fontSize: 11 }} />
+              <Tooltip />
+              <Legend wrapperStyle={{ fontSize: 10 }} />
+              {filteredEntrySeries.map((s) => (
+                <Line key={s.key} type="monotone" dataKey={s.key} stroke={s.color} strokeWidth={2} dot={false} name={s.name} />
+              ))}
+            </LineChart>
+          </ResponsiveContainer>
+        </ChartBox>
+      </div>
+      <AnalystTable data={filteredAnalysts} />
     </PageFrame>
   );
 }
 
-function ReportDetail() {
-  const reportsInView = reportDetails.length;
-  const totalFields = reportDetails.reduce((sum, report) => sum + report.fields, 0);
-  const fieldsRemaining = reportDetails.reduce((sum, report) => sum + report.remaining, 0);
-  const fieldCompletion = `${(((totalFields - fieldsRemaining) / totalFields) * 100).toFixed(1)}%`;
-  const avgDays = (reportDetails.reduce((sum, report) => sum + report.days, 0) / reportsInView).toFixed(1);
-  const avgStageDays = (reportDetails.reduce((sum, report) => sum + report.stageDays, 0) / reportsInView).toFixed(1);
-  const cropEntries = reportDetails.reduce((sum, report) => sum + report.crop, 0);
-  const fertilizerEntries = reportDetails.reduce((sum, report) => sum + report.fertilizer, 0);
-  const fieldRows = [
-    ['North 80', 'Complete', 'Jordan Miles', '100%', '5/15/26 3:42 PM', '0', '42', '38', '6-15 Years'],
-    ['East Pivot', 'QA Review', 'Avery Chen', '91%', '5/14/26 10:18 AM', '2', '35', '31', '16-30 Years'],
-    ['River Bottom', 'Crop History', 'Marcus Lee', '74%', '5/12/26 2:06 PM', '8', '28', '24', '30+ Years'],
-    ['South Ridge', 'Fertilizer History', 'Mateo Ruiz', '68%', '5/10/26 4:31 PM', '11', '31', '29', '16-30 Years'],
-    ['Home Quarter', 'Print Prep', 'Elena Foster', '96%', '5/16/26 9:44 AM', '1', '18', '17', '0-5 Years'],
-    ['West 120', 'Field Review', 'Priya Nair', '52%', '5/09/26 1:27 PM', '14', '22', '20', '30+ Years'],
-  ];
+function ReportDetailTable({ reports }: { reports: typeof reportDetails }) {
+  const { sortKey, sortDir, handleSort, sortData } = useSortable('days');
+  const sorted = sortData(reports as unknown as Record<string, unknown>[]) as typeof reportDetails;
+  const T = ({ col, label, className }: { col: string; label: string; className?: string }) =>
+    <Th col={col} label={label} sortKey={sortKey} sortDir={sortDir} onSort={handleSort} className={className} />;
+  return (
+    <div className="table-box detail-table">
+      <div className="chart-title">Report Detail</div>
+      <div className="chart-source">FactReports | Report-level status, aging, ownership, print, and history volume</div>
+      <table>
+        <thead>
+          <tr>
+            <T col="id" label="Report ID" />
+            <T col="grower" label="Client" />
+            <T col="createdDate" label="Created Date" />
+            <T col="analyst" label="Assigned Analyst" />
+            <T col="status" label="Status" />
+            <T col="priority" label="Priority" />
+            <T col="sla" label="SLA" />
+            <T col="days" label="Days In-Flight" className="right" />
+            <T col="stageDays" label="Days in Stage" className="right" />
+            <T col="fields" label="Total Fields" className="right" />
+            <T col="remaining" label="Remaining Fields" className="right" />
+            <T col="print" label="Print Intervention" />
+            <T col="crop" label="Crop History" className="right" />
+            <T col="fertilizer" label="Fertilizer History" className="right" />
+          </tr>
+        </thead>
+        <tbody>
+          {sorted.map((report) => (
+            <tr key={report.id}>
+              <td className="strong">{report.id}</td>
+              <td>{report.grower}</td>
+              <td>{report.createdDate}</td>
+              <td>{report.analyst}</td>
+              <td>{report.status}</td>
+              <td>{report.priority}</td>
+              <td><Status value={report.sla} /></td>
+              <td className="right"><DayBadge days={report.days} urgent={report.print === 'Required'} /></td>
+              <td className="right">{report.stageDays}</td>
+              <td className="right">{report.fields}</td>
+              <td className="right">{report.remaining}</td>
+              <td><PrintBadge value={report.print} /></td>
+              <td className="right">{fmt(report.crop)}</td>
+              <td className="right">{fmt(report.fertilizer)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+const fieldRowKeys = ['field', 'status', 'analyst', 'completion', 'timestamp', 'openItems', 'crop', 'fertilizer', 'ageBand'] as const;
+type FieldRow = Record<(typeof fieldRowKeys)[number], string>;
+
+function FieldDetailTable({ rows }: { rows: typeof allFieldRows }) {
+  const { sortKey, sortDir, handleSort, sortData } = useSortable('field');
+  const objects: FieldRow[] = rows.map(([field, status, analyst, completion, timestamp, openItems, crop, fertilizer, ageBand]) =>
+    ({ field, status, analyst, completion, timestamp, openItems, crop, fertilizer, ageBand }));
+  const sorted = sortData(objects as unknown as Record<string, unknown>[]) as FieldRow[];
+  const T = ({ col, label, className }: { col: string; label: string; className?: string }) =>
+    <Th col={col} label={label} sortKey={sortKey} sortDir={sortDir} onSort={handleSort} className={className} />;
+  return (
+    <div className="table-box detail-table field-detail-table">
+      <div className="chart-title">Field Detail</div>
+      <div className="chart-source">FactFields | Field-level progress for the selected report detail context</div>
+      <table>
+        <thead>
+          <tr>
+            <T col="field" label="Field" />
+            <T col="status" label="Status" />
+            <T col="analyst" label="Completing Analyst" />
+            <T col="completion" label="Completion %" className="right" />
+            <T col="timestamp" label="Completed Timestamp" />
+            <T col="openItems" label="Open Items" className="right" />
+            <T col="crop" label="Crop History" className="right" />
+            <T col="fertilizer" label="Fertilizer History" className="right" />
+            <T col="ageBand" label="Field Age Band" />
+          </tr>
+        </thead>
+        <tbody>
+          {sorted.map((r) => (
+            <tr key={r.field}>
+              <td className="strong">{r.field}</td>
+              <td>{r.status}</td>
+              <td>{r.analyst}</td>
+              <td className="right">{r.completion}</td>
+              <td>{r.completion === '100%' ? r.timestamp : ''}</td>
+              <td className="right">{r.openItems}</td>
+              <td className="right">{r.crop}</td>
+              <td className="right">{r.fertilizer}</td>
+              <td>{r.ageBand}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function ReportDetail({ fd, navigate }: { fd: FilteredData; navigate: Navigate }) {
+  const { filteredReports, filteredFieldRows } = fd;
+
+  const reportsInView = filteredReports.length;
+  const totalFields = filteredReports.reduce((sum, r) => sum + r.fields, 0);
+  const fieldsRemaining = filteredReports.reduce((sum, r) => sum + r.remaining, 0);
+  const fieldCompletion = totalFields > 0 ? `${(((totalFields - fieldsRemaining) / totalFields) * 100).toFixed(1)}%` : '—';
+  const avgDays = reportsInView > 0 ? (filteredReports.reduce((sum, r) => sum + r.days, 0) / reportsInView).toFixed(1) : '—';
+  const avgStageDays = reportsInView > 0 ? (filteredReports.reduce((sum, r) => sum + r.stageDays, 0) / reportsInView).toFixed(1) : '—';
+  const cropEntries = filteredReports.reduce((sum, r) => sum + r.crop, 0);
+  const fertilizerEntries = filteredReports.reduce((sum, r) => sum + r.fertilizer, 0);
+
   return (
     <PageFrame>
-      <div className="grid eight">
-        <KPI title="Reports in View" value={reportsInView} subtitle="Filtered detail set" />
-        <KPI title="Total Fields" value={fmt(totalFields)} subtitle="Across reviewed reports" />
-        <KPI title="Fields Remaining" value={fmt(fieldsRemaining)} subtitle="Before completion" tone="warning" />
-        <KPI title="Field Completion" value={fieldCompletion} subtitle="Required fields" />
-        <KPI title="Avg Days In-Flight" value={avgDays} subtitle="Across reviewed reports" tone="warning" />
-        <KPI title="Avg Days in Stage" value={avgStageDays} subtitle="Current workflow stage" tone="warning" />
-        <KPI title="Crop History Entries" value={fmt(cropEntries)} subtitle="Across reviewed reports" />
-        <KPI title="Fertilizer Entries" value={fmt(fertilizerEntries)} subtitle="Across reviewed reports" />
+      <div className="grid six">
+        <KPI title="Reports in View" value={reportsInView} subtitle="Filtered detail set" onNavigate={() => navigate({ page: 'executive' })} />
+        <KPI title="Incomplete Fields" value={fmt(fieldsRemaining)} subtitle={`Of ${fmt(totalFields)} total fields`} tone="warning" onNavigate={() => navigate({ page: 'aging' })} />
+        <KPI title="Avg Days In-Flight" value={avgDays} subtitle="Across reviewed reports" tone="warning" onNavigate={() => navigate({ page: 'aging' })} />
+        <KPI title="Avg Days in Stage" value={avgStageDays} subtitle="Current workflow stage" tone="warning" onNavigate={() => navigate({ page: 'aging' })} />
+        <KPI title="Crop History Entries" value={fmt(cropEntries)} subtitle="Across reviewed reports" onNavigate={() => navigate({ page: 'workload' })} />
+        <KPI title="Fertilizer Entries" value={fmt(fertilizerEntries)} subtitle="Across reviewed reports" onNavigate={() => navigate({ page: 'workload' })} />
       </div>
       <div className="grid two">
         <ChartBox title="Field Completion by Status" source="FactFields | Field count by completion status across reports in view" height={260}>
@@ -653,7 +1042,7 @@ function ReportDetail() {
               <XAxis dataKey="status" tick={{ fontSize: 11 }} />
               <YAxis tick={{ fontSize: 11 }} />
               <Tooltip />
-              <Bar dataKey="count" fill={green.dark} />
+              <Bar dataKey="count" fill={dataViz[0]} />
             </BarChart>
           </ResponsiveContainer>
         </ChartBox>
@@ -664,107 +1053,31 @@ function ReportDetail() {
               <XAxis type="number" tick={{ fontSize: 10 }} />
               <YAxis dataKey="stage" type="category" width={116} tick={{ fontSize: 10 }} />
               <Tooltip />
-              <Bar dataKey="days" fill={green.warning} />
+              <Bar dataKey="days" fill={dataViz[0]} />
             </BarChart>
           </ResponsiveContainer>
         </ChartBox>
       </div>
-      <div className="table-box detail-table">
-        <div className="chart-title">Report Detail</div>
-        <div className="chart-source">FactReports | Report-level status, aging, ownership, print, and history volume</div>
-        <table>
-          <thead>
-            <tr>
-              <th>Report ID</th>
-              <th>Client</th>
-              <th>Created Date</th>
-              <th>Assigned Analyst</th>
-              <th>Status</th>
-              <th>Completed Date</th>
-              <th>Priority</th>
-              <th>SLA</th>
-              <th className="right">Days In-Flight</th>
-              <th className="right">Days in Stage</th>
-              <th className="right">Total Fields</th>
-              <th className="right">Remaining Fields</th>
-              <th>Print Intervention</th>
-              <th className="right">Crop History</th>
-              <th className="right">Fertilizer History</th>
-              <th>View</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reportDetails.map((report) => (
-              <tr key={report.id}>
-                <td className="strong">{report.id}</td>
-                <td>{report.grower}</td>
-                <td>{report.createdDate}</td>
-                <td>{report.analyst}</td>
-                <td>{report.status}</td>
-                <td>{report.completedDate || '--'}</td>
-                <td>{report.priority}</td>
-                <td><Status value={report.sla} /></td>
-                <td className="right"><DayBadge days={report.days} urgent={report.print === 'Required'} /></td>
-                <td className="right">{report.stageDays}</td>
-                <td className="right">{report.fields}</td>
-                <td className="right">{report.remaining}</td>
-                <td><PrintBadge value={report.print} /></td>
-                <td className="right">{fmt(report.crop)}</td>
-                <td className="right">{fmt(report.fertilizer)}</td>
-                <td><a className="report-link" href={`#report-${report.id}`} aria-label={`View report ${report.id}`}>Open</a></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="table-box detail-table field-detail-table">
-        <div className="chart-title">Field Detail</div>
-        <div className="chart-source">FactFields | Field-level progress for the selected report detail context</div>
-        <table>
-          <thead>
-            <tr>
-              <th>Field</th>
-              <th>Status</th>
-              <th>Completing Analyst</th>
-              <th className="right">Completion %</th>
-              <th>Completed Timestamp</th>
-              <th className="right">Open Items</th>
-              <th className="right">Crop History</th>
-              <th className="right">Fertilizer History</th>
-              <th>Field Age Band</th>
-            </tr>
-          </thead>
-          <tbody>
-            {fieldRows.map(([field, status, completingAnalyst, completion, completedTimestamp, openItems, cropHistory, fertilizerHistory, fieldAgeBand]) => (
-              <tr key={field}>
-                <td className="strong">{field}</td>
-                <td>{status}</td>
-                <td>{completingAnalyst}</td>
-                <td className="right">{completion}</td>
-                <td>{completion === '100%' ? completedTimestamp : ''}</td>
-                <td className="right">{openItems}</td>
-                <td className="right">{cropHistory}</td>
-                <td className="right">{fertilizerHistory}</td>
-                <td>{fieldAgeBand}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <ReportDetailTable reports={filteredReports} />
+      <FieldDetailTable rows={filteredFieldRows} />
     </PageFrame>
   );
 }
 
-function AnalystBar({ dataKey, color }: { dataKey: keyof (typeof analysts)[number]; color: string }) {
-  const data = [...analysts].sort((a, b) => Number(b[dataKey]) - Number(a[dataKey])).map((a) => ({ ...a, short: a.name.split(' ')[0] }));
+function AnalystBar({ dataKey, color, data, unit }: { dataKey: keyof (typeof analysts)[number]; color: string; data: typeof analysts; unit?: string }) {
+  const sorted = [...data].sort((a, b) => Number(b[dataKey]) - Number(a[dataKey])).map((a) => ({ ...a, short: a.name.split(' ')[0] }));
   return (
     <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-      <BarChart data={data} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
+      <BarChart data={sorted} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
         <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
-        <XAxis type="number" tick={{ fontSize: 10 }} />
+        <XAxis type="number" tick={{ fontSize: 10 }} unit={unit} />
         <YAxis dataKey="short" type="category" width={76} tick={{ fontSize: 10 }} />
-        <Tooltip />
-        <Bar dataKey={dataKey as string} fill={color} />
+        <Tooltip formatter={(v: number) => unit ? `${v}${unit}` : v} />
+        <Bar dataKey={dataKey as string} fill={color}>
+          {dataKey === 'utilization' ? sorted.map((a, i) => (
+            <Cell key={i} fill={a.utilization > 115 ? green.danger : a.utilization < 85 ? green.accent : color} />
+          )) : null}
+        </Bar>
       </BarChart>
     </ResponsiveContainer>
   );
@@ -786,13 +1099,15 @@ function RiskPanel() {
   );
 }
 
-function InsightPanel() {
+function InsightPanel({ analysts: data }: { analysts: typeof analysts }) {
+  const top = [...data].sort((a, b) => b.completedFields - a.completedFields)[0];
+  const overloaded = [...data].sort((a, b) => b.utilization - a.utilization)[0];
   return (
     <div className="table-box compact">
       <div className="chart-title">Management Insights</div>
       {[
-        ['Highest Field Throughput', 'Jordan Miles', '1,094 fields completed'],
-        ['Most Overloaded Analyst', 'Avery Chen', '142% utilization / 1,268 open fields'],
+        ['Highest Field Throughput', top?.name ?? '—', top ? `${fmt(top.completedFields)} fields completed` : 'No data'],
+        ['Most Overloaded Analyst', overloaded?.name ?? '—', overloaded ? `${overloaded.utilization}% utilization / ${fmt(overloaded.fields)} open fields` : 'No data'],
         ['Largest Bottleneck', 'Print Prep', '14.2 avg days in stage'],
       ].map((item) => <div className="insight" key={item[0]}><div className="insight-label">{item[0]}</div><div className="insight-value">{item[1]}</div><div className="insight-sub">{item[2]}</div></div>)}
     </div>
@@ -808,26 +1123,30 @@ function PageFrame({ children }: { children: React.ReactNode }) {
 }
 
 function ReportsRequiringAttentionTable({ reports }: { reports: Array<(typeof reportDetails)[number] & { completedFields: number; attentionReason: string }> }) {
+  const { sortKey, sortDir, handleSort, sortData } = useSortable('days');
+  const sorted = sortData(reports as unknown as Record<string, unknown>[]) as typeof reports;
+  const T = ({ col, label, className }: { col: string; label: string; className?: string }) =>
+    <Th col={col} label={label} sortKey={sortKey} sortDir={sortDir} onSort={handleSort} className={className} />;
   return (
     <div className="table-box attention-table">
       <div className="chart-title">Reports Requiring Attention</div>
       <table>
         <thead>
           <tr>
-            <th>Report ID</th>
-            <th>Client</th>
-            <th>Assigned Analyst</th>
-            <th>Status</th>
-            <th className="right">Days In-Flight</th>
-            <th className="right">Total Fields</th>
-            <th className="right">Completed Fields</th>
-            <th className="right">Remaining Fields</th>
-            <th>Print Intervention</th>
-            <th>Attention Reason</th>
+            <T col="id" label="Report ID" />
+            <T col="grower" label="Client" />
+            <T col="analyst" label="Assigned Analyst" />
+            <T col="status" label="Status" />
+            <T col="days" label="Days In-Flight" className="right" />
+            <T col="fields" label="Total Fields" className="right" />
+            <T col="completedFields" label="Completed Fields" className="right" />
+            <T col="remaining" label="Remaining Fields" className="right" />
+            <T col="print" label="Print Intervention" />
+            <T col="attentionReason" label="Attention Reason" />
           </tr>
         </thead>
         <tbody>
-          {reports.map((report) => {
+          {sorted.map((report) => {
             const urgent = report.print === 'Required';
             return (
               <tr className={urgent ? 'row-urgent' : getDayTone(report.days)} key={report.id}>
@@ -858,6 +1177,10 @@ function getPostReportAgingClass(deal: (typeof postReportStageDeals)[number]) {
 }
 
 function PostReportStageAgingTable() {
+  const { sortKey, sortDir, handleSort, sortData } = useSortable('agingDays');
+  const sorted = sortData(postReportStageDeals as unknown as Record<string, unknown>[]) as typeof postReportStageDeals;
+  const T = ({ col, label, className }: { col: string; label: string; className?: string }) =>
+    <Th col={col} label={label} sortKey={sortKey} sortDir={sortDir} onSort={handleSort} className={className} />;
   return (
     <div className="table-box post-stage-table">
       <div className="chart-title">DocuSign &amp; Awaiting First Payment Aging Matrix</div>
@@ -865,18 +1188,18 @@ function PostReportStageAgingTable() {
       <table>
         <thead>
           <tr>
-            <th>Deal Title</th>
-            <th>Stage</th>
-            <th>Owner (Sales Rep / AL)</th>
-            <th>Date Entered Stage</th>
-            <th className="right">Aging Days in Current Stage</th>
-            <th className="right">Total Fields</th>
-            <th>Report Status</th>
-            <th>Print Intervention</th>
+            <T col="title" label="Deal Title" />
+            <T col="stage" label="Stage" />
+            <T col="owner" label="Owner (Sales Rep / AL)" />
+            <T col="dateEntered" label="Date Entered Stage" />
+            <T col="agingDays" label="Aging Days in Current Stage" className="right" />
+            <T col="fields" label="Total Fields" className="right" />
+            <T col="reportStatus" label="Report Status" />
+            <T col="print" label="Print Intervention" />
           </tr>
         </thead>
         <tbody>
-          {postReportStageDeals.map((deal) => (
+          {sorted.map((deal) => (
             <tr className={`${getPostReportAgingClass(deal)} ${deal.print === 'Required' ? 'print-highlight' : ''}`} key={deal.title}>
               <td className="strong">{deal.title}</td>
               <td>{deal.stage}</td>
@@ -900,7 +1223,11 @@ function getQaFlagClass(value: string) {
   return 'qa-flag normal';
 }
 
-function NotPaidAuditTable() {
+function NotPaidAuditTable({ data }: { data: typeof notPaidAuditActivity }) {
+  const { sortKey, sortDir, handleSort, sortData } = useSortable('daysSinceCompletion');
+  const sorted = sortData(data as unknown as Record<string, unknown>[]) as typeof notPaidAuditActivity;
+  const T = ({ col, label, className }: { col: string; label: string; className?: string }) =>
+    <Th col={col} label={label} sortKey={sortKey} sortDir={sortDir} onSort={handleSort} className={className} />;
   return (
     <div className="table-box audit-table">
       <div className="chart-title">Report Complete &rarr; Not Paid Activity</div>
@@ -908,28 +1235,24 @@ function NotPaidAuditTable() {
       <table>
         <thead>
           <tr>
-            <th>Report ID</th>
-            <th>Client</th>
-            <th>Assigned Analyst</th>
-            <th>Moved By</th>
-            <th>Previous Status</th>
-            <th>Current Status</th>
-            <th>Transition Timestamp</th>
-            <th className="right">Days Since Completion</th>
-            <th className="right">Total Fields</th>
-            <th>Print Intervention</th>
-            <th>QA Flag</th>
+            <T col="id" label="Report ID" />
+            <T col="client" label="Client" />
+            <T col="assignedAnalyst" label="Assigned Analyst" />
+            <T col="movedBy" label="Moved By" />
+            <T col="transitionTimestamp" label="Transition Timestamp" />
+            <T col="daysSinceCompletion" label="Days Since Completion" className="right" />
+            <T col="fields" label="Total Fields" className="right" />
+            <T col="print" label="Print Intervention" />
+            <T col="qaFlag" label="QA Flag" />
           </tr>
         </thead>
         <tbody>
-          {notPaidAuditActivity.map((report) => (
+          {sorted.map((report) => (
             <tr className={`${report.daysSinceCompletion >= 8 ? 'delay-risk' : ''} ${report.qaFlag === 'High Risk' ? 'audit-high-risk' : report.qaFlag === 'Needs Review' ? 'audit-review' : ''}`} key={report.id}>
               <td className="strong">{report.id}</td>
               <td>{report.client}</td>
               <td>{report.assignedAnalyst}</td>
               <td>{report.movedBy}</td>
-              <td>{report.previousStatus}</td>
-              <td>{report.currentStatus}</td>
               <td>{report.transitionTimestamp}</td>
               <td className={`right ${report.daysSinceCompletion >= 8 ? 'cell-danger' : report.daysSinceCompletion >= 5 ? 'cell-warning' : ''}`}>{report.daysSinceCompletion}</td>
               <td className="right">{report.fields}</td>
@@ -943,35 +1266,130 @@ function NotPaidAuditTable() {
   );
 }
 
-function AnalystTable() {
+function AnalystTable({ data }: { data: typeof analysts }) {
+  const { sortKey, sortDir, handleSort, sortData } = useSortable('completedFields');
+  const sorted = sortData(data as unknown as Record<string, unknown>[]) as typeof analysts;
+  const T = ({ col, label, className }: { col: string; label: string; className?: string }) =>
+    <Th col={col} label={label} sortKey={sortKey} sortDir={sortDir} onSort={handleSort} className={className} />;
   return (
     <div className="table-box">
       <div className="chart-title">Analyst Productivity Table</div>
       <div className="chart-source">FactFields, FactReports, DimAnalyst | Field-level productivity and active workload by analyst</div>
       <table>
         <thead>
-          <tr><th>Analyst</th><th>Team</th><th className="right">Open Reports</th><th className="right">Open Fields</th><th className="right">Completed Fields</th><th className="right">Reports Complete</th><th className="right">Fields / Day</th><th className="right">Aging Fields</th><th className="right">Crop Hist.</th><th className="right">Fert. Hist.</th><th className="right">Util. %</th></tr>
+          <tr>
+            <T col="name" label="Analyst" />
+            <T col="team" label="Team" />
+            <T col="reports" label="Open Reports" className="right" />
+            <T col="fields" label="Open Fields" className="right" />
+            <T col="completedFields" label="Completed Fields" className="right" />
+            <T col="completedReports" label="Reports Complete" className="right" />
+            <T col="velocity" label="Fields / Day" className="right" />
+            <T col="aged" label="Aging Fields" className="right" />
+            <T col="crop" label="Crop Hist." className="right" />
+            <T col="fertilizer" label="Fert. Hist." className="right" />
+            <T col="utilization" label="Util. %" className="right" />
+          </tr>
         </thead>
         <tbody>
-          {analysts.map((a) => (
+          {sorted.map((a) => (
             <tr key={a.name}>
               <td className="strong">{a.name}</td><td>{a.team}</td><td className="right">{a.reports}</td><td className="right">{fmt(a.fields)}</td><td className="right">{fmt(a.completedFields)}</td><td className="right">{a.completedReports}</td><td className="right">{a.velocity}</td><td className="right">{a.aged}</td><td className="right">{fmt(a.crop)}</td><td className="right">{fmt(a.fertilizer)}</td><td className={`right ${a.utilization > 115 ? 'cell-danger' : a.utilization > 95 ? 'cell-warning' : ''}`}>{a.utilization}%</td>
             </tr>
           ))}
         </tbody>
+        {(() => {
+          const n = sorted.length;
+          if (n === 0) return null;
+          const sum = (key: keyof typeof sorted[0]) => sorted.reduce((s, a) => s + (a[key] as number), 0);
+          const avg = (key: keyof typeof sorted[0]) => (sum(key) / n);
+          return (
+            <tfoot>
+              <tr className="totals-row">
+                <td className="strong">Total / Avg</td>
+                <td></td>
+                <td className="right">{sum('reports')}</td>
+                <td className="right">{fmt(sum('fields'))}</td>
+                <td className="right">{fmt(sum('completedFields'))}</td>
+                <td className="right">{sum('completedReports')}</td>
+                <td className="right">{avg('velocity').toFixed(1)}</td>
+                <td className="right">{fmt(sum('aged'))}</td>
+                <td className="right">{fmt(sum('crop'))}</td>
+                <td className="right">{fmt(sum('fertilizer'))}</td>
+                <td className="right">{Math.round(avg('utilization'))}%</td>
+              </tr>
+            </tfoot>
+          );
+        })()}
       </table>
     </div>
   );
 }
 
+const agingThresholdOptions = ['15+ days', '30+ days', '45+ days', '60+ days'];
+
+function parseAgingDays(option: string) {
+  return parseInt(option);
+}
+
 function App() {
   const [activePage, setActivePage] = React.useState<Page>('executive');
+  const [analystFilter, setAnalystFilter] = React.useState<string[]>([]);
+  const [statusFilter, setStatusFilter] = React.useState<string[]>([]);
+  const [agingThreshold, setAgingThreshold] = React.useState('15+ days');
+  const [fieldAgeBand, setFieldAgeBand] = React.useState('All');
+
+  const agingDays = parseAgingDays(agingThreshold);
+
+  const filteredAnalysts = analystFilter.length === 0
+    ? analysts
+    : analysts.filter((a) => analystFilter.includes(a.name));
+
+  const filteredReports = reportDetails.filter((r) => {
+    if (analystFilter.length > 0 && !analystFilter.includes(r.analyst)) return false;
+    if (statusFilter.length > 0 && !statusFilter.includes(r.status)) return false;
+    return true;
+  });
+
+  const filteredNotPaid = analystFilter.length === 0
+    ? notPaidAuditActivity
+    : notPaidAuditActivity.filter((r) => analystFilter.includes(r.assignedAnalyst));
+
+  const filteredFieldRows = fieldAgeBand === 'All'
+    ? allFieldRows
+    : allFieldRows.filter((row) => row[8] === fieldAgeBand);
+
+  const filteredEntrySeries = analystFilter.length === 0
+    ? analystEntrySeries
+    : analystEntrySeries.filter((s) => analystFilter.includes(s.name));
+
+  const fd: FilteredData = {
+    filteredAnalysts,
+    filteredReports,
+    filteredNotPaid,
+    filteredFieldRows,
+    agingDays,
+    filteredEntrySeries,
+  };
+
+  const navigate: Navigate = ({ page, analyst, status, agingThreshold: aging, fieldAgeBand: fab }) => {
+    setActivePage(page);
+    if (analyst !== undefined) setAnalystFilter(analyst ? [analyst] : []);
+    if (status !== undefined) setStatusFilter(status ? [status] : []);
+    if (aging !== undefined) setAgingThreshold(aging);
+    if (fab !== undefined) setFieldAgeBand(fab);
+  };
+
+  const statusOptions = activePage === 'aging'
+    ? agingStageBreakdown.map((s) => s.status)
+    : statusBreakdown.map((s) => s.status);
+
   const renderPage = () => {
-    if (activePage === 'productivity') return <AnalystProductivity />;
-    if (activePage === 'aging') return <AgingEscalations />;
-    if (activePage === 'workload') return <WorkloadDistribution />;
-    if (activePage === 'detail') return <ReportDetail />;
-    return <ExecutiveOverview />;
+    if (activePage === 'productivity') return <AnalystProductivity fd={fd} navigate={navigate} />;
+    if (activePage === 'aging') return <AgingEscalations fd={fd} navigate={navigate} />;
+    if (activePage === 'workload') return <WorkloadDistribution fd={fd} navigate={navigate} />;
+    if (activePage === 'detail') return <ReportDetail fd={fd} navigate={navigate} />;
+    return <ExecutiveOverview fd={fd} navigate={navigate} />;
   };
 
   return (
@@ -992,11 +1410,11 @@ function App() {
       <div className="body">
         <aside className="filters">
           <div className="filters-title">Filters</div>
-          <Slicer title="Time Frame" options={['Year to Date', 'Last 30 days', 'Last 90 days', 'Current Quarter']} />
-          <Slicer title="Analyst" options={['All Analysts', ...analysts.map((a) => a.name)]} />
-          <Slicer title="Report Status" options={['All', ...(activePage === 'aging' ? agingStageBreakdown : statusBreakdown).map((s) => s.status)]} />
-          <Slicer title="Aging Threshold" options={['15+ days', '30+ days', '45+ days', '60+ days']} />
-          <Slicer title="Field Age Band" options={['All', '0-5 Years', '6-15 Years', '16-30 Years', '30+ Years']} />
+          <Slicer title="Time Frame" options={['Year to Date', 'Last 30 days', 'Last 90 days', 'Current Quarter']} value="Year to Date" onChange={() => {}} />
+          <Slicer title="Analyst" options={analysts.map((a) => a.name)} multiSelect value={analystFilter} onChange={setAnalystFilter} />
+          <Slicer title="Report Status" options={statusOptions} multiSelect value={statusFilter} onChange={setStatusFilter} />
+          <Slicer title="Aging Threshold" options={agingThresholdOptions} value={agingThreshold} onChange={(v) => setAgingThreshold(v)} />
+          <Slicer title="Field Age Band" options={['All', '0-5 Years', '6-15 Years', '16-30 Years', '30+ Years']} value={fieldAgeBand} onChange={(v) => setFieldAgeBand(v)} />
           <div className="quality-note">
             <div>Notes</div>
             <p>12 reports have stale field updates</p>
