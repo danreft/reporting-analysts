@@ -200,7 +200,7 @@ type FilteredData = {
   filteredNotPaid: typeof notPaidAuditActivity;
   filteredFieldRows: typeof allFieldRows;
   agingDays: number;
-  filteredEntrySeries: typeof analystEntrySeries;
+  filteredEntrySeries: readonly (typeof analystEntrySeries)[number][];
 };
 
 type NavigateAction = {
@@ -636,7 +636,7 @@ function AnalystProductivity({ fd, navigate }: { fd: FilteredData; navigate: Nav
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
               <XAxis dataKey="week" tick={{ fontSize: 11 }} />
               <YAxis tick={{ fontSize: 11 }} unit="%" domain={[50, 160]} />
-              <Tooltip formatter={(v: number) => `${v}%`} />
+              <Tooltip formatter={(value: unknown) => (typeof value === 'number' ? `${value}%` : '')} />
               <Legend wrapperStyle={{ fontSize: 10 }} />
               {filteredEntrySeries.map((s) => (
                 <Line key={s.key} type="monotone" dataKey={s.key} stroke={s.color} strokeWidth={2} dot={false} name={s.name} />
@@ -658,7 +658,7 @@ function AnalystProductivity({ fd, navigate }: { fd: FilteredData; navigate: Nav
                   <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
                   <XAxis type="number" tick={{ fontSize: 10 }} unit="%" domain={[0, 100]} />
                   <YAxis dataKey="short" type="category" width={76} tick={{ fontSize: 10 }} />
-                  <Tooltip formatter={(v: number) => `${v}%`} labelFormatter={(_, payload) => payload?.[0]?.payload?.name ?? ''} />
+                  <Tooltip formatter={(value: unknown) => (typeof value === 'number' ? `${value}%` : '')} labelFormatter={(_, payload) => payload?.[0]?.payload?.name ?? ''} />
                   <Bar dataKey="pct" name="Surface Utilization">
                     {surfaceData.map((d, i) => (
                       <Cell key={i} fill={d.pct >= 55 ? dataViz[0] : d.pct >= 40 ? green.warning : green.danger} />
@@ -1072,7 +1072,7 @@ function AnalystBar({ dataKey, color, data, unit }: { dataKey: keyof (typeof ana
         <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
         <XAxis type="number" tick={{ fontSize: 10 }} unit={unit} />
         <YAxis dataKey="short" type="category" width={76} tick={{ fontSize: 10 }} />
-        <Tooltip formatter={(v: number) => unit ? `${v}${unit}` : v} />
+        <Tooltip formatter={(value: unknown) => (typeof value === 'number' ? (unit ? `${value}${unit}` : value) : '')} />
         <Bar dataKey={dataKey as string} fill={color}>
           {dataKey === 'utilization' ? sorted.map((a, i) => (
             <Cell key={i} fill={a.utilization > 115 ? green.danger : a.utilization < 85 ? green.accent : color} />
