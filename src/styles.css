@@ -204,6 +204,19 @@ body {
   flex-shrink: 0;
 }
 
+.tree-node-quarter { padding-left: 20px; }
+.tree-node-month   { padding-left: 36px; }
+.tree-node-week    { padding-left: 52px; }
+.tree-chevron {
+  font-size: 10px;
+  color: #358540;
+  cursor: pointer;
+  padding: 0 2px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.tree-chevron:hover { color: #234E2A; }
+
 .quality-note {
   background: #fff9e6;
   border: 1px solid #c97a1c;
@@ -547,7 +560,7 @@ tfoot .totals-row {
 }
 
 .attention-table table {
-  min-width: 1120px;
+  min-width: 640px;
 }
 
 .audit-table {

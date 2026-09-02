@@ -24,7 +24,7 @@ declare global {
   }
 }
 
-type Page = 'executive' | 'productivity' | 'aging' | 'workload' | 'detail';
+type Page = 'executive' | 'productivity' | 'aging' | 'workload' | 'integrity' | 'future';
 
 const green = {
   header: '#006637',
@@ -45,7 +45,8 @@ const tabs: { id: Page; label: string }[] = [
   { id: 'productivity', label: 'Analyst Productivity' },
   { id: 'aging', label: 'Aging & Escalations' },
   { id: 'workload', label: 'Workload Distribution' },
-  { id: 'detail', label: 'Report Detail' },
+  { id: 'integrity', label: 'Data Integrity' },
+  { id: 'future', label: 'Future Options' },
 ];
 
 const analysts = [
@@ -60,43 +61,43 @@ const analysts = [
 ];
 
 const weekly = [
-  { week: 'Apr 1', fields: 812, reports: 41, velocity: 22.4, escalations: 17 },
-  { week: 'Apr 8', fields: 934, reports: 46, velocity: 24.8, escalations: 19 },
-  { week: 'Apr 15', fields: 1028, reports: 52, velocity: 27.1, escalations: 23 },
-  { week: 'Apr 22', fields: 918, reports: 49, velocity: 25.9, escalations: 28 },
-  { week: 'Apr 29', fields: 1116, reports: 57, velocity: 29.8, escalations: 24 },
-  { week: 'May 6', fields: 1214, reports: 61, velocity: 31.5, escalations: 31 },
-  { week: 'May 13', fields: 1076, reports: 54, velocity: 28.7, escalations: 26 },
+  { week: 'Apr W1', fields: 812, reports: 41, velocity: 22.4, escalations: 17 },
+  { week: 'Apr W2', fields: 934, reports: 46, velocity: 24.8, escalations: 19 },
+  { week: 'Apr W3', fields: 1028, reports: 52, velocity: 27.1, escalations: 23 },
+  { week: 'Apr W4', fields: 918, reports: 49, velocity: 25.9, escalations: 28 },
+  { week: 'Apr W5', fields: 1116, reports: 57, velocity: 29.8, escalations: 24 },
+  { week: 'May W1', fields: 1214, reports: 61, velocity: 31.5, escalations: 31 },
+  { week: 'May W2', fields: 1076, reports: 54, velocity: 28.7, escalations: 26 },
 ];
 
 const weeklyUtilization = [
-  { week: 'Apr 1',  avery: 128, jordan: 96, priya: 78, mateo: 112, nora: 64, samuel: 84, elena: 60, marcus: 104 },
-  { week: 'Apr 8',  avery: 133, jordan: 99, priya: 81, mateo: 118, nora: 68, samuel: 88, elena: 63, marcus: 110 },
-  { week: 'Apr 15', avery: 138, jordan: 102, priya: 84, mateo: 122, nora: 70, samuel: 91, elena: 65, marcus: 114 },
-  { week: 'Apr 22', avery: 135, jordan: 100, priya: 83, mateo: 120, nora: 69, samuel: 89, elena: 64, marcus: 112 },
-  { week: 'Apr 29', avery: 140, jordan: 103, priya: 86, mateo: 125, nora: 71, samuel: 92, elena: 66, marcus: 116 },
-  { week: 'May 6',  avery: 144, jordan: 105, priya: 87, mateo: 130, nora: 73, samuel: 95, elena: 69, marcus: 120 },
-  { week: 'May 13', avery: 142, jordan: 104, priya: 86, mateo: 128, nora: 72, samuel: 94, elena: 68, marcus: 118 },
+  { week: 'Apr W1',  avery: 128, jordan: 96, priya: 78, mateo: 112, nora: 64, samuel: 84, elena: 60, marcus: 104 },
+  { week: 'Apr W2',  avery: 133, jordan: 99, priya: 81, mateo: 118, nora: 68, samuel: 88, elena: 63, marcus: 110 },
+  { week: 'Apr W3', avery: 138, jordan: 102, priya: 84, mateo: 122, nora: 70, samuel: 91, elena: 65, marcus: 114 },
+  { week: 'Apr W4', avery: 135, jordan: 100, priya: 83, mateo: 120, nora: 69, samuel: 89, elena: 64, marcus: 112 },
+  { week: 'Apr W5', avery: 140, jordan: 103, priya: 86, mateo: 125, nora: 71, samuel: 92, elena: 66, marcus: 116 },
+  { week: 'May W1',  avery: 144, jordan: 105, priya: 87, mateo: 130, nora: 73, samuel: 95, elena: 69, marcus: 120 },
+  { week: 'May W2', avery: 142, jordan: 104, priya: 86, mateo: 128, nora: 72, samuel: 94, elena: 68, marcus: 118 },
 ];
 
 const weeklyCrop = [
-  { week: 'Apr 1',  avery: 468, jordan: 344, priya: 263, mateo: 427, nora: 168, samuel: 233, elena: 138, marcus: 297 },
-  { week: 'Apr 8',  avery: 486, jordan: 358, priya: 271, mateo: 441, nora: 175, samuel: 241, elena: 143, marcus: 308 },
-  { week: 'Apr 15', avery: 502, jordan: 371, priya: 280, mateo: 456, nora: 181, samuel: 249, elena: 149, marcus: 319 },
-  { week: 'Apr 22', avery: 494, jordan: 363, priya: 275, mateo: 448, nora: 178, samuel: 245, elena: 146, marcus: 313 },
-  { week: 'Apr 29', avery: 519, jordan: 382, priya: 287, mateo: 469, nora: 185, samuel: 256, elena: 152, marcus: 327 },
-  { week: 'May 6',  avery: 541, jordan: 396, priya: 296, mateo: 487, nora: 191, samuel: 265, elena: 158, marcus: 339 },
-  { week: 'May 13', avery: 530, jordan: 388, priya: 290, mateo: 477, nora: 188, samuel: 260, elena: 155, marcus: 333 },
+  { week: 'Apr W1',  avery: 468, jordan: 344, priya: 263, mateo: 427, nora: 168, samuel: 233, elena: 138, marcus: 297 },
+  { week: 'Apr W2',  avery: 486, jordan: 358, priya: 271, mateo: 441, nora: 175, samuel: 241, elena: 143, marcus: 308 },
+  { week: 'Apr W3', avery: 502, jordan: 371, priya: 280, mateo: 456, nora: 181, samuel: 249, elena: 149, marcus: 319 },
+  { week: 'Apr W4', avery: 494, jordan: 363, priya: 275, mateo: 448, nora: 178, samuel: 245, elena: 146, marcus: 313 },
+  { week: 'Apr W5', avery: 519, jordan: 382, priya: 287, mateo: 469, nora: 185, samuel: 256, elena: 152, marcus: 327 },
+  { week: 'May W1',  avery: 541, jordan: 396, priya: 296, mateo: 487, nora: 191, samuel: 265, elena: 158, marcus: 339 },
+  { week: 'May W2', avery: 530, jordan: 388, priya: 290, mateo: 477, nora: 188, samuel: 260, elena: 155, marcus: 333 },
 ];
 
 const weeklyFertilizer = [
-  { week: 'Apr 1',  avery: 416, jordan: 321, priya: 242, mateo: 436, nora: 148, samuel: 203, elena: 118, marcus: 308 },
-  { week: 'Apr 8',  avery: 431, jordan: 333, priya: 251, mateo: 451, nora: 155, samuel: 211, elena: 124, marcus: 319 },
-  { week: 'Apr 15', avery: 449, jordan: 347, priya: 261, mateo: 468, nora: 161, samuel: 219, elena: 129, marcus: 331 },
-  { week: 'Apr 22', avery: 440, jordan: 339, priya: 256, mateo: 459, nora: 158, samuel: 215, elena: 126, marcus: 325 },
-  { week: 'Apr 29', avery: 462, jordan: 356, priya: 268, mateo: 481, nora: 165, samuel: 224, elena: 132, marcus: 340 },
-  { week: 'May 6',  avery: 481, jordan: 370, priya: 278, mateo: 500, nora: 172, samuel: 233, elena: 138, marcus: 354 },
-  { week: 'May 13', avery: 471, jordan: 362, priya: 273, mateo: 490, nora: 169, samuel: 228, elena: 135, marcus: 347 },
+  { week: 'Apr W1',  avery: 416, jordan: 321, priya: 242, mateo: 436, nora: 148, samuel: 203, elena: 118, marcus: 308 },
+  { week: 'Apr W2',  avery: 431, jordan: 333, priya: 251, mateo: 451, nora: 155, samuel: 211, elena: 124, marcus: 319 },
+  { week: 'Apr W3', avery: 449, jordan: 347, priya: 261, mateo: 468, nora: 161, samuel: 219, elena: 129, marcus: 331 },
+  { week: 'Apr W4', avery: 440, jordan: 339, priya: 256, mateo: 459, nora: 158, samuel: 215, elena: 126, marcus: 325 },
+  { week: 'Apr W5', avery: 462, jordan: 356, priya: 268, mateo: 481, nora: 165, samuel: 224, elena: 132, marcus: 340 },
+  { week: 'May W1',  avery: 481, jordan: 370, priya: 278, mateo: 500, nora: 172, samuel: 233, elena: 138, marcus: 354 },
+  { week: 'May W2', avery: 471, jordan: 362, priya: 273, mateo: 490, nora: 169, samuel: 228, elena: 135, marcus: 347 },
 ];
 
 const dataViz = ['#358540', '#234E2A', '#90B75D', '#2F8080', '#00A9E0', '#305C9E', '#C97A1C', '#8A6500'] as const;
@@ -113,26 +114,23 @@ const analystEntrySeries = [
 ] as const;
 
 const weeklyAnalystTeamEntries = [
-  { week: 'Apr 1', fields: { avery: 216, jordan: 184, priya: 148, mateo: 173, nora: 96, samuel: 129, elena: 88, marcus: 154 }, reports: { avery: 10, jordan: 9, priya: 7, mateo: 8, nora: 5, samuel: 6, elena: 4, marcus: 7 } },
-  { week: 'Apr 8', fields: { avery: 244, jordan: 205, priya: 169, mateo: 191, nora: 112, samuel: 147, elena: 97, marcus: 171 }, reports: { avery: 12, jordan: 10, priya: 8, mateo: 9, nora: 5, samuel: 7, elena: 5, marcus: 8 } },
-  { week: 'Apr 15', fields: { avery: 268, jordan: 227, priya: 188, mateo: 214, nora: 121, samuel: 162, elena: 106, marcus: 184 }, reports: { avery: 13, jordan: 11, priya: 9, mateo: 10, nora: 6, samuel: 8, elena: 5, marcus: 9 } },
-  { week: 'Apr 22', fields: { avery: 238, jordan: 198, priya: 176, mateo: 203, nora: 116, samuel: 151, elena: 101, marcus: 178 }, reports: { avery: 11, jordan: 10, priya: 8, mateo: 10, nora: 6, samuel: 7, elena: 5, marcus: 8 } },
-  { week: 'Apr 29', fields: { avery: 286, jordan: 241, priya: 206, mateo: 231, nora: 134, samuel: 176, elena: 119, marcus: 197 }, reports: { avery: 14, jordan: 12, priya: 10, mateo: 11, nora: 7, samuel: 9, elena: 6, marcus: 9 } },
-  { week: 'May 6', fields: { avery: 309, jordan: 267, priya: 224, mateo: 249, nora: 146, samuel: 188, elena: 128, marcus: 216 }, reports: { avery: 15, jordan: 13, priya: 11, mateo: 12, nora: 7, samuel: 9, elena: 6, marcus: 10 } },
-  { week: 'May 13', fields: { avery: 274, jordan: 236, priya: 201, mateo: 226, nora: 128, samuel: 171, elena: 116, marcus: 203 }, reports: { avery: 13, jordan: 12, priya: 10, mateo: 11, nora: 6, samuel: 8, elena: 6, marcus: 10 } },
+  { week: 'Apr W1', fields: { avery: 216, jordan: 184, priya: 148, mateo: 173, nora: 96, samuel: 129, elena: 88, marcus: 154 }, reports: { avery: 10, jordan: 9, priya: 7, mateo: 8, nora: 5, samuel: 6, elena: 4, marcus: 7 } },
+  { week: 'Apr W2', fields: { avery: 244, jordan: 205, priya: 169, mateo: 191, nora: 112, samuel: 147, elena: 97, marcus: 171 }, reports: { avery: 12, jordan: 10, priya: 8, mateo: 9, nora: 5, samuel: 7, elena: 5, marcus: 8 } },
+  { week: 'Apr W3', fields: { avery: 268, jordan: 227, priya: 188, mateo: 214, nora: 121, samuel: 162, elena: 106, marcus: 184 }, reports: { avery: 13, jordan: 11, priya: 9, mateo: 10, nora: 6, samuel: 8, elena: 5, marcus: 9 } },
+  { week: 'Apr W4', fields: { avery: 238, jordan: 198, priya: 176, mateo: 203, nora: 116, samuel: 151, elena: 101, marcus: 178 }, reports: { avery: 11, jordan: 10, priya: 8, mateo: 10, nora: 6, samuel: 7, elena: 5, marcus: 8 } },
+  { week: 'Apr W5', fields: { avery: 286, jordan: 241, priya: 206, mateo: 231, nora: 134, samuel: 176, elena: 119, marcus: 197 }, reports: { avery: 14, jordan: 12, priya: 10, mateo: 11, nora: 7, samuel: 9, elena: 6, marcus: 9 } },
+  { week: 'May W1', fields: { avery: 309, jordan: 267, priya: 224, mateo: 249, nora: 146, samuel: 188, elena: 128, marcus: 216 }, reports: { avery: 15, jordan: 13, priya: 11, mateo: 12, nora: 7, samuel: 9, elena: 6, marcus: 10 } },
+  { week: 'May W2', fields: { avery: 274, jordan: 236, priya: 201, mateo: 226, nora: 128, samuel: 171, elena: 116, marcus: 203 }, reports: { avery: 13, jordan: 12, priya: 10, mateo: 11, nora: 6, samuel: 8, elena: 6, marcus: 10 } },
 ];
 
 const statusBreakdown = [
-  { status: 'Intake', reports: 38, fields: 672 },
-  { status: 'Field Review', reports: 64, fields: 1840 },
-  { status: 'Crop History', reports: 47, fields: 1398 },
-  { status: 'Fertilizer History', reports: 42, fields: 1182 },
-  { status: 'QA Review', reports: 36, fields: 826 },
-  { status: 'Print Prep', reports: 22, fields: 412 },
-  { status: 'Complete', reports: 71, fields: 2214 },
+  { status: 'Analyst Queue', reports: 38, fields: 672 },
+  { status: 'Analyst Team', reports: 153, fields: 4420 },
+  { status: 'Reports Complete', reports: 36, fields: 826 },
+  { status: 'Not Paid / Report Sent', reports: 71, fields: 2214 },
 ];
 
-const agingStageBreakdown = statusBreakdown.filter((stage) => stage.status !== 'Complete');
+const agingStageBreakdown = statusBreakdown.filter((stage) => stage.status !== 'Not Paid / Report Sent');
 
 const daysInFlightBuckets = [
   { bucket: '0-5 Days', reports: 42 },
@@ -164,25 +162,25 @@ const notPaidAuditActivity = [
 ];
 
 const notPaidAuditTrend = [
-  { week: 'Apr 1', reports: 9, maya: 3, lena: 4, owen: 2 },
-  { week: 'Apr 8', reports: 12, maya: 5, lena: 4, owen: 3 },
-  { week: 'Apr 15', reports: 10, maya: 4, lena: 3, owen: 3 },
-  { week: 'Apr 22', reports: 14, maya: 6, lena: 5, owen: 3 },
-  { week: 'Apr 29', reports: 11, maya: 4, lena: 4, owen: 3 },
-  { week: 'May 6', reports: 16, maya: 7, lena: 6, owen: 3 },
-  { week: 'May 13', reports: 18, maya: 8, lena: 6, owen: 4 },
+  { week: 'Apr W1', reports: 9, maya: 3, lena: 4, owen: 2 },
+  { week: 'Apr W2', reports: 12, maya: 5, lena: 4, owen: 3 },
+  { week: 'Apr W3', reports: 10, maya: 4, lena: 3, owen: 3 },
+  { week: 'Apr W4', reports: 14, maya: 6, lena: 5, owen: 3 },
+  { week: 'Apr W5', reports: 11, maya: 4, lena: 4, owen: 3 },
+  { week: 'May W1', reports: 16, maya: 7, lena: 6, owen: 3 },
+  { week: 'May W2', reports: 18, maya: 8, lena: 6, owen: 4 },
 ];
 
 const reportDetails = [
-  { id: 'AGR-24118', grower: 'Hendrickson Farms', createdDate: '4/02/26', completedDate: '', analyst: 'Avery Chen', status: 'Print Prep', priority: 'High', fields: 214, remaining: 37, days: 46, stageDays: 12, print: 'Required', crop: 628, fertilizer: 584, sla: 'Breached' },
-  { id: 'AGR-24109', grower: 'Blue River Acres', createdDate: '4/09/26', completedDate: '', analyst: 'Mateo Ruiz', status: 'Fertilizer History', priority: 'High', fields: 188, remaining: 64, days: 39, stageDays: 15, print: 'Required', crop: 512, fertilizer: 621, sla: 'At Risk' },
-  { id: 'AGR-24097', grower: 'Prairie View Co-op', createdDate: '4/15/26', completedDate: '', analyst: 'Marcus Lee', status: 'QA Review', priority: 'Medium', fields: 132, remaining: 18, days: 33, stageDays: 9, print: 'Required', crop: 388, fertilizer: 334, sla: 'At Risk' },
-  { id: 'AGR-24131', grower: 'Cedar Ridge Farms', createdDate: '5/13/26', completedDate: '', analyst: 'Samuel Brooks', status: 'Crop History', priority: 'Medium', fields: 196, remaining: 51, days: 5, stageDays: 2, print: 'Not Required', crop: 304, fertilizer: 212, sla: 'Needs Review' },
-  { id: 'AGR-24142', grower: 'Miller Seed Partners', createdDate: '4/24/26', completedDate: '', analyst: 'Avery Chen', status: 'Field Review', priority: 'High', fields: 301, remaining: 202, days: 24, stageDays: 14, print: 'Required', crop: 740, fertilizer: 712, sla: 'At Risk' },
-  { id: 'AGR-24156', grower: 'Lakebend Ag', createdDate: '4/30/26', completedDate: '', analyst: 'Jordan Miles', status: 'QA Review', priority: 'Low', fields: 42, remaining: 6, days: 18, stageDays: 4, print: 'Not Required', crop: 106, fertilizer: 98, sla: 'On Track' },
-  { id: 'AGR-24162', grower: 'North Fork Growers', createdDate: '5/02/26', completedDate: '', analyst: 'Priya Nair', status: 'Field Review', priority: 'Medium', fields: 76, remaining: 29, days: 16, stageDays: 6, print: 'Not Required', crop: 194, fertilizer: 171, sla: 'On Track' },
-  { id: 'AGR-24170', grower: 'Summit Valley Farms', createdDate: '5/10/26', completedDate: '', analyst: 'Nora Patel', status: 'Intake', priority: 'Low', fields: 18, remaining: 16, days: 8, stageDays: 3, print: 'Not Required', crop: 44, fertilizer: 39, sla: 'On Track' },
-  { id: 'AGR-24183', grower: 'Redstone Grain', createdDate: '5/13/26', completedDate: '', analyst: 'Elena Foster', status: 'Print Prep', priority: 'Medium', fields: 64, remaining: 8, days: 5, stageDays: 2, print: 'Required', crop: 160, fertilizer: 147, sla: 'On Track' },
+  { id: 'AGR-24118', dealTitle: 'Hendrickson Farms 2026 Soil Analysis', grower: 'Hendrickson Farms', createdDate: '4/02/26', completedDate: '5/14/26', transitionTimestamp: '5/14/26 9:12 AM', daysSinceCompletion: 18, analyst: 'Avery Chen', status: 'Print Prep', priority: 'High', fields: 214, remaining: 37, days: 46, stageDays: 12, print: 'Required', crop: 628, fertilizer: 584, sla: 'Breached' },
+  { id: 'AGR-24109', dealTitle: 'Blue River Acres Fertilizer Review', grower: 'Blue River Acres', createdDate: '4/09/26', completedDate: '5/17/26', transitionTimestamp: '5/17/26 2:44 PM', daysSinceCompletion: 15, analyst: 'Mateo Ruiz', status: 'Fertilizer History', priority: 'High', fields: 188, remaining: 64, days: 39, stageDays: 15, print: 'Required', crop: 512, fertilizer: 621, sla: 'At Risk' },
+  { id: 'AGR-24097', dealTitle: 'Prairie View Co-op Annual Report', grower: 'Prairie View Co-op', createdDate: '4/15/26', completedDate: '5/19/26', transitionTimestamp: '5/19/26 11:03 AM', daysSinceCompletion: 13, analyst: 'Marcus Lee', status: 'QA Review', priority: 'Medium', fields: 132, remaining: 18, days: 33, stageDays: 9, print: 'Required', crop: 388, fertilizer: 334, sla: 'At Risk' },
+  { id: 'AGR-24131', dealTitle: 'Cedar Ridge Farms Crop History', grower: 'Cedar Ridge Farms', createdDate: '5/13/26', completedDate: '5/28/26', transitionTimestamp: '5/28/26 4:21 PM', daysSinceCompletion: 4, analyst: 'Samuel Brooks', status: 'Crop History', priority: 'Medium', fields: 196, remaining: 51, days: 5, stageDays: 2, print: 'Not Required', crop: 304, fertilizer: 212, sla: 'Needs Review' },
+  { id: 'AGR-24142', dealTitle: 'Miller Seed Partners Field Assessment', grower: 'Miller Seed Partners', createdDate: '4/24/26', completedDate: '5/21/26', transitionTimestamp: '5/21/26 8:55 AM', daysSinceCompletion: 11, analyst: 'Avery Chen', status: 'Field Review', priority: 'High', fields: 301, remaining: 202, days: 24, stageDays: 14, print: 'Required', crop: 740, fertilizer: 712, sla: 'At Risk' },
+  { id: 'AGR-24156', dealTitle: 'Lakebend Ag QA Report', grower: 'Lakebend Ag', createdDate: '4/30/26', completedDate: '5/23/26', transitionTimestamp: '5/23/26 1:17 PM', daysSinceCompletion: 9, analyst: 'Jordan Miles', status: 'QA Review', priority: 'Low', fields: 42, remaining: 6, days: 18, stageDays: 4, print: 'Not Required', crop: 106, fertilizer: 98, sla: 'On Track' },
+  { id: 'AGR-24162', dealTitle: 'North Fork Growers Field Review', grower: 'North Fork Growers', createdDate: '5/02/26', completedDate: '5/25/26', transitionTimestamp: '5/25/26 10:38 AM', daysSinceCompletion: 7, analyst: 'Priya Nair', status: 'Field Review', priority: 'Medium', fields: 76, remaining: 29, days: 16, stageDays: 6, print: 'Not Required', crop: 194, fertilizer: 171, sla: 'On Track' },
+  { id: 'AGR-24170', dealTitle: 'Summit Valley Farms Intake', grower: 'Summit Valley Farms', createdDate: '5/10/26', completedDate: '5/29/26', transitionTimestamp: '5/29/26 3:05 PM', daysSinceCompletion: 3, analyst: 'Nora Patel', status: 'Intake', priority: 'Low', fields: 18, remaining: 16, days: 8, stageDays: 3, print: 'Not Required', crop: 44, fertilizer: 39, sla: 'On Track' },
+  { id: 'AGR-24183', dealTitle: 'Redstone Grain Print Preparation', grower: 'Redstone Grain', createdDate: '5/13/26', completedDate: '5/28/26', transitionTimestamp: '5/28/26 2:49 PM', daysSinceCompletion: 4, analyst: 'Elena Foster', status: 'Print Prep', priority: 'Medium', fields: 64, remaining: 8, days: 5, stageDays: 2, print: 'Required', crop: 160, fertilizer: 147, sla: 'On Track' },
 ];
 
 const allFieldRows: [string, string, string, string, string, string, string, string, string][] = [
@@ -198,17 +196,24 @@ type FilteredData = {
   filteredAnalysts: typeof analysts;
   filteredReports: typeof reportDetails;
   filteredNotPaid: typeof notPaidAuditActivity;
-  filteredFieldRows: typeof allFieldRows;
   agingDays: number;
   filteredEntrySeries: readonly (typeof analystEntrySeries)[number][];
+  periodDays: number;
 };
+
+function getPeriodDays(timeFrame: string): number {
+  if (timeFrame.match(/^W\d|W\d$/)) return 5;           // single week
+  if (timeFrame.match(/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4}$/)) return 22; // month
+  if (timeFrame.match(/^Q[1-4] \d{4}$/)) return 65;    // quarter
+  if (timeFrame.match(/^\d{4}$/)) return 260;           // full year
+  return 260;
+}
 
 type NavigateAction = {
   page: Page;
   analyst?: string;
   status?: string;
   agingThreshold?: string;
-  fieldAgeBand?: string;
 };
 
 type Navigate = (action: NavigateAction) => void;
@@ -217,9 +222,9 @@ function fmt(n: number) {
   return n.toLocaleString();
 }
 
-function useSortable(initialKey: string) {
+function useSortable(initialKey: string, initialDir: 'asc' | 'desc' = 'asc') {
   const [sortKey, setSortKey] = React.useState(initialKey);
-  const [sortDir, setSortDir] = React.useState<'asc' | 'desc'>('asc');
+  const [sortDir, setSortDir] = React.useState<'asc' | 'desc'>(initialDir);
 
   const handleSort = (key: string) => {
     if (key === sortKey) setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
@@ -253,6 +258,135 @@ function KPI({ title, value, subtitle, tone, onNavigate }: { title: string; valu
       <div className="kpi-title">{title}</div>
       <div className={`kpi-value ${tone ?? ''}`}>{value}</div>
       <div className="kpi-subtitle">{subtitle}</div>
+    </div>
+  );
+}
+
+const timeFrameTree = [
+  {
+    year: '2026', quarters: [
+      { q: 'Q1 2026', months: [
+        { m: 'Jan 2026', weeks: ['Jan W1', 'Jan W2', 'Jan W3', 'Jan W4'] },
+        { m: 'Feb 2026', weeks: ['Feb W1', 'Feb W2', 'Feb W3', 'Feb W4'] },
+        { m: 'Mar 2026', weeks: ['Mar W1', 'Mar W2', 'Mar W3', 'Mar W4', 'Mar W5'] },
+      ]},
+      { q: 'Q2 2026', months: [
+        { m: 'Apr 2026', weeks: ['Apr W1', 'Apr W2', 'Apr W3', 'Apr W4'] },
+        { m: 'May 2026', weeks: ['May W1', 'May W2', 'May W3', 'May W4'] },
+        { m: 'Jun 2026', weeks: ['Jun W1', 'Jun W2', 'Jun W3', 'Jun W4', 'Jun W5'] },
+      ]},
+      { q: 'Q3 2026', months: [
+        { m: 'Jul 2026', weeks: ['Jul W1', 'Jul W2', 'Jul W3', 'Jul W4', 'Jul W5'] },
+        { m: 'Aug 2026', weeks: ['Aug W1', 'Aug W2', 'Aug W3', 'Aug W4'] },
+        { m: 'Sep 2026', weeks: ['Sep W1', 'Sep W2', 'Sep W3', 'Sep W4'] },
+      ]},
+      { q: 'Q4 2026', months: [
+        { m: 'Oct 2026', weeks: ['Oct W1', 'Oct W2', 'Oct W3', 'Oct W4', 'Oct W5'] },
+        { m: 'Nov 2026', weeks: ['Nov W1', 'Nov W2', 'Nov W3', 'Nov W4'] },
+        { m: 'Dec 2026', weeks: ['Dec W1', 'Dec W2', 'Dec W3', 'Dec W4'] },
+      ]},
+    ],
+  },
+  {
+    year: '2025', quarters: [
+      { q: 'Q1 2025', months: [
+        { m: 'Jan 2025', weeks: ['Jan W1', 'Jan W2', 'Jan W3', 'Jan W4'] },
+        { m: 'Feb 2025', weeks: ['Feb W1', 'Feb W2', 'Feb W3', 'Feb W4'] },
+        { m: 'Mar 2025', weeks: ['Mar W1', 'Mar W2', 'Mar W3', 'Mar W4', 'Mar W5'] },
+      ]},
+      { q: 'Q2 2025', months: [
+        { m: 'Apr 2025', weeks: ['Apr W1', 'Apr W2', 'Apr W3', 'Apr W4'] },
+        { m: 'May 2025', weeks: ['May W1', 'May W2', 'May W3', 'May W4'] },
+        { m: 'Jun 2025', weeks: ['Jun W1', 'Jun W2', 'Jun W3', 'Jun W4', 'Jun W5'] },
+      ]},
+      { q: 'Q3 2025', months: [
+        { m: 'Jul 2025', weeks: ['Jul W1', 'Jul W2', 'Jul W3', 'Jul W4', 'Jul W5'] },
+        { m: 'Aug 2025', weeks: ['Aug W1', 'Aug W2', 'Aug W3', 'Aug W4'] },
+        { m: 'Sep 2025', weeks: ['Sep W1', 'Sep W2', 'Sep W3', 'Sep W4'] },
+      ]},
+      { q: 'Q4 2025', months: [
+        { m: 'Oct 2025', weeks: ['Oct W1', 'Oct W2', 'Oct W3', 'Oct W4', 'Oct W5'] },
+        { m: 'Nov 2025', weeks: ['Nov W1', 'Nov W2', 'Nov W3', 'Nov W4'] },
+        { m: 'Dec 2025', weeks: ['Dec W1', 'Dec W2', 'Dec W3', 'Dec W4'] },
+      ]},
+    ],
+  },
+];
+
+function TimeFrameSlicer({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const [open, setOpen] = React.useState(false);
+  const [expandedYears, setExpandedYears] = React.useState<Set<string>>(new Set(['2026']));
+  const [expandedQuarters, setExpandedQuarters] = React.useState<Set<string>>(new Set());
+  const [expandedMonths, setExpandedMonths] = React.useState<Set<string>>(new Set());
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (!open) return;
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [open]);
+
+  const toggle = (set: Set<string>, key: string): Set<string> => {
+    const next = new Set(set);
+    next.has(key) ? next.delete(key) : next.add(key);
+    return next;
+  };
+
+  return (
+    <div className="slicer" ref={ref}>
+      <div className="slicer-title">Time Frame</div>
+      <div className="multi-select">
+        <button className="multi-select-trigger" onClick={() => setOpen((o) => !o)}>
+          <span className="multi-select-label">{value}</span>
+          <span className="multi-select-arrow">{open ? '▲' : '▼'}</span>
+        </button>
+        {open && (
+          <div className="multi-select-dropdown">
+            {timeFrameTree.map(({ year, quarters }) => (
+              <div key={year}>
+                <label className="multi-select-option tree-node-year">
+                  <input type="radio" checked={value === year} onChange={() => { onChange(year); setOpen(false); }} />
+                  <span style={{ flex: 1 }}>{year}</span>
+                  <span className="tree-chevron" onClick={(e) => { e.preventDefault(); setExpandedYears(toggle(expandedYears, year)); }}>
+                    {expandedYears.has(year) ? '▾' : '▸'}
+                  </span>
+                </label>
+                {expandedYears.has(year) && quarters.map(({ q, months }) => (
+                  <div key={q}>
+                    <label className="multi-select-option tree-node-quarter">
+                      <input type="radio" checked={value === q} onChange={() => { onChange(q); setOpen(false); }} />
+                      <span style={{ flex: 1 }}>{q}</span>
+                      <span className="tree-chevron" onClick={(e) => { e.preventDefault(); setExpandedQuarters(toggle(expandedQuarters, q)); }}>
+                        {expandedQuarters.has(q) ? '▾' : '▸'}
+                      </span>
+                    </label>
+                    {expandedQuarters.has(q) && months.map(({ m, weeks }) => (
+                      <div key={m}>
+                        <label className="multi-select-option tree-node-month">
+                          <input type="radio" checked={value === m} onChange={() => { onChange(m); setOpen(false); }} />
+                          <span style={{ flex: 1 }}>{m}</span>
+                          <span className="tree-chevron" onClick={(e) => { e.preventDefault(); setExpandedMonths(toggle(expandedMonths, m)); }}>
+                            {expandedMonths.has(m) ? '▾' : '▸'}
+                          </span>
+                        </label>
+                        {expandedMonths.has(m) && weeks.map((w) => (
+                          <label key={w} className="multi-select-option tree-node-week">
+                            <input type="radio" checked={value === w} onChange={() => { onChange(w); setOpen(false); }} />
+                            <span>{w}</span>
+                          </label>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -365,7 +499,7 @@ function DayBadge({ days, urgent }: { days: number; urgent?: boolean }) {
 }
 
 function ExecutiveOverview({ fd, navigate }: { fd: FilteredData; navigate: Navigate }) {
-  const { filteredAnalysts, filteredReports, agingDays, filteredEntrySeries } = fd;
+  const { filteredAnalysts, filteredReports, agingDays, filteredEntrySeries, periodDays } = fd;
 
   const openFields = filteredAnalysts.reduce((sum, a) => sum + a.fields, 0);
   const completedFields = filteredAnalysts.reduce((sum, a) => sum + a.completedFields, 0);
@@ -375,7 +509,7 @@ function ExecutiveOverview({ fd, navigate }: { fd: FilteredData; navigate: Navig
   const totalFields = filteredReports.reduce((sum, r) => sum + r.fields, 0);
   const avgFieldsPerReport = filteredReports.length > 0 ? (totalFields / filteredReports.length).toFixed(1) : '—';
   const avgDays = filteredReports.length > 0 ? (filteredReports.reduce((sum, r) => sum + r.days, 0) / filteredReports.length).toFixed(1) : '—';
-  const avgVelocity = filteredAnalysts.length > 0 ? (filteredAnalysts.reduce((sum, a) => sum + a.velocity, 0) / filteredAnalysts.length).toFixed(1) : '—';
+  const avgVelocity = filteredAnalysts.length > 0 ? (filteredAnalysts.reduce((sum, a) => sum + a.completedReports, 0) / (filteredAnalysts.length * periodDays)).toFixed(1) : '—';
 
   const filteredKeys = new Set(filteredEntrySeries.map((s) => s.key));
   const weeklyFieldsFiltered = weeklyAnalystTeamEntries.map((entry) => ({
@@ -409,30 +543,37 @@ function ExecutiveOverview({ fd, navigate }: { fd: FilteredData; navigate: Navig
   return (
     <PageFrame>
       <SectionTitle>Operations</SectionTitle>
-      <div className="grid six">
-        <KPI title="Print Interventions" value={printInterventions} subtitle="Manager action needed" tone="danger" onNavigate={() => navigate({ page: 'aging' })} />
-        <KPI title="Active Analysts" value={filteredAnalysts.length} subtitle="Assigned this period" onNavigate={() => navigate({ page: 'productivity' })} />
-        <KPI title="Over Capacity Analysts" value={overCapacity} subtitle="Above workload target" tone="warning" onNavigate={() => navigate({ page: 'workload' })} />
+      <div className="grid four">
+        <KPI title="Active Analysts" value={filteredAnalysts.filter((a) => a.reports > 0).length} subtitle="With ≥1 report in timeframe" onNavigate={() => navigate({ page: 'productivity' })} />
         <KPI title="SLA Breach Rate" value={slaBreachRate} subtitle="Open reports" tone="warning" onNavigate={() => navigate({ page: 'aging' })} />
         <KPI title="Days In-Flight" value={avgDays} subtitle="Average open age" onNavigate={() => navigate({ page: 'aging' })} />
-        <KPI title="Aged Reports" value={agedReports} subtitle={`${agingDays}+ days in-flight`} tone="warning" onNavigate={() => navigate({ page: 'aging' })} />
-      </div>
-      <div className="grid two">
-        <RiskPanel />
-        <InsightPanel analysts={filteredAnalysts} />
+        <KPI title="Aged Analyst Stage" value={agedReports} subtitle={`${agingDays}+ days in-flight`} tone="warning" onNavigate={() => navigate({ page: 'aging' })} />
       </div>
 
       <SectionTitle>Fields &amp; Reports</SectionTitle>
       <div className="grid four">
-        <KPI title="Fields Completed" value={fmt(completedFields)} subtitle="Current period" onNavigate={() => navigate({ page: 'productivity' })} />
         <KPI title="Reports Completed" value={fmt(completedReports)} subtitle="Closed reports" onNavigate={() => navigate({ page: 'productivity' })} />
-        <KPI title="Field Completion Velocity" value={avgVelocity} subtitle="Fields / analyst day" onNavigate={() => navigate({ page: 'productivity' })} />
+        <KPI title="Fields Completed" value={fmt(completedFields)} subtitle="Current period" onNavigate={() => navigate({ page: 'productivity' })} />
+        <KPI title="Report Completion Velocity" value={avgVelocity} subtitle="Reports / analyst day" onNavigate={() => navigate({ page: 'productivity' })} />
+        <KPI title="Reports with Hindcasting" value={fmt(Math.round(completedReports * 0.62))} subtitle="Completed reports this period" onNavigate={() => navigate({ page: 'productivity' })} />
+        <KPI title="Report Acres This Period" value={fmt(filteredAnalysts.reduce((s, a) => s + a.completedReports, 0) * 1840)} subtitle="RFS submitted acres" onNavigate={() => navigate({ page: 'productivity' })} />
         <KPI title="Crop History Entries" value={fmt(filteredAnalysts.reduce((s, a) => s + a.crop, 0))} subtitle="Open + completed" onNavigate={() => navigate({ page: 'workload' })} />
         <KPI title="Fertilizer History Entries" value={fmt(filteredAnalysts.reduce((s, a) => s + a.fertilizer, 0))} subtitle="Open + completed" onNavigate={() => navigate({ page: 'workload' })} />
-        <KPI title="Avg Fields per Report" value={avgFieldsPerReport} subtitle="Open workload" onNavigate={() => navigate({ page: 'detail' })} />
+        <KPI title="Avg Fields per Report" value={avgFieldsPerReport} subtitle="Open workload" onNavigate={() => navigate({ page: 'workload' })} />
         <KPI title="Open Fields" value={fmt(openFields)} subtitle="Assigned field backlog" onNavigate={() => navigate({ page: 'workload' })} />
       </div>
       <div className="grid two">
+        <ChartBox title="Report Status by Stage" source="FactReports | COUNT(ReportID) by Pipedrive stage" height={260}>
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+            <BarChart data={statusBreakdown} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
+              <XAxis type="number" tick={{ fontSize: 10 }} />
+              <YAxis dataKey="status" type="category" width={148} tick={{ fontSize: 10 }} />
+              <Tooltip />
+              <Bar dataKey="reports" fill={dataViz[0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </ChartBox>
         <ChartBox title="Fields Completed by Week" source="FactFields, DimDate | COUNT(FieldID) completed by week" height={260}>
           <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
             <LineChart data={weekly} margin={{ top: 10, right: 25, bottom: 12, left: 10 }}>
@@ -444,32 +585,60 @@ function ExecutiveOverview({ fd, navigate }: { fd: FilteredData; navigate: Navig
             </LineChart>
           </ResponsiveContainer>
         </ChartBox>
-        <ChartBox title="Report Status Breakdown" source="FactReports | COUNT(ReportID) by current status" height={260}>
-          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-            <BarChart data={statusBreakdown} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
-              <XAxis type="number" tick={{ fontSize: 10 }} />
-              <YAxis dataKey="status" type="category" width={116} tick={{ fontSize: 10 }} />
-              <Tooltip />
-              <Bar dataKey="reports" fill={dataViz[0]} />
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartBox>
       </div>
 
       <SectionTitle>Entered Analyst Team Stage</SectionTitle>
-      <div className="grid three">
-        <KPI title="Fields Entered This Week" value={fmt(fieldsEnteredThisWeek)} subtitle="Entered Analyst Team stage" />
-        <KPI title="Reports Entered This Week" value={fmt(reportsEnteredThisWeek)} subtitle="New analyst-stage workload" />
+      <div className="grid two">
+        <KPI title="Reports Entered This Week" value={fmt(reportsEnteredThisWeek)} subtitle="Entered Analyst Team stage" />
         <KPI title="Avg Fields per Entered Report" value={avgFieldsPerEnteredReport} subtitle="Current week mix" />
       </div>
       <div className="grid two">
-        <ChartBox title="Fields Entering Analyst Team Stage by Week" source="FactFields, DimDate, DimAnalyst | COUNT(FieldID) entered Analyst Team by week" height={260}>
-          <AnalystTeamEntryChart data={weeklyFieldsFiltered as Parameters<typeof AnalystTeamEntryChart>[0]['data']} valueLabel="Fields" series={filteredEntrySeries} />
-        </ChartBox>
-        <ChartBox title="Reports Entering Analyst Team Stage by Week" source="FactReports, DimDate, DimAnalyst | COUNT(ReportID) entered Analyst Team by week" height={260}>
-          <AnalystTeamEntryChart data={weeklyReportsFiltered as Parameters<typeof AnalystTeamEntryChart>[0]['data']} valueLabel="Reports" series={filteredEntrySeries} />
-        </ChartBox>
+      <ChartBox title="Reports Entering Analyst Team Stage by Week" source="FactReports, DimDate, DimAnalyst | COUNT(ReportID) entered Analyst Team by week" height={280}>
+        {(() => {
+          const data = weeklyReportsFiltered.map((rw) => ({
+            week: rw.week,
+            ...Object.fromEntries(filteredEntrySeries.map((s) => [s.name, (rw as unknown as Record<string, number>)[s.key] ?? 0])),
+          }));
+          return (
+            <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+              <BarChart data={data} margin={{ top: 10, right: 20, bottom: 20, left: 10 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
+                <XAxis dataKey="week" tick={{ fontSize: 10 }} />
+                <YAxis tick={{ fontSize: 10 }} />
+                <Tooltip />
+                <Legend wrapperStyle={{ fontSize: 10 }} />
+                {filteredEntrySeries.map((s) => (
+                  <Bar key={s.key} dataKey={s.name} fill={s.color} />
+                ))}
+              </BarChart>
+            </ResponsiveContainer>
+          );
+        })()}
+      </ChartBox>
+      <ChartBox title="Hindcasting Fields" source="FactFields, FactReports, DimDate | Fields and Reports entering Analyst Team stage by week" height={280}>
+        {(() => {
+          const combined = weeklyFieldsFiltered.map((fw, i) => {
+            const rw = weeklyReportsFiltered[i];
+            const totalFields = filteredEntrySeries.reduce((s, a) => s + (((fw as unknown) as Record<string, number>)[a.key] ?? 0), 0);
+            const totalReports = filteredEntrySeries.reduce((s, a) => s + (((rw as unknown) as Record<string, number>)[a.key] ?? 0), 0);
+            return { week: fw.week, Fields: totalFields, Reports: totalReports };
+          });
+          return (
+            <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+              <BarChart data={combined} margin={{ top: 10, right: 40, bottom: 20, left: 10 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
+                <XAxis dataKey="week" tick={{ fontSize: 11 }} />
+                <YAxis yAxisId="left" tick={{ fontSize: 11 }} />
+                <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11 }} />
+                <Tooltip />
+                <Legend wrapperStyle={{ fontSize: 11 }} />
+                <Bar yAxisId="left" dataKey="Fields" fill={dataViz[0]} name="Fields" />
+                <Bar yAxisId="right" dataKey="Reports" fill={dataViz[3]} name="Reports" />
+              </BarChart>
+            </ResponsiveContainer>
+          );
+        })()}
+      </ChartBox>
       </div>
 
       <div className="grid two">
@@ -491,7 +660,21 @@ function ExecutiveOverview({ fd, navigate }: { fd: FilteredData; navigate: Navig
         </ChartBox>
       </div>
 
-      <ReportsRequiringAttentionTable reports={attentionReports} />
+      <ChartBox title="Productivity Trend" source="FactFields, DimDate | Weekly completed fields and reports" height={260}>
+        <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+          <LineChart data={weekly} margin={{ top: 10, right: 40, bottom: 12, left: 10 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
+            <XAxis dataKey="week" tick={{ fontSize: 11 }} />
+            <YAxis yAxisId="left" tick={{ fontSize: 11 }} />
+            <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11 }} />
+            <Tooltip />
+            <Legend wrapperStyle={{ fontSize: 11 }} />
+            <Line yAxisId="left" type="monotone" dataKey="fields" stroke={dataViz[0]} strokeWidth={2} name="Fields" />
+            <Line yAxisId="right" type="monotone" dataKey="reports" stroke={dataViz[1]} strokeWidth={2} name="Reports" />
+          </LineChart>
+        </ResponsiveContainer>
+      </ChartBox>
+
     </PageFrame>
   );
 }
@@ -542,112 +725,26 @@ function AnalystTeamEntryChart({ data, valueLabel, series }: { data: Array<{ wee
 }
 
 function AnalystProductivity({ fd, navigate }: { fd: FilteredData; navigate: Navigate }) {
-  const { filteredAnalysts, filteredEntrySeries } = fd;
+  const { filteredAnalysts, filteredEntrySeries, periodDays } = fd;
   const topAnalyst = [...filteredAnalysts].sort((a, b) => b.completedFields - a.completedFields)[0];
   const avgFields = filteredAnalysts.length > 0 ? Math.round(filteredAnalysts.reduce((s, a) => s + a.completedFields, 0) / filteredAnalysts.length) : 0;
-  const avgVelocity = filteredAnalysts.length > 0 ? (filteredAnalysts.reduce((s, a) => s + a.velocity, 0) / filteredAnalysts.length).toFixed(1) : '—';
+  const avgVelocity = filteredAnalysts.length > 0 ? (filteredAnalysts.reduce((s, a) => s + a.completedFields, 0) / (filteredAnalysts.length * periodDays)).toFixed(1) : '—';
   const totalCompleted = filteredAnalysts.reduce((s, a) => s + a.completedReports, 0);
   const totalAging = filteredAnalysts.reduce((s, a) => s + a.aged, 0);
-  const belowTarget = filteredAnalysts.filter((a) => a.velocity < 20).length;
-
   return (
     <PageFrame>
-      <div className="grid five">
-        <KPI title="Avg Fields / Analyst" value={fmt(avgFields)} subtitle="Current period" onNavigate={() => navigate({ page: 'detail' })} />
-        <KPI title="Avg Fields / Day" value={avgVelocity} subtitle="Per active analyst day" onNavigate={() => navigate({ page: 'detail' })} />
-        <KPI title="Reports Completed" value={fmt(totalCompleted)} subtitle="Current period" onNavigate={() => navigate({ page: 'detail' })} />
+      <div className="grid six">
+        <KPI title="Reports Completed" value={fmt(totalCompleted)} subtitle="Current period" onNavigate={() => navigate({ page: 'workload' })} />
+        <KPI title="Avg Fields / Analyst" value={fmt(avgFields)} subtitle="Current period" onNavigate={() => navigate({ page: 'workload' })} />
         <KPI title="Aging Fields Owned" value={fmt(totalAging)} subtitle="15+ days open" tone="warning" onNavigate={() => navigate({ page: 'aging' })} />
-        <KPI title="Below Target Analysts" value={belowTarget} subtitle="Under velocity goal" tone="warning" onNavigate={() => navigate({ page: 'workload' })} />
+        <KPI title="Change Request Rate" value={fmt(Math.round(totalCompleted * 0.08))} subtitle="Report change requests this period" tone="warning" />
+        <KPI title="Change Request Turnaround" value="3.2" subtitle="Median days to completion" />
+        <KPI title="Note Acknowledgment Rate" value="78%" subtitle="Mentions ack'd within 24 hrs" />
       </div>
-      <AnalystTable data={filteredAnalysts} />
-      <div className="grid two">
-        <ChartBox title="Fields / Day Timeline" source="FactFields, DimDate | Weekly completed fields per active analyst day" height={260}>
-          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-            <LineChart data={weekly} margin={{ top: 10, right: 25, bottom: 12, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
-              <XAxis dataKey="week" tick={{ fontSize: 11 }} />
-              <YAxis tick={{ fontSize: 11 }} label={{ value: 'Fields/Day', angle: -90, position: 'insideLeft', offset: 10, style: { fontSize: 10 } }} />
-              <Tooltip />
-              <Line type="monotone" dataKey="velocity" stroke={dataViz[0]} strokeWidth={2} dot={{ r: 4, fill: dataViz[0] }} name="Fields/Day" />
-            </LineChart>
-          </ResponsiveContainer>
-        </ChartBox>
-        <ChartBox title="Productivity Trend" source="FactFields, DimDate | Weekly completed fields and reports" height={260}>
-          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-            <LineChart data={weekly} margin={{ top: 10, right: 40, bottom: 12, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
-              <XAxis dataKey="week" tick={{ fontSize: 11 }} />
-              <YAxis yAxisId="left" tick={{ fontSize: 11 }} />
-              <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11 }} />
-              <Tooltip />
-              <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Line yAxisId="left" type="monotone" dataKey="fields" stroke={dataViz[0]} strokeWidth={2} name="Fields" />
-              <Line yAxisId="right" type="monotone" dataKey="reports" stroke={dataViz[1]} strokeWidth={2} name="Reports" />
-            </LineChart>
-          </ResponsiveContainer>
-        </ChartBox>
-      </div>
-      <div className="grid two">
-        <ChartBox title="Velocity vs. Utilization" source="FactFields, DimAnalyst | Bubble size = aging fields; triage at-risk vs. healthy analysts" height={260}>
-          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-            <ScatterChart margin={{ top: 10, right: 25, bottom: 30, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
-              <XAxis dataKey="utilization" name="Utilization %" type="number" unit="%" tick={{ fontSize: 11 }} label={{ value: 'Utilization %', position: 'insideBottom', offset: -15, style: { fontSize: 10 } }} domain={[60, 160]} />
-              <YAxis dataKey="velocity" name="Fields/Day" type="number" tick={{ fontSize: 11 }} label={{ value: 'Fields/Day', angle: -90, position: 'insideLeft', offset: 10, style: { fontSize: 10 } }} />
-              <ZAxis dataKey="aged" range={[40, 400]} name="Aging Fields" />
-              <Tooltip cursor={{ strokeDasharray: '3 3' }} content={({ payload }) => {
-                if (!payload?.length) return null;
-                const d = payload[0].payload as typeof filteredAnalysts[0];
-                return (
-                  <div style={{ background: '#fff', border: `1px solid ${green.border}`, borderRadius: 6, padding: '8px 12px', fontSize: 11 }}>
-                    <div style={{ fontWeight: 700, marginBottom: 4 }}>{d.name}</div>
-                    <div>Utilization: {d.utilization}%</div>
-                    <div>Fields/Day: {d.velocity}</div>
-                    <div>Aging Fields: {d.aged}</div>
-                  </div>
-                );
-              }} />
-              <Scatter
-                data={filteredAnalysts.map(a => ({ ...a }))}
-                fill={dataViz[0]}
-              >
-                {filteredAnalysts.map((a, i) => (
-                  <Cell key={i} fill={a.utilization > 115 ? green.danger : a.velocity < 20 ? green.warning : dataViz[0]} />
-                ))}
-              </Scatter>
-            </ScatterChart>
-          </ResponsiveContainer>
-          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', marginTop: 6, fontSize: 10, color: '#555' }}>
-            {[
-              { color: dataViz[0], label: 'Healthy' },
-              { color: green.warning, label: 'Low velocity (<20 fields/day)' },
-              { color: green.danger, label: 'Over capacity (>115%)' },
-            ].map(({ color, label }) => (
-              <span key={label} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                <span style={{ width: 10, height: 10, borderRadius: '50%', background: color, display: 'inline-block', flexShrink: 0 }} />
-                {label}
-              </span>
-            ))}
-          </div>
-        </ChartBox>
-        <ChartBox title="Utilization % Over Time" source="FactFields, DimDate, DimAnalyst | Weekly capacity utilization per analyst" height={300}>
-          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-            <LineChart data={weeklyUtilization.filter(w => w)} margin={{ top: 10, right: 25, bottom: 12, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
-              <XAxis dataKey="week" tick={{ fontSize: 11 }} />
-              <YAxis tick={{ fontSize: 11 }} unit="%" domain={[50, 160]} />
-              <Tooltip formatter={(value: unknown) => (typeof value === 'number' ? `${value}%` : '')} />
-              <Legend wrapperStyle={{ fontSize: 10 }} />
-              {filteredEntrySeries.map((s) => (
-                <Line key={s.key} type="monotone" dataKey={s.key} stroke={s.color} strokeWidth={2} dot={false} name={s.name} />
-              ))}
-            </LineChart>
-          </ResponsiveContainer>
-        </ChartBox>
-      </div>
+      <AnalystTable data={filteredAnalysts} periodDays={periodDays} />
       <SectionTitle>Analysts Needing Attention</SectionTitle>
       <div className="grid two">
-        <ChartBox title="Surface Utilization %" source="FactFields, DimAnalyst | Completed fields as % of total assigned fields per analyst" height={260}>
+        <ChartBox title="Analyst Needing Attention" source="FactFields, DimAnalyst | Completed fields as % of total assigned fields per analyst" height={260}>
           {(() => {
             const surfaceData = [...filteredAnalysts]
               .map(a => ({ short: a.name.split(' ')[0], name: a.name, pct: a.completedFields + a.fields > 0 ? Math.round((a.completedFields / (a.completedFields + a.fields)) * 100) : 0 }))
@@ -696,6 +793,13 @@ function AgingEscalations({ fd, navigate }: { fd: FilteredData; navigate: Naviga
     ? (filteredNotPaid.reduce((sum, r) => sum + r.daysSinceCompletion, 0) / filteredNotPaid.length).toFixed(1)
     : '—';
   const handoffExceptions = filteredNotPaid.filter((r) => r.qaFlag !== 'Normal').length;
+  const sortedDays = [...attentionReports].map((r) => r.days).sort((a, b) => a - b);
+  const medianCycleTime = sortedDays.length > 0
+    ? sortedDays.length % 2 === 1
+      ? sortedDays[Math.floor(sortedDays.length / 2)]
+      : ((sortedDays[sortedDays.length / 2 - 1] + sortedDays[sortedDays.length / 2]) / 2).toFixed(1)
+    : '—';
+  const parkedNoHistory = filteredReports.filter((r) => r.days >= 30 && r.status === 'Field Review').length;
 
   return (
     <PageFrame>
@@ -703,43 +807,15 @@ function AgingEscalations({ fd, navigate }: { fd: FilteredData; navigate: Naviga
         <strong>Escalation Review Required</strong>
         <span> {agedReports} reports are breached or blocked. Aging fields are tied to reports requiring manager intervention.</span>
       </div>
-      <div className="grid four">
-        <KPI title="Aged Reports" value={agedReports} subtitle={`${agingDays}+ days in-flight`} tone="warning" onNavigate={() => navigate({ page: 'detail' })} />
-        <KPI title="Avg Days In-Flight" value={avgDaysInFlight} subtitle="Reports requiring attention" tone="warning" onNavigate={() => navigate({ page: 'detail' })} />
-        <KPI title="Oldest Active Report" value={oldestReport?.days ?? '—'} subtitle={oldestReport ? `${oldestReport.id} days in-flight` : ''} tone="danger" onNavigate={oldestReport ? () => navigate({ page: 'detail', analyst: oldestReport.analyst }) : undefined} />
-        <KPI title="Print Intervention Needed" value={printInterventionNeeded} subtitle="Active reports" tone="danger" onNavigate={() => navigate({ page: 'detail' })} />
+      <div className="grid five">
+        <KPI title="Aged Analyst Stage" value={agedReports} subtitle={`${agingDays}+ days in-flight`} tone="warning" onNavigate={() => navigate({ page: 'workload' })} />
+        <KPI title="Oldest Active Report" value={oldestReport?.days ?? '—'} subtitle={oldestReport ? `${oldestReport.id} days in-flight` : ''} tone="danger" onNavigate={oldestReport ? () => navigate({ page: 'workload', analyst: oldestReport.analyst }) : undefined} />
+        <KPI title="Print Intervention Needed" value={printInterventionNeeded} subtitle="Active reports" tone="danger" onNavigate={() => navigate({ page: 'workload' })} />
+        <KPI title="Median Cycle Time" value={medianCycleTime} subtitle="Days, Analyst Team → Report Complete" />
+        <KPI title="Parked 30+ Days (No Field History)" value={parkedNoHistory} subtitle="Awaiting field history" tone="warning" />
       </div>
       <div className="grid two">
-        <ChartBox title="Aging by Days In-Flight" height={320}>
-          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-            <BarChart data={daysInFlightBuckets} margin={{ top: 10, right: 20, bottom: 20, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
-              <XAxis dataKey="bucket" tick={{ fontSize: 11 }} />
-              <YAxis tick={{ fontSize: 11 }} />
-              <Tooltip />
-              <Bar dataKey="reports">
-                {daysInFlightBuckets.map((_, i) => <Cell key={i} fill={dataViz[i]} />)}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartBox>
-        <ChartBox title="SLA Status by Current Stage" height={320}>
-          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-            <BarChart data={agingStageBreakdown.map((s, i) => ({ ...s, onTrack: Math.max(6, s.reports - 18 - i), atRisk: 8 + i, breached: Math.max(2, i - 1) }))} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
-              <XAxis type="number" tick={{ fontSize: 10 }} />
-              <YAxis dataKey="status" type="category" width={116} tick={{ fontSize: 10 }} />
-              <Tooltip />
-              <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Bar dataKey="onTrack" stackId="a" fill={green.accent} name="On Track" />
-              <Bar dataKey="atRisk" stackId="a" fill={green.warning} name="At Risk" />
-              <Bar dataKey="breached" stackId="a" fill={green.danger} name="Breached" />
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartBox>
-      </div>
-      <div className="grid two">
-        <ChartBox title="Days In-Flight by Stage" height={260}>
+        <ChartBox title="Days In-Flight by Stage" height={300}>
           <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
             <BarChart data={agingStageBreakdown.map((s, i) => ({ status: s.status, days: [4.2, 7.6, 10.8, 12.4, 8.9, 14.2][i] }))} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
@@ -750,29 +826,7 @@ function AgingEscalations({ fd, navigate }: { fd: FilteredData; navigate: Naviga
             </BarChart>
           </ResponsiveContainer>
         </ChartBox>
-        <ChartBox title="Escalations Opened Over Time" height={260}>
-          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-            <LineChart data={weekly} margin={{ top: 5, right: 25, bottom: 10, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
-              <XAxis dataKey="week" tick={{ fontSize: 11 }} />
-              <YAxis tick={{ fontSize: 11 }} />
-              <Tooltip />
-              <Line type="monotone" dataKey="escalations" stroke={green.danger} strokeWidth={2} dot={{ fill: green.danger, r: 4 }} />
-            </LineChart>
-          </ResponsiveContainer>
-        </ChartBox>
-      </div>
-      <PostReportStageAgingTable />
-      <ReportsRequiringAttentionTable reports={attentionReports} />
-      <SectionTitle>Completion to Not Paid Audit Tracking</SectionTitle>
-      <div className="grid four">
-        <KPI title="Reports Moved to Not Paid This Week" value={filteredNotPaid.length} subtitle="Report Complete to Not Paid" tone="warning" onNavigate={() => navigate({ page: 'detail' })} />
-        <KPI title="Analysts Performing Handoffs" value={handoffUsers} subtitle="Moved By users" onNavigate={() => navigate({ page: 'productivity' })} />
-        <KPI title="Avg Time Between Complete and Not Paid" value={avgCompleteToNotPaid !== '—' ? `${avgCompleteToNotPaid} days` : '—'} subtitle="Completion to handoff" onNavigate={() => navigate({ page: 'detail' })} />
-        <KPI title="Handoff Exceptions" value={handoffExceptions} subtitle="Needs Review + High Risk" tone="danger" onNavigate={() => navigate({ page: 'detail' })} />
-      </div>
-      <div className="grid two">
-        <ChartBox title="Reports Moved to Not Paid by Week" source="FactReportStatusHistory, DimDate, DimUser | COUNT(ReportID) moved from Report Complete to Not Paid by week" height={260}>
+        <ChartBox title="Reports Moved to Report Complete by Week" source="FactReportStatusHistory, DimDate, DimUser | COUNT(ReportID) moved from Report Complete to Not Paid by week" height={300}>
           <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
             <BarChart data={notPaidAuditTrend} margin={{ top: 10, right: 20, bottom: 20, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
@@ -783,28 +837,14 @@ function AgingEscalations({ fd, navigate }: { fd: FilteredData; navigate: Naviga
             </BarChart>
           </ResponsiveContainer>
         </ChartBox>
-        <ChartBox title="Not Paid Handoffs by Moved By User" source="FactReportStatusHistory, DimUser | Status transitions grouped by user moving report" height={260}>
-          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-            <BarChart data={notPaidAuditTrend} margin={{ top: 10, right: 20, bottom: 20, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
-              <XAxis dataKey="week" tick={{ fontSize: 11 }} />
-              <YAxis tick={{ fontSize: 11 }} />
-              <Tooltip />
-              <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Bar dataKey="maya" stackId="a" fill={dataViz[0]} name="Maya Grant" />
-              <Bar dataKey="lena" stackId="a" fill={dataViz[1]} name="Lena Ortiz" />
-              <Bar dataKey="owen" stackId="a" fill={dataViz[2]} name="Owen Price" />
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartBox>
       </div>
-      <NotPaidAuditTable data={filteredNotPaid} />
+      <ReportsRequiringAttentionTable reports={attentionReports} />
     </PageFrame>
   );
 }
 
 function WorkloadDistribution({ fd, navigate }: { fd: FilteredData; navigate: Navigate }) {
-  const { filteredAnalysts, filteredEntrySeries } = fd;
+  const { filteredAnalysts, filteredEntrySeries, periodDays } = fd;
   const openFields = filteredAnalysts.reduce((s, a) => s + a.fields, 0);
   const cropTotal = filteredAnalysts.reduce((s, a) => s + a.crop, 0);
   const fertTotal = filteredAnalysts.reduce((s, a) => s + a.fertilizer, 0);
@@ -825,22 +865,14 @@ function WorkloadDistribution({ fd, navigate }: { fd: FilteredData; navigate: Na
         <strong>Workload Imbalance Needs Review</strong>
         <span> {overCapacity} analysts are above capacity while {withCapacity} analysts have available capacity.</span>
       </div>
-      <div className="grid four">
-        <KPI title="Over Capacity" value={overCapacity} subtitle="Analysts" tone="warning" onNavigate={() => navigate({ page: 'productivity' })} />
-        <KPI title="With Capacity" value={withCapacity} subtitle="Analysts" onNavigate={() => navigate({ page: 'productivity' })} />
-        <KPI title="Unassigned Reports" value="19" subtitle="Awaiting owner" tone="warning" onNavigate={() => navigate({ page: 'detail' })} />
-        <KPI title="Avg Workload Index" value={avgUtil} subtitle="Target = 100" onNavigate={() => navigate({ page: 'productivity' })} />
+      <div className="grid one">
+        <KPI title="Unassigned Reports" value="19" subtitle="Awaiting owner" tone="warning" onNavigate={() => navigate({ page: 'workload' })} />
       </div>
       <SectionTitle>Workload Balance</SectionTitle>
       <div className="grid two">
-        <ChartBox title="Open Fields by Analyst" source="FactFields, DimAnalyst | Open field count by analyst" height={260}>
+        <ChartBox title="Open Reports by Analyst" source="FactFields, DimAnalyst | Open field count by analyst" height={260}>
           <AnalystBar dataKey="fields" color={dataViz[0]} data={filteredAnalysts} />
         </ChartBox>
-        <ChartBox title="Capacity Utilization by Analyst" source="FactAssignments, DimAnalyst | Workload index / capacity target" height={260}>
-          <AnalystBar dataKey="utilization" color={dataViz[0]} data={filteredAnalysts} />
-        </ChartBox>
-      </div>
-      <div className="grid two">
         <ChartBox title="Aging Work by Analyst" source="FactFields | Current, aging, and breached field ownership" height={260}>
           <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
             <BarChart data={filteredFieldAgeByAnalyst} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
@@ -851,218 +883,47 @@ function WorkloadDistribution({ fd, navigate }: { fd: FilteredData; navigate: Na
               <Legend wrapperStyle={{ fontSize: 11 }} />
               <Bar dataKey="current" stackId="a" fill={dataViz[0]} name="Current" />
               <Bar dataKey="aging" stackId="a" fill={green.warning} name="Aging" />
-              <Bar dataKey="breached" stackId="a" fill={green.danger} name="Breached" />
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartBox>
-        <ChartBox title="Open History Volume by Analyst" source="FactCropHistory, FactFertilizerHistory | Open history entries by analyst" height={260}>
-          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-            <BarChart data={filteredAnalysts.map((a) => ({ name: a.name.split(' ')[0], crop: a.crop, fertilizer: a.fertilizer }))} margin={{ top: 5, right: 20, bottom: 45, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
-              <XAxis dataKey="name" angle={-25} textAnchor="end" height={55} tick={{ fontSize: 10 }} />
-              <YAxis tick={{ fontSize: 10 }} />
-              <Tooltip />
-              <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Bar dataKey="crop" fill={dataViz[0]} name="Crop History" />
-              <Bar dataKey="fertilizer" fill={dataViz[1]} name="Fertilizer History" />
+              <Bar dataKey="breached" stackId="a" fill={green.danger} name="Passed Due" />
             </BarChart>
           </ResponsiveContainer>
         </ChartBox>
       </div>
       <SectionTitle>Analyst Productivity</SectionTitle>
       <div className="grid four">
-        <KPI title="Open Reports" value={filteredAnalysts.reduce((s, a) => s + a.reports, 0)} subtitle="Assigned + unassigned" onNavigate={() => navigate({ page: 'detail' })} />
-        <KPI title="Open Fields" value={fmt(openFields)} subtitle="Active backlog" onNavigate={() => navigate({ page: 'detail' })} />
-        <KPI title="Crop History Entries" value={fmt(cropTotal)} subtitle="Current workload" onNavigate={() => navigate({ page: 'detail' })} />
-        <KPI title="Fertilizer History Entries" value={fmt(fertTotal)} subtitle="Current workload" onNavigate={() => navigate({ page: 'detail' })} />
+        <KPI title="Open Reports" value={filteredAnalysts.reduce((s, a) => s + a.reports, 0)} subtitle="Assigned + unassigned" onNavigate={() => navigate({ page: 'workload' })} />
+        <KPI title="Open Fields" value={fmt(openFields)} subtitle="Active backlog" onNavigate={() => navigate({ page: 'workload' })} />
+        <KPI title="Crop History Entries" value={fmt(cropTotal)} subtitle="Current workload" onNavigate={() => navigate({ page: 'workload' })} />
+        <KPI title="Fertilizer History Entries" value={fmt(fertTotal)} subtitle="Current workload" onNavigate={() => navigate({ page: 'workload' })} />
       </div>
-      <div className="grid two">
-        <ChartBox title="Crop History Entries Over Time" source="FactCropHistory, DimDate, DimAnalyst | Weekly crop history entries by analyst" height={280}>
-          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-            <LineChart data={weeklyCrop} margin={{ top: 10, right: 25, bottom: 12, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
-              <XAxis dataKey="week" tick={{ fontSize: 11 }} />
-              <YAxis tick={{ fontSize: 11 }} />
-              <Tooltip />
-              <Legend wrapperStyle={{ fontSize: 10 }} />
-              {filteredEntrySeries.map((s) => (
-                <Line key={s.key} type="monotone" dataKey={s.key} stroke={s.color} strokeWidth={2} dot={false} name={s.name} />
-              ))}
-            </LineChart>
-          </ResponsiveContainer>
-        </ChartBox>
-        <ChartBox title="Fertilizer History Entries Over Time" source="FactFertilizerHistory, DimDate, DimAnalyst | Weekly fertilizer history entries by analyst" height={280}>
-          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-            <LineChart data={weeklyFertilizer} margin={{ top: 10, right: 25, bottom: 12, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
-              <XAxis dataKey="week" tick={{ fontSize: 11 }} />
-              <YAxis tick={{ fontSize: 11 }} />
-              <Tooltip />
-              <Legend wrapperStyle={{ fontSize: 10 }} />
-              {filteredEntrySeries.map((s) => (
-                <Line key={s.key} type="monotone" dataKey={s.key} stroke={s.color} strokeWidth={2} dot={false} name={s.name} />
-              ))}
-            </LineChart>
-          </ResponsiveContainer>
-        </ChartBox>
-      </div>
-      <AnalystTable data={filteredAnalysts} />
+      <ChartBox title="Hindcasting Reports" source="FactCropHistory, FactFertilizerHistory, DimDate, DimAnalyst | Weekly crop and fertilizer history entries by analyst" height={300}>
+        {(() => {
+          const combined = weeklyCrop.map((cw, i) => {
+            const fw = weeklyFertilizer[i];
+            const cropTotal = filteredEntrySeries.reduce((s, a) => s + ((cw as unknown as Record<string, number>)[a.key] ?? 0), 0);
+            const fertTotal = filteredEntrySeries.reduce((s, a) => s + ((fw as unknown as Record<string, number>)[a.key] ?? 0), 0);
+            return { week: cw.week, Crop: cropTotal, Fertilizer: fertTotal };
+          });
+          return (
+            <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+              <LineChart data={combined} margin={{ top: 10, right: 40, bottom: 12, left: 10 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
+                <XAxis dataKey="week" tick={{ fontSize: 11 }} />
+                <YAxis yAxisId="left" tick={{ fontSize: 11 }} domain={['auto', 'auto']} />
+                <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11 }} domain={['auto', 'auto']} />
+                <Tooltip />
+                <Legend wrapperStyle={{ fontSize: 11 }} />
+                <Line yAxisId="left" type="monotone" dataKey="Crop" stroke={dataViz[0]} strokeWidth={2} dot={false} name="Crop History" />
+                <Line yAxisId="right" type="monotone" dataKey="Fertilizer" stroke={dataViz[3]} strokeWidth={2} dot={false} name="Fertilizer History" />
+              </LineChart>
+            </ResponsiveContainer>
+          );
+        })()}
+      </ChartBox>
     </PageFrame>
   );
 }
 
-function ReportDetailTable({ reports }: { reports: typeof reportDetails }) {
-  const { sortKey, sortDir, handleSort, sortData } = useSortable('days');
-  const sorted = sortData(reports as unknown as Record<string, unknown>[]) as typeof reportDetails;
-  const T = ({ col, label, className }: { col: string; label: string; className?: string }) =>
-    <Th col={col} label={label} sortKey={sortKey} sortDir={sortDir} onSort={handleSort} className={className} />;
-  return (
-    <div className="table-box detail-table">
-      <div className="chart-title">Report Detail</div>
-      <div className="chart-source">FactReports | Report-level status, aging, ownership, print, and history volume</div>
-      <table>
-        <thead>
-          <tr>
-            <T col="id" label="Report ID" />
-            <T col="grower" label="Client" />
-            <T col="createdDate" label="Created Date" />
-            <T col="analyst" label="Assigned Analyst" />
-            <T col="status" label="Status" />
-            <T col="priority" label="Priority" />
-            <T col="sla" label="SLA" />
-            <T col="days" label="Days In-Flight" className="right" />
-            <T col="stageDays" label="Days in Stage" className="right" />
-            <T col="fields" label="Total Fields" className="right" />
-            <T col="remaining" label="Remaining Fields" className="right" />
-            <T col="print" label="Print Intervention" />
-            <T col="crop" label="Crop History" className="right" />
-            <T col="fertilizer" label="Fertilizer History" className="right" />
-          </tr>
-        </thead>
-        <tbody>
-          {sorted.map((report) => (
-            <tr key={report.id}>
-              <td className="strong">{report.id}</td>
-              <td>{report.grower}</td>
-              <td>{report.createdDate}</td>
-              <td>{report.analyst}</td>
-              <td>{report.status}</td>
-              <td>{report.priority}</td>
-              <td><Status value={report.sla} /></td>
-              <td className="right"><DayBadge days={report.days} urgent={report.print === 'Required'} /></td>
-              <td className="right">{report.stageDays}</td>
-              <td className="right">{report.fields}</td>
-              <td className="right">{report.remaining}</td>
-              <td><PrintBadge value={report.print} /></td>
-              <td className="right">{fmt(report.crop)}</td>
-              <td className="right">{fmt(report.fertilizer)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
 
-const fieldRowKeys = ['field', 'status', 'analyst', 'completion', 'timestamp', 'openItems', 'crop', 'fertilizer', 'ageBand'] as const;
-type FieldRow = Record<(typeof fieldRowKeys)[number], string>;
-
-function FieldDetailTable({ rows }: { rows: typeof allFieldRows }) {
-  const { sortKey, sortDir, handleSort, sortData } = useSortable('field');
-  const objects: FieldRow[] = rows.map(([field, status, analyst, completion, timestamp, openItems, crop, fertilizer, ageBand]) =>
-    ({ field, status, analyst, completion, timestamp, openItems, crop, fertilizer, ageBand }));
-  const sorted = sortData(objects as unknown as Record<string, unknown>[]) as FieldRow[];
-  const T = ({ col, label, className }: { col: string; label: string; className?: string }) =>
-    <Th col={col} label={label} sortKey={sortKey} sortDir={sortDir} onSort={handleSort} className={className} />;
-  return (
-    <div className="table-box detail-table field-detail-table">
-      <div className="chart-title">Field Detail</div>
-      <div className="chart-source">FactFields | Field-level progress for the selected report detail context</div>
-      <table>
-        <thead>
-          <tr>
-            <T col="field" label="Field" />
-            <T col="status" label="Status" />
-            <T col="analyst" label="Completing Analyst" />
-            <T col="completion" label="Completion %" className="right" />
-            <T col="timestamp" label="Completed Timestamp" />
-            <T col="openItems" label="Open Items" className="right" />
-            <T col="crop" label="Crop History" className="right" />
-            <T col="fertilizer" label="Fertilizer History" className="right" />
-            <T col="ageBand" label="Field Age Band" />
-          </tr>
-        </thead>
-        <tbody>
-          {sorted.map((r) => (
-            <tr key={r.field}>
-              <td className="strong">{r.field}</td>
-              <td>{r.status}</td>
-              <td>{r.analyst}</td>
-              <td className="right">{r.completion}</td>
-              <td>{r.completion === '100%' ? r.timestamp : ''}</td>
-              <td className="right">{r.openItems}</td>
-              <td className="right">{r.crop}</td>
-              <td className="right">{r.fertilizer}</td>
-              <td>{r.ageBand}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-function ReportDetail({ fd, navigate }: { fd: FilteredData; navigate: Navigate }) {
-  const { filteredReports, filteredFieldRows } = fd;
-
-  const reportsInView = filteredReports.length;
-  const totalFields = filteredReports.reduce((sum, r) => sum + r.fields, 0);
-  const fieldsRemaining = filteredReports.reduce((sum, r) => sum + r.remaining, 0);
-  const fieldCompletion = totalFields > 0 ? `${(((totalFields - fieldsRemaining) / totalFields) * 100).toFixed(1)}%` : '—';
-  const avgDays = reportsInView > 0 ? (filteredReports.reduce((sum, r) => sum + r.days, 0) / reportsInView).toFixed(1) : '—';
-  const avgStageDays = reportsInView > 0 ? (filteredReports.reduce((sum, r) => sum + r.stageDays, 0) / reportsInView).toFixed(1) : '—';
-  const cropEntries = filteredReports.reduce((sum, r) => sum + r.crop, 0);
-  const fertilizerEntries = filteredReports.reduce((sum, r) => sum + r.fertilizer, 0);
-
-  return (
-    <PageFrame>
-      <div className="grid six">
-        <KPI title="Reports in View" value={reportsInView} subtitle="Filtered detail set" onNavigate={() => navigate({ page: 'executive' })} />
-        <KPI title="Incomplete Fields" value={fmt(fieldsRemaining)} subtitle={`Of ${fmt(totalFields)} total fields`} tone="warning" onNavigate={() => navigate({ page: 'aging' })} />
-        <KPI title="Avg Days In-Flight" value={avgDays} subtitle="Across reviewed reports" tone="warning" onNavigate={() => navigate({ page: 'aging' })} />
-        <KPI title="Avg Days in Stage" value={avgStageDays} subtitle="Current workflow stage" tone="warning" onNavigate={() => navigate({ page: 'aging' })} />
-        <KPI title="Crop History Entries" value={fmt(cropEntries)} subtitle="Across reviewed reports" onNavigate={() => navigate({ page: 'workload' })} />
-        <KPI title="Fertilizer Entries" value={fmt(fertilizerEntries)} subtitle="Across reviewed reports" onNavigate={() => navigate({ page: 'workload' })} />
-      </div>
-      <div className="grid two">
-        <ChartBox title="Field Completion by Status" source="FactFields | Field count by completion status across reports in view" height={260}>
-          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-            <BarChart data={[{ status: 'Complete', count: 177 }, { status: 'In Review', count: 14 }, { status: 'In Progress', count: 18 }, { status: 'Blocked', count: 5 }]} margin={{ top: 10, right: 20, bottom: 20, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
-              <XAxis dataKey="status" tick={{ fontSize: 11 }} />
-              <YAxis tick={{ fontSize: 11 }} />
-              <Tooltip />
-              <Bar dataKey="count" fill={dataViz[0]} />
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartBox>
-        <ChartBox title="Days In-Flight by Current Stage" source="FactReports | Average days in-flight by current workflow stage" height={260}>
-          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-            <BarChart data={[{ stage: 'Intake', days: 3 }, { stage: 'Field Review', days: 11 }, { stage: 'Crop History', days: 9 }, { stage: 'Fertilizer History', days: 11 }, { stage: 'QA Review', days: 8 }, { stage: 'Print Prep', days: 12 }]} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
-              <XAxis type="number" tick={{ fontSize: 10 }} />
-              <YAxis dataKey="stage" type="category" width={116} tick={{ fontSize: 10 }} />
-              <Tooltip />
-              <Bar dataKey="days" fill={dataViz[0]} />
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartBox>
-      </div>
-      <ReportDetailTable reports={filteredReports} />
-      <FieldDetailTable rows={filteredFieldRows} />
-    </PageFrame>
-  );
-}
 
 function AnalystBar({ dataKey, color, data, unit }: { dataKey: keyof (typeof analysts)[number]; color: string; data: typeof analysts; unit?: string }) {
   const sorted = [...data].sort((a, b) => Number(b[dataKey]) - Number(a[dataKey])).map((a) => ({ ...a, short: a.name.split(' ')[0] }));
@@ -1099,20 +960,6 @@ function RiskPanel() {
   );
 }
 
-function InsightPanel({ analysts: data }: { analysts: typeof analysts }) {
-  const top = [...data].sort((a, b) => b.completedFields - a.completedFields)[0];
-  const overloaded = [...data].sort((a, b) => b.utilization - a.utilization)[0];
-  return (
-    <div className="table-box compact">
-      <div className="chart-title">Management Insights</div>
-      {[
-        ['Highest Field Throughput', top?.name ?? '—', top ? `${fmt(top.completedFields)} fields completed` : 'No data'],
-        ['Most Overloaded Analyst', overloaded?.name ?? '—', overloaded ? `${overloaded.utilization}% utilization / ${fmt(overloaded.fields)} open fields` : 'No data'],
-        ['Largest Bottleneck', 'Print Prep', '14.2 avg days in stage'],
-      ].map((item) => <div className="insight" key={item[0]}><div className="insight-label">{item[0]}</div><div className="insight-value">{item[1]}</div><div className="insight-sub">{item[2]}</div></div>)}
-    </div>
-  );
-}
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return <div className="section-title">{children}</div>;
@@ -1123,7 +970,7 @@ function PageFrame({ children }: { children: React.ReactNode }) {
 }
 
 function ReportsRequiringAttentionTable({ reports }: { reports: Array<(typeof reportDetails)[number] & { completedFields: number; attentionReason: string }> }) {
-  const { sortKey, sortDir, handleSort, sortData } = useSortable('days');
+  const { sortKey, sortDir, handleSort, sortData } = useSortable('daysSinceCompletion', 'desc');
   const sorted = sortData(reports as unknown as Record<string, unknown>[]) as typeof reports;
   const T = ({ col, label, className }: { col: string; label: string; className?: string }) =>
     <Th col={col} label={label} sortKey={sortKey} sortDir={sortDir} onSort={handleSort} className={className} />;
@@ -1131,38 +978,35 @@ function ReportsRequiringAttentionTable({ reports }: { reports: Array<(typeof re
     <div className="table-box attention-table">
       <div className="chart-title">Reports Requiring Attention</div>
       <table>
+        <colgroup>
+          <col style={{ width: 110 }} />
+          <col />
+          <col style={{ width: 140 }} />
+          <col style={{ width: 150 }} />
+          <col style={{ width: 130 }} />
+          <col style={{ width: 90 }} />
+        </colgroup>
         <thead>
           <tr>
             <T col="id" label="Report ID" />
-            <T col="grower" label="Client" />
+            <T col="dealTitle" label="Report Title" />
             <T col="analyst" label="Assigned Analyst" />
-            <T col="status" label="Status" />
-            <T col="days" label="Days In-Flight" className="right" />
+            <T col="transitionTimestamp" label="Transition Timestamp" />
+            <T col="daysSinceCompletion" label="Days Since Completion" className="right" />
             <T col="fields" label="Total Fields" className="right" />
-            <T col="completedFields" label="Completed Fields" className="right" />
-            <T col="remaining" label="Remaining Fields" className="right" />
-            <T col="print" label="Print Intervention" />
-            <T col="attentionReason" label="Attention Reason" />
           </tr>
         </thead>
         <tbody>
-          {sorted.map((report) => {
-            const urgent = report.print === 'Required';
-            return (
-              <tr className={urgent ? 'row-urgent' : getDayTone(report.days)} key={report.id}>
-                <td className="strong">{report.id}</td>
-                <td>{report.grower}</td>
-                <td>{report.analyst}</td>
-                <td>{report.status}</td>
-                <td className="right"><DayBadge days={report.days} urgent={urgent} /></td>
-                <td className="right">{report.fields}</td>
-                <td className="right">{report.completedFields}</td>
-                <td className="right">{report.remaining}</td>
-                <td><PrintBadge value={report.print} /></td>
-                <td><span className={`reason ${urgent ? 'urgent' : getDayTone(report.days)}`}>{report.attentionReason}</span></td>
-              </tr>
-            );
-          })}
+          {sorted.map((report) => (
+            <tr key={report.id}>
+              <td className="strong">{report.id}</td>
+              <td>{report.dealTitle}</td>
+              <td>{report.analyst}</td>
+              <td>{report.transitionTimestamp}</td>
+              <td className="right"><DayBadge days={report.daysSinceCompletion} urgent={false} /></td>
+              <td className="right">{report.fields}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
@@ -1176,46 +1020,6 @@ function getPostReportAgingClass(deal: (typeof postReportStageDeals)[number]) {
   return '';
 }
 
-function PostReportStageAgingTable() {
-  const { sortKey, sortDir, handleSort, sortData } = useSortable('agingDays');
-  const sorted = sortData(postReportStageDeals as unknown as Record<string, unknown>[]) as typeof postReportStageDeals;
-  const T = ({ col, label, className }: { col: string; label: string; className?: string }) =>
-    <Th col={col} label={label} sortKey={sortKey} sortDir={sortDir} onSort={handleSort} className={className} />;
-  return (
-    <div className="table-box post-stage-table">
-      <div className="chart-title">DocuSign &amp; Awaiting First Payment Aging Matrix</div>
-      <div className="chart-source">FactDeals, FactReports, DimOwner | Post-report workflow aging by current stage</div>
-      <table>
-        <thead>
-          <tr>
-            <T col="title" label="Deal Title" />
-            <T col="stage" label="Stage" />
-            <T col="owner" label="Owner (Sales Rep / AL)" />
-            <T col="dateEntered" label="Date Entered Stage" />
-            <T col="agingDays" label="Aging Days in Current Stage" className="right" />
-            <T col="fields" label="Total Fields" className="right" />
-            <T col="reportStatus" label="Report Status" />
-            <T col="print" label="Print Intervention" />
-          </tr>
-        </thead>
-        <tbody>
-          {sorted.map((deal) => (
-            <tr className={`${getPostReportAgingClass(deal)} ${deal.print === 'Required' ? 'print-highlight' : ''}`} key={deal.title}>
-              <td className="strong">{deal.title}</td>
-              <td>{deal.stage}</td>
-              <td>{deal.owner}</td>
-              <td>{deal.dateEntered}</td>
-              <td className={`right ${deal.agingDays > 14 ? 'cell-danger' : deal.agingDays > 7 ? 'cell-warning' : ''}`}>{deal.agingDays}</td>
-              <td className="right">{deal.fields}</td>
-              <td>{deal.reportStatus}</td>
-              <td><PrintBadge value={deal.print} /></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
 
 function getQaFlagClass(value: string) {
   if (value === 'High Risk') return 'qa-flag high-risk';
@@ -1266,7 +1070,7 @@ function NotPaidAuditTable({ data }: { data: typeof notPaidAuditActivity }) {
   );
 }
 
-function AnalystTable({ data }: { data: typeof analysts }) {
+function AnalystTable({ data, periodDays = 260 }: { data: typeof analysts; periodDays?: number }) {
   const { sortKey, sortDir, handleSort, sortData } = useSortable('completedFields');
   const sorted = sortData(data as unknown as Record<string, unknown>[]) as typeof analysts;
   const T = ({ col, label, className }: { col: string; label: string; className?: string }) =>
@@ -1279,22 +1083,26 @@ function AnalystTable({ data }: { data: typeof analysts }) {
         <thead>
           <tr>
             <T col="name" label="Analyst" />
-            <T col="team" label="Team" />
             <T col="reports" label="Open Reports" className="right" />
             <T col="fields" label="Open Fields" className="right" />
+            <T col="completedReports" label="Completed Reports" className="right" />
             <T col="completedFields" label="Completed Fields" className="right" />
-            <T col="completedReports" label="Reports Complete" className="right" />
             <T col="velocity" label="Fields / Day" className="right" />
-            <T col="aged" label="Aging Fields" className="right" />
-            <T col="crop" label="Crop Hist." className="right" />
-            <T col="fertilizer" label="Fert. Hist." className="right" />
-            <T col="utilization" label="Util. %" className="right" />
+            <T col="aged" label="Aging Reports" className="right" />
+            <th className="right">Hindcasting Reports</th>
           </tr>
         </thead>
         <tbody>
           {sorted.map((a) => (
             <tr key={a.name}>
-              <td className="strong">{a.name}</td><td>{a.team}</td><td className="right">{a.reports}</td><td className="right">{fmt(a.fields)}</td><td className="right">{fmt(a.completedFields)}</td><td className="right">{a.completedReports}</td><td className="right">{a.velocity}</td><td className="right">{a.aged}</td><td className="right">{fmt(a.crop)}</td><td className="right">{fmt(a.fertilizer)}</td><td className={`right ${a.utilization > 115 ? 'cell-danger' : a.utilization > 95 ? 'cell-warning' : ''}`}>{a.utilization}%</td>
+              <td className="strong">{a.name}</td>
+              <td className="right">{a.reports}</td>
+              <td className="right">{fmt(a.fields)}</td>
+              <td className="right">{a.completedReports}</td>
+              <td className="right">{fmt(a.completedFields)}</td>
+              <td className="right">{(a.completedFields / periodDays).toFixed(1)}</td>
+              <td className="right">{a.aged}</td>
+              <td className="right">{fmt(a.crop + a.fertilizer)}</td>
             </tr>
           ))}
         </tbody>
@@ -1307,16 +1115,13 @@ function AnalystTable({ data }: { data: typeof analysts }) {
             <tfoot>
               <tr className="totals-row">
                 <td className="strong">Total / Avg</td>
-                <td></td>
                 <td className="right">{sum('reports')}</td>
                 <td className="right">{fmt(sum('fields'))}</td>
-                <td className="right">{fmt(sum('completedFields'))}</td>
                 <td className="right">{sum('completedReports')}</td>
-                <td className="right">{avg('velocity').toFixed(1)}</td>
+                <td className="right">{fmt(sum('completedFields'))}</td>
+                <td className="right">{(sum('completedFields') / (n * periodDays)).toFixed(1)}</td>
                 <td className="right">{fmt(sum('aged'))}</td>
-                <td className="right">{fmt(sum('crop'))}</td>
-                <td className="right">{fmt(sum('fertilizer'))}</td>
-                <td className="right">{Math.round(avg('utilization'))}%</td>
+                <td className="right">{fmt(sum('crop') + sum('fertilizer'))}</td>
               </tr>
             </tfoot>
           );
@@ -1332,13 +1137,128 @@ function parseAgingDays(option: string) {
   return parseInt(option);
 }
 
+function DataIntegrity() {
+  const notes = [
+    '12 reports have stale field updates',
+    '7 reports need print queue review',
+    '4 field history imports pending',
+  ];
+  return (
+    <PageFrame>
+      <RiskPanel />
+      <div className="table-box compact" style={{ marginTop: 16 }}>
+        <div className="chart-title">Notes</div>
+        {notes.map((note) => <p key={note} style={{ margin: '6px 0', fontSize: 13, color: '#358540' }}>{note}</p>)}
+      </div>
+    </PageFrame>
+  );
+}
+
+function PostReportStageAgingTable() {
+  const { sortKey, sortDir, handleSort, sortData } = useSortable('agingDays');
+  const sorted = sortData(postReportStageDeals as unknown as Record<string, unknown>[]) as typeof postReportStageDeals;
+  const T = ({ col, label, className }: { col: string; label: string; className?: string }) =>
+    <Th col={col} label={label} sortKey={sortKey} sortDir={sortDir} onSort={handleSort} className={className} />;
+  return (
+    <div className="table-box post-stage-table">
+      <div className="chart-title">DocuSign &amp; Awaiting First Payment Aging Matrix</div>
+      <div className="chart-source">FactDeals, FactReports, DimOwner | Post-report workflow aging by current stage</div>
+      <table>
+        <thead>
+          <tr>
+            <T col="title" label="Report Title" />
+            <T col="stage" label="Stage" />
+            <T col="owner" label="Owner (Sales Rep / AL)" />
+            <T col="dateEntered" label="Date Entered Stage" />
+            <T col="agingDays" label="Aging Days in Current Stage" className="right" />
+            <T col="fields" label="Total Fields" className="right" />
+            <T col="reportStatus" label="Report Status" />
+            <T col="print" label="Print Intervention" />
+          </tr>
+        </thead>
+        <tbody>
+          {sorted.map((deal) => (
+            <tr className={`${getPostReportAgingClass(deal)} ${deal.print === 'Required' ? 'print-highlight' : ''}`} key={deal.title}>
+              <td className="strong">{deal.title}</td>
+              <td>{deal.stage}</td>
+              <td>{deal.owner}</td>
+              <td>{deal.dateEntered}</td>
+              <td className={`right ${deal.agingDays > 14 ? 'cell-danger' : deal.agingDays > 7 ? 'cell-warning' : ''}`}>{deal.agingDays}</td>
+              <td className="right">{deal.fields}</td>
+              <td>{deal.reportStatus}</td>
+              <td><PrintBadge value={deal.print} /></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function FutureOptions({ fd, navigate }: { fd: FilteredData; navigate: Navigate }) {
+  const { filteredAnalysts, filteredReports, filteredNotPaid } = fd;
+  const printInterventions = filteredReports.filter((r) => r.print === 'Required').length;
+  const overCapacity = filteredAnalysts.filter((a) => a.utilization > 115).length;
+  const withCapacity = filteredAnalysts.filter((a) => a.utilization < 85).length;
+  const avgCompleteToNotPaid = filteredNotPaid.length > 0
+    ? (filteredNotPaid.reduce((sum, r) => sum + r.daysSinceCompletion, 0) / filteredNotPaid.length).toFixed(1)
+    : '—';
+
+  return (
+    <PageFrame>
+      <SectionTitle>Executive Overview</SectionTitle>
+      <div className="grid two">
+        <KPI title="Print Interventions" value={printInterventions} subtitle="Manager action needed" tone="danger" onNavigate={() => navigate({ page: 'aging' })} />
+        <KPI title="Over Capacity Analysts" value={overCapacity} subtitle="Above workload target" tone="warning" onNavigate={() => navigate({ page: 'workload' })} />
+      </div>
+      <PostReportStageAgingTable />
+      <SectionTitle>Workload Distribution</SectionTitle>
+      <div className="grid one">
+        <KPI title="With Capacity" value={withCapacity} subtitle="Analysts under 85% utilization" onNavigate={() => navigate({ page: 'workload' })} />
+      </div>
+      <ChartBox title="Open History Volume by Analyst" source="FactCropHistory, FactFertilizerHistory | Open history entries by analyst" height={260}>
+        <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+          <BarChart data={filteredAnalysts.map((a) => ({ name: a.name.split(' ')[0], crop: a.crop, fertilizer: a.fertilizer }))} margin={{ top: 5, right: 20, bottom: 45, left: 10 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
+            <XAxis dataKey="name" angle={-25} textAnchor="end" height={55} tick={{ fontSize: 10 }} />
+            <YAxis tick={{ fontSize: 10 }} />
+            <Tooltip />
+            <Legend wrapperStyle={{ fontSize: 11 }} />
+            <Bar dataKey="crop" fill={dataViz[0]} name="Crop History" />
+            <Bar dataKey="fertilizer" fill={dataViz[1]} name="Fertilizer History" />
+          </BarChart>
+        </ResponsiveContainer>
+      </ChartBox>
+      <SectionTitle>Aging &amp; Escalations</SectionTitle>
+      <div className="grid two">
+        <KPI title="Reports Moved to Not Paid This Week" value={filteredNotPaid.length} subtitle="Report Complete to Not Paid" tone="warning" onNavigate={() => navigate({ page: 'aging' })} />
+        <KPI title="Avg Time Between Complete and Not Paid" value={avgCompleteToNotPaid !== '—' ? `${avgCompleteToNotPaid} days` : '—'} subtitle="Completion to handoff" onNavigate={() => navigate({ page: 'aging' })} />
+      </div>
+      <ChartBox title="Not Paid Handoffs by Moved By User" source="FactReportStatusHistory, DimUser | Status transitions grouped by user moving report" height={260}>
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+            <BarChart data={notPaidAuditTrend} margin={{ top: 10, right: 20, bottom: 20, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={green.border} />
+              <XAxis dataKey="week" tick={{ fontSize: 11 }} />
+              <YAxis tick={{ fontSize: 11 }} />
+              <Tooltip />
+              <Legend wrapperStyle={{ fontSize: 11 }} />
+              <Bar dataKey="maya" stackId="a" fill={dataViz[0]} name="Maya Grant" />
+              <Bar dataKey="lena" stackId="a" fill={dataViz[1]} name="Lena Ortiz" />
+              <Bar dataKey="owen" stackId="a" fill={dataViz[2]} name="Owen Price" />
+            </BarChart>
+          </ResponsiveContainer>
+        </ChartBox>
+      <NotPaidAuditTable data={filteredNotPaid} />
+    </PageFrame>
+  );
+}
+
 function App() {
   const [activePage, setActivePage] = React.useState<Page>('executive');
   const [analystFilter, setAnalystFilter] = React.useState<string[]>([]);
   const [statusFilter, setStatusFilter] = React.useState<string[]>([]);
+  const [timeFrame, setTimeFrame] = React.useState('2026');
   const [agingThreshold, setAgingThreshold] = React.useState('15+ days');
-  const [fieldAgeBand, setFieldAgeBand] = React.useState('All');
-
   const agingDays = parseAgingDays(agingThreshold);
 
   const filteredAnalysts = analystFilter.length === 0
@@ -1355,10 +1275,6 @@ function App() {
     ? notPaidAuditActivity
     : notPaidAuditActivity.filter((r) => analystFilter.includes(r.assignedAnalyst));
 
-  const filteredFieldRows = fieldAgeBand === 'All'
-    ? allFieldRows
-    : allFieldRows.filter((row) => row[8] === fieldAgeBand);
-
   const filteredEntrySeries = analystFilter.length === 0
     ? analystEntrySeries
     : analystEntrySeries.filter((s) => analystFilter.includes(s.name));
@@ -1367,28 +1283,26 @@ function App() {
     filteredAnalysts,
     filteredReports,
     filteredNotPaid,
-    filteredFieldRows,
     agingDays,
     filteredEntrySeries,
+    periodDays: getPeriodDays(timeFrame),
   };
 
-  const navigate: Navigate = ({ page, analyst, status, agingThreshold: aging, fieldAgeBand: fab }) => {
+  const navigate: Navigate = ({ page, analyst, status, agingThreshold: aging }) => {
     setActivePage(page);
     if (analyst !== undefined) setAnalystFilter(analyst ? [analyst] : []);
     if (status !== undefined) setStatusFilter(status ? [status] : []);
     if (aging !== undefined) setAgingThreshold(aging);
-    if (fab !== undefined) setFieldAgeBand(fab);
   };
 
-  const statusOptions = activePage === 'aging'
-    ? agingStageBreakdown.map((s) => s.status)
-    : statusBreakdown.map((s) => s.status);
+  const statusOptions = ['Soils Complete / Analyst Queue', 'Analyst Team', 'Reports Complete'];
 
   const renderPage = () => {
     if (activePage === 'productivity') return <AnalystProductivity fd={fd} navigate={navigate} />;
     if (activePage === 'aging') return <AgingEscalations fd={fd} navigate={navigate} />;
     if (activePage === 'workload') return <WorkloadDistribution fd={fd} navigate={navigate} />;
-    if (activePage === 'detail') return <ReportDetail fd={fd} navigate={navigate} />;
+    if (activePage === 'integrity') return <DataIntegrity />;
+    if (activePage === 'future') return <FutureOptions fd={fd} navigate={navigate} />;
     return <ExecutiveOverview fd={fd} navigate={navigate} />;
   };
 
@@ -1410,17 +1324,10 @@ function App() {
       <div className="body">
         <aside className="filters">
           <div className="filters-title">Filters</div>
-          <Slicer title="Time Frame" options={['Year to Date', 'Last 30 days', 'Last 90 days', 'Current Quarter']} value="Year to Date" onChange={() => {}} />
+          <TimeFrameSlicer value={timeFrame} onChange={setTimeFrame} />
           <Slicer title="Analyst" options={analysts.map((a) => a.name)} multiSelect value={analystFilter} onChange={setAnalystFilter} />
-          <Slicer title="Report Status" options={statusOptions} multiSelect value={statusFilter} onChange={setStatusFilter} />
+          <Slicer title="Stage" options={statusOptions} multiSelect value={statusFilter} onChange={setStatusFilter} />
           <Slicer title="Aging Threshold" options={agingThresholdOptions} value={agingThreshold} onChange={(v) => setAgingThreshold(v)} />
-          <Slicer title="Field Age Band" options={['All', '0-5 Years', '6-15 Years', '16-30 Years', '30+ Years']} value={fieldAgeBand} onChange={(v) => setFieldAgeBand(v)} />
-          <div className="quality-note">
-            <div>Notes</div>
-            <p>12 reports have stale field updates</p>
-            <p>7 reports need print queue review</p>
-            <p>4 field history imports pending</p>
-          </div>
         </aside>
         <main>{renderPage()}</main>
       </div>
